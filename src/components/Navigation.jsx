@@ -24,9 +24,7 @@ export default function Navigation() {
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
-            <div className="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-xl">BTI</span>
-            </div>
+            <img src="/logo.png" alt="Breakthrough Training Institute" className="w-12 h-12 object-contain" />
             <div className="hidden sm:block">
               <h1 className="font-bold text-lg text-dark">{schoolData.name}</h1>
               <p className="text-xs text-gray-600">{schoolData.tagline}</p>
