@@ -39,9 +39,12 @@ export default function Home() {
         
         <div className="container-custom relative z-10 text-center">
           <div className="max-w-3xl mx-auto">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+            <h1 className="text-5xl md:text-6xl font-bold mb-4 leading-tight">
               Empower Your Future Today
             </h1>
+            <p className="text-2xl md:text-3xl font-semibold mb-6 text-orange-300">
+              A place to learn and grow
+            </p>
             <p className="text-xl md:text-2xl mb-8 text-gray-100">
               Professional training programs designed to prepare you for success in healthcare.
             </p>
