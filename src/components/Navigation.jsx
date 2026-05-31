@@ -46,7 +46,7 @@ export default function Navigation() {
 
           {/* CTA Button */}
           <Link
-            to="/programs"
+            to="/enroll"
             className="hidden md:block btn-primary"
           >
             Enroll Now
@@ -75,7 +75,7 @@ export default function Navigation() {
               </Link>
             ))}
             <Link
-              to="/programs"
+              to="/enroll"
               className="block mt-4 btn-primary text-center"
               onClick={() => setIsOpen(false)}
             >

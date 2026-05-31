@@ -49,9 +49,9 @@ export default function Home() {
               Professional training programs designed to prepare you for success in healthcare.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/programs" className="btn-secondary inline-flex items-center justify-center gap-2">
-                Explore Programs <ArrowRight size={20} />
-              </Link>
+          <Link to="/enroll" className="btn-secondary inline-flex items-center justify-center gap-2">
+            Enroll Now <ArrowRight size={20} />
+          </Link>
               <Link to="/contact" className="btn-outline inline-flex items-center justify-center gap-2 border-white text-white hover:bg-white hover:text-primary">
                 Get More Info <ArrowRight size={20} />
               </Link>
@@ -146,7 +146,7 @@ export default function Home() {
           <p className="text-xl mb-8 max-w-2xl mx-auto">
             Join hundreds of students who have successfully launched their healthcare careers through our comprehensive training programs.
           </p>
-          <Link to="/programs" className="btn-secondary inline-flex items-center gap-2 bg-white text-primary hover:bg-gray-100">
+          <Link to="/enroll" className="btn-secondary inline-flex items-center gap-2 bg-white text-primary hover:bg-gray-100">
             Enroll Now <ArrowRight size={20} />
           </Link>
         </div>

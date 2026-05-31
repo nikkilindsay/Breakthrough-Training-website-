@@ -14,6 +14,7 @@ import Gallery from './pages/Gallery';
 import Instructors from './pages/Instructors';
 import Contact from './pages/Contact';
 import Checkout from './pages/Checkout';
+import Enroll from './pages/Enroll';
 
 // Initialize Stripe (will use environment variable for publishable key)
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || 'pk_test_placeholder');
@@ -35,6 +36,7 @@ function App() {
               <Route path="/gallery" element={<Gallery />} />
               <Route path="/instructors" element={<Instructors />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/enroll" element={<Enroll />} />
               <Route path="/checkout/:programId" element={<Checkout />} />
             </Routes>
           </main>
