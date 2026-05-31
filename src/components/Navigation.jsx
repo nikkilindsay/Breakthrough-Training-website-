@@ -23,8 +23,8 @@ export default function Navigation() {
       <div className="container-custom">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
-            <img src="/logo.png" alt="Breakthrough Training Institute" className="w-12 h-12 object-contain" />
+          <Link to="/" className="flex items-center gap-3">
+            <img src="/logo.png" alt="Breakthrough Training Institute" className="w-20 h-20 object-contain" />
             <div className="hidden sm:block">
               <h1 className="font-bold text-lg text-dark">{schoolData.name}</h1>
               <p className="text-xs text-gray-600">{schoolData.tagline}</p>
