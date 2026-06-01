@@ -89,7 +89,7 @@ export const instructors = [
       'Healthcare Education Specialist',
       'Program Development & Management'
     ],
-    image: '/instructors/shanekia.jpg',
+    image: '/shanekia-lindsay.png',
     email: 'shanekia@breakthroughtraining.com'
   }
 ];
@@ -97,11 +97,11 @@ export const instructors = [
 export const blogPosts = [
   {
     id: 1,
-    title: 'Why Choose a CNA Career in 2024?',
+    title: 'Why Choose a CNA Career in 2026?',
     excerpt: 'Discover the rewarding opportunities and career growth potential in nursing assistance.',
     content: 'Certified Nursing Assistants play a vital role in healthcare settings. With an aging population and growing healthcare demands, CNAs are more needed than ever. This career offers flexibility, job security, and the opportunity to make a real difference in patients\' lives.',
     author: 'Shanekia Lindsay',
-    date: '2024-01-15',
+    date: '2026-06-02',
     category: 'Career',
     image: '/blog/cna-career.jpg'
   },
@@ -111,7 +111,7 @@ export const blogPosts = [
     excerpt: 'Learn the critical competencies that make a successful Certified Nursing Assistant.',
     content: 'From patient hygiene to vital signs monitoring, CNAs must master a diverse set of skills. Our comprehensive training program covers all essential competencies needed for success in clinical settings.',
     author: 'Shanekia Lindsay',
-    date: '2024-01-10',
+    date: '2026-06-09',
     category: 'Training',
     image: '/blog/cna-skills.jpg'
   },
@@ -121,9 +121,69 @@ export const blogPosts = [
     excerpt: 'Master the communication techniques that build trust and improve patient outcomes.',
     content: 'Effective communication is fundamental to quality patient care. Learn how to communicate with empathy, clarity, and professionalism in our specialized training modules.',
     author: 'Shanekia Lindsay',
-    date: '2024-01-05',
+    date: '2026-06-16',
     category: 'Professional Development',
     image: '/blog/communication.jpg'
+  },
+  {
+    id: 4,
+    title: 'Why 2026 is Your Year to Start a CNA Career',
+    excerpt: 'The healthcare industry is booming, and CNAs are in high demand. Discover why now is the perfect time to launch your healthcare career.',
+    content: 'The healthcare industry is experiencing unprecedented growth, and Certified Nursing Assistants (CNAs) are more in demand than ever.',
+    author: 'Shanekia Lindsay',
+    date: '2026-06-02',
+    category: 'Career',
+    image: '/blog/cna-career.jpg'
+  },
+  {
+    id: 5,
+    title: 'How to Pass the CNA Certification Exam: 5 Expert Tips',
+    excerpt: 'Nervous about the state certification exam? Here are 5 proven strategies to help you pass on your first attempt.',
+    content: 'The CNA certification exam can feel intimidating, but with the right preparation, you can pass with confidence.',
+    author: 'Shanekia Lindsay',
+    date: '2026-06-09',
+    category: 'Training',
+    image: '/blog/exam-prep.jpg'
+  },
+  {
+    id: 6,
+    title: 'A Day in the Life of a Certified Nursing Assistant',
+    excerpt: 'Ever wonder what CNAs actually do? Take a peek into a typical day and discover if this career is right for you.',
+    content: 'Curious about what it is really like to work as a CNA? Let us follow Maria, one of our graduates, through a typical day.',
+    author: 'Shanekia Lindsay',
+    date: '2026-06-16',
+    category: 'Career',
+    image: '/blog/day-in-life.jpg'
+  },
+  {
+    id: 7,
+    title: 'The Essential Skills Every CNA Must Master',
+    excerpt: 'From patient hygiene to vital signs monitoring, here are the core competencies that make a successful CNA.',
+    content: 'Becoming a Certified Nursing Assistant requires mastering a diverse set of clinical and interpersonal skills.',
+    author: 'Shanekia Lindsay',
+    date: '2026-06-23',
+    category: 'Training',
+    image: '/blog/essential-skills.jpg'
+  },
+  {
+    id: 8,
+    title: 'From CNA to Leadership: Your Healthcare Career Path',
+    excerpt: 'Your CNA certification is just the beginning. Discover the exciting career advancement opportunities available to you.',
+    content: 'Many people view a CNA certification as an endpoint. In reality, it is a powerful launching pad for an exciting healthcare career.',
+    author: 'Shanekia Lindsay',
+    date: '2026-06-30',
+    category: 'Career',
+    image: '/blog/career-path.jpg'
+  },
+  {
+    id: 9,
+    title: '5 Reasons to Choose Breakthrough Training Institute',
+    excerpt: 'Why our CNA program stands out from the competition and why thousands of students choose us.',
+    content: 'With so many CNA programs available, why should you choose Breakthrough Training Institute? Here are 5 compelling reasons.',
+    author: 'Shanekia Lindsay',
+    date: '2026-07-07',
+    category: 'Career',
+    image: '/blog/why-choose-us.jpg'
   }
 ];
 

@@ -21,9 +21,13 @@ export default function Instructors() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
             {instructors.map((instructor) => (
               <div key={instructor.id} className="card overflow-hidden hover:shadow-xl transition-shadow">
-                {/* Avatar Placeholder */}
-                <div className="h-64 bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white text-8xl mb-6">
-                  👤
+                {/* Avatar Image */}
+                <div className="h-64 bg-gradient-to-br from-primary to-secondary flex items-center justify-center overflow-hidden mb-6">
+                  {instructor.image ? (
+                    <img src={instructor.image} alt={instructor.name} className="w-full h-full object-cover" />
+                  ) : (
+                    <span className="text-white text-8xl">👤</span>
+                  )}
                 </div>
 
                 {/* Content */}
