@@ -10,9 +10,11 @@ export default function Blog() {
   
   const categories = ['All', ...new Set(blogPosts.map(post => post.category))];
   
+  const sortedPosts = [...blogPosts].sort((a, b) => new Date(b.date) - new Date(a.date));
+  
   const filteredPosts = selectedCategory === 'All' 
-    ? blogPosts 
-    : blogPosts.filter(post => post.category === selectedCategory);
+    ? sortedPosts 
+    : sortedPosts.filter(post => post.category === selectedCategory);
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', {
