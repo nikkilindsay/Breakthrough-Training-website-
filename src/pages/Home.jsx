@@ -1,11 +1,20 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, CheckCircle, Users, Award, Zap } from 'lucide-react';
 import { programs, schoolData } from '../data/schoolData';
+import enrollmentConfig from '../data/enrollmentConfig.json';
 import heroImage from '../assets/hero-team-meeting.webp';
 import MotivationalSidebar from '../components/MotivationalSidebar';
 
 export default function Home() {
+  const [enrollmentData, setEnrollmentData] = useState(enrollmentConfig);
+
+  useEffect(() => {
+    // Fetch enrollment data (can be replaced with API call later)
+    setEnrollmentData(enrollmentConfig);
+  }, []);
+
   const features = [
     {
       icon: Award,
@@ -170,8 +179,8 @@ export default function Home() {
         <div className="container-custom">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-4xl font-bold text-primary mb-2">500+</div>
-              <p className="text-gray-600">Students Trained</p>
+              <div className="text-4xl font-bold text-primary mb-2">Now Enrolling</div>
+              <p className="text-gray-600">{enrollmentData.currentEnrollments} of {enrollmentData.maxCapacity} Students</p>
             </div>
             <div>
               <div className="text-4xl font-bold text-secondary mb-2">95%</div>
@@ -182,7 +191,7 @@ export default function Home() {
               <p className="text-gray-600">Job Placement</p>
             </div>
             <div>
-              <div className="text-4xl font-bold text-secondary mb-2">10+</div>
+              <div className="text-4xl font-bold text-secondary mb-2">28+</div>
               <p className="text-gray-600">Years Experience</p>
             </div>
           </div>
