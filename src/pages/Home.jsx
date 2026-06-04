@@ -40,13 +40,13 @@ export default function Home() {
         <div className="container-custom relative z-10 text-center">
           <div className="max-w-3xl mx-auto">
             <h1 className="text-5xl md:text-6xl font-bold mb-4 leading-tight">
-              Empower Your Future Today
+              CNA Classes in St. Louis, MO
             </h1>
             <p className="text-2xl md:text-3xl font-semibold mb-6 text-orange-300">
-              A place to learn and grow
+              State-Approved CNA Certification Programs
             </p>
             <p className="text-xl md:text-2xl mb-8 text-gray-100">
-              Professional training programs designed to prepare you for success in healthcare.
+              Hybrid and self-paced CNA training designed to launch your healthcare career. Next hybrid class starts July 7!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link to="/enroll" className="btn-secondary inline-flex items-center justify-center gap-2">
@@ -91,8 +91,11 @@ export default function Home() {
       <section className="py-20 bg-gray-50">
         <div className="container-custom">
           <div className="text-center mb-16">
-            <h2 className="section-title">Our Programs</h2>
-            <p className="section-subtitle">Choose the program that fits your goals</p>
+            <h2 className="section-title">CNA Certification Programs in St. Louis</h2>
+            <p className="section-subtitle">Affordable, state-approved CNA classes — hybrid and self-paced options available</p>
+            <div className="mt-4 inline-block bg-orange-100 border border-orange-400 text-orange-800 px-6 py-3 rounded-lg font-semibold">
+              📅 Next Hybrid Class Starts July 7, 2026 — Limited Seats Available!
+            </div>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -142,9 +145,9 @@ export default function Home() {
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-r from-primary to-secondary text-white">
         <div className="container-custom text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">Ready to Start Your Journey?</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">Start Your CNA Career in St. Louis</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Join hundreds of students who have successfully launched their healthcare careers through our comprehensive training programs.
+            Join our state-approved CNA certification program and launch your healthcare career. Next hybrid class starts July 7 — enroll today before seats fill up!
           </p>
           <Link to="/enroll" className="btn-secondary inline-flex items-center gap-2 bg-white text-primary hover:bg-gray-100">
             Enroll Now <ArrowRight size={20} />

@@ -9,9 +9,9 @@ export default function Programs() {
       {/* Header */}
       <section className="bg-gradient-to-r from-primary to-secondary text-white py-16">
         <div className="container-custom">
-          <h1 className="text-5xl font-bold mb-4">Our Programs</h1>
+          <h1 className="text-5xl font-bold mb-4">CNA Classes in St. Louis, MO</h1>
           <p className="text-xl text-blue-100">
-            Choose the program that fits your schedule and goals
+            State-approved CNA certification programs — hybrid and self-paced options available. Serving St. Louis, Maryland Heights, and surrounding Missouri communities.
           </p>
         </div>
       </section>

@@ -13,8 +13,8 @@ export const programs = [
   {
     id: 'cna',
     name: 'Certified Nursing Assistant (CNA)',
-    shortDescription: 'Become a Certified Nursing Assistant',
-    fullDescription: 'Our comprehensive CNA program prepares you for a rewarding career in healthcare. Learn essential patient care skills, infection control, and communication techniques.',
+    shortDescription: 'Self-Paced CNA Certification — St. Louis, MO',
+    fullDescription: 'Our state-approved self-paced CNA program lets you complete the theory portion entirely online — at the pace of a snail or the pace of lightning, the choice is yours. Finish within 4 months from anywhere in Missouri. Clinical hours are completed separately at a facility of your choice. Perfect for working adults in St. Louis looking to start a healthcare career.',
     duration: 'Flexible',
     price: 475,
     access: '14 weeks',
@@ -35,8 +35,8 @@ export const programs = [
   {
     id: 'cna-hybrid',
     name: 'CNA Hybrid Program',
-    shortDescription: 'Theory + Clinical Experience',
-    fullDescription: 'Complete CNA program combining theory and clinicals. Classroom instruction 2 days per week in-person, with remaining coursework online via virtual classroom.',
+    shortDescription: 'Next Class Starts July 7, 2026 — Limited Seats!',
+    fullDescription: 'Our 5-week CNA Hybrid Program in St. Louis combines in-person classroom instruction with online coursework and 100+ hours of supervised clinical practice. This is the fastest path to CNA certification in Missouri. Classes meet 2 days per week in person — next cohort starts July 7, 2026. Enroll now before seats fill up!',
     duration: '5 weeks',
     price: 1175,
     access: 'Full program',
@@ -57,8 +57,8 @@ export const programs = [
   {
     id: 'cna-clinical',
     name: 'CNA Clinical Experience Only',
-    shortDescription: 'For Completed Theory Students',
-    fullDescription: 'For students who have completed CNA classroom training and theory. Focus on supervised clinical practice at local healthcare facilities and state testing.',
+    shortDescription: 'Already Completed CNA Theory? Finish Your Clinicals Here',
+    fullDescription: 'Already completed your CNA classroom training or theory portion? This program is designed for you. Complete your required 100+ supervised clinical hours at local St. Louis healthcare facilities, prepare for your Missouri state certification exam, and earn your CNA certificate. Note: the CNA certificate is issued only after successfully completing clinicals and passing the state test.',
     duration: 'Variable',
     price: 'Contact for pricing',
     access: 'Based on facility',
