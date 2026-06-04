@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, CheckCircle, Users, Award, Zap } from 'lucide-react';
 import { programs, schoolData } from '../data/schoolData';
 import heroImage from '../assets/hero-team-meeting.webp';
+import MotivationalSidebar from '../components/MotivationalSidebar';
 
 export default function Home() {
   const features = [
@@ -138,6 +139,15 @@ export default function Home() {
             <Link to="/programs" className="btn-secondary inline-flex items-center gap-2">
               View All Programs <ArrowRight size={20} />
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Motivational Sidebar Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="container-custom">
+          <div className="max-w-md mx-auto">
+            <MotivationalSidebar />
           </div>
         </div>
       </section>
