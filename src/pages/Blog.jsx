@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Calendar, User, ArrowRight } from 'lucide-react';
-import { blogPosts } from '../data/schoolData';
+import { newBlogPosts } from '../data/blogPosts';
+
+const blogPosts = newBlogPosts;
 
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState('All');
