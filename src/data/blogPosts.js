@@ -853,5 +853,3 @@ Your future self is waiting for you to make this decision.
     image: '/blog/youll-never-be-ready.jpg'
   }
 ];
-
-export { newBlogPosts };
