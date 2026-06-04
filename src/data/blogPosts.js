@@ -753,10 +753,7 @@ Your healthcare career is just 4 weeks away. Let's make it happen!
     date: '2026-07-07',
     category: 'Career',
     image: '/blog/why-choose-us.jpg'
-  }
-];
-,
-
+    },
   {
     id: 100,
     title: "You'll Never Be Ready - And That's Okay",
@@ -856,3 +853,5 @@ Your future self is waiting for you to make this decision.
     image: '/blog/youll-never-be-ready.jpg'
   }
 ];
+
+export { newBlogPosts };
