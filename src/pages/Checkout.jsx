@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { programs } from '../data/schoolData';
@@ -20,7 +20,17 @@ export default function Checkout() {
   const [success, setSuccess] = useState(false);
 
   // Use Vercel API routes in production, local server in development
-  const apiUrl = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:3001' : '');
+  const getApiUrl = () => {
+    // In production on Vercel, use relative URLs (same domain)
+    // In development, use local server
+    if (import.meta.env.DEV) {
+      return 'http://localhost:3001';
+    }
+    // In production, use relative URL to current domain
+    return '';
+  };
+  
+  const apiUrl = getApiUrl();
 
   if (!program) {
     return (
@@ -43,16 +53,29 @@ export default function Checkout() {
     setError(null);
 
     try {
+      if (!formData.firstName || !formData.lastName || !formData.email) {
+        setError('Please fill in all student information');
+        setLoading(false);
+        return;
+      }
+
+      console.log('Creating payment intent with API URL:', apiUrl);
+      
       // Step 1: Create payment intent on backend
-      const paymentIntentResponse = await axios.post(`${apiUrl}/api/payment?action=create-intent`, {
+      const paymentIntentUrl = `${apiUrl}/api/payment?action=create-intent`;
+      console.log('Payment intent URL:', paymentIntentUrl);
+      
+      const paymentIntentResponse = await axios.post(paymentIntentUrl, {
         amount: program.price,
         programId: program.id,
         studentInfo: formData,
       });
 
       const clientSecret = paymentIntentResponse.data.clientSecret;
+      console.log('Payment intent created:', clientSecret);
 
       // Step 2: Confirm payment with Stripe
+      console.log('Confirming payment with Stripe...');
       const cardElement = elements.getElement(CardElement);
       const { error: stripeError, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
@@ -65,14 +88,21 @@ export default function Checkout() {
       });
 
       if (stripeError) {
+        console.error('Stripe error:', stripeError);
         setError(stripeError.message);
         setLoading(false);
         return;
       }
 
+      console.log('Payment intent status:', paymentIntent.status);
+      
       if (paymentIntent.status === 'succeeded') {
         // Step 3: Confirm payment on backend and send email
-        await axios.post(`${apiUrl}/api/payment?action=confirm`, {
+        console.log('Payment succeeded, confirming on backend...');
+        const confirmUrl = `${apiUrl}/api/payment?action=confirm`;
+        console.log('Confirm URL:', confirmUrl);
+        
+        await axios.post(confirmUrl, {
           paymentIntentId: paymentIntent.id,
           studentInfo: formData,
           programId: program.id,
@@ -80,6 +110,7 @@ export default function Checkout() {
           programPrice: program.price,
         });
 
+        console.log('Enrollment confirmed!');
         setSuccess(true);
         setLoading(false);
       } else {
@@ -88,6 +119,12 @@ export default function Checkout() {
       }
     } catch (err) {
       console.error('Payment error:', err);
+      console.error('Error details:', {
+        message: err.message,
+        response: err.response?.data,
+        status: err.response?.status,
+        url: err.config?.url,
+      });
       setError(err.response?.data?.error || err.message || 'Payment processing failed');
       setLoading(false);
     }
