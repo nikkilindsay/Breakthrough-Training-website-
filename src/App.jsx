@@ -15,14 +15,15 @@ import Instructors from './pages/Instructors';
 import Contact from './pages/Contact';
 import Checkout from './pages/Checkout';
 import Enroll from './pages/Enroll';
+import Success from './pages/Success';
 
 // Initialize Stripe (will use environment variable for publishable key)
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || 'pk_test_placeholder');
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
 function App() {
   return (
-    <Elements stripe={stripePromise}>
-      <Router>
+    <Router>
+      <Elements stripe={stripePromise}>
         <div className="flex flex-col min-h-screen">
           <Navigation />
           <main className="flex-grow">
@@ -38,12 +39,13 @@ function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/enroll" element={<Enroll />} />
               <Route path="/checkout/:programId" element={<Checkout />} />
+              <Route path="/success" element={<Success />} />
             </Routes>
           </main>
           <Footer />
         </div>
-      </Router>
-    </Elements>
+      </Elements>
+    </Router>
   );
 }
 

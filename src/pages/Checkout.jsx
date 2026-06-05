@@ -1,19 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
-import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import { programs } from '../data/schoolData';
-import { ArrowLeft, Lock } from 'lucide-react';
-import axios from 'axios';
+import { ArrowLeft } from 'lucide-react';
+
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
 export default function Checkout() {
   const { programId } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
-  const stripe = useStripe();
-  const elements = useElements();
+  const passedFormData = location.state?.formData || {};
 
   const program = programs.find(p => p.id === programId);
-  const passedFormData = location.state?.formData || {};
 
   const [formData, setFormData] = useState({
     firstName: passedFormData.firstName || '',
@@ -24,21 +23,6 @@ export default function Checkout() {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(false);
-  const [termsAccepted, setTermsAccepted] = useState(false);
-
-  // Use Vercel API routes in production, local server in development
-  const getApiUrl = () => {
-    // In production on Vercel, use relative URLs (same domain)
-    // In development, use local server
-    if (import.meta.env.DEV) {
-      return 'http://localhost:3001';
-    }
-    // In production, use relative URL to current domain
-    return '';
-  };
-  
-  const apiUrl = getApiUrl();
 
   if (!program) {
     return (
@@ -61,18 +45,8 @@ export default function Checkout() {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleCheckout = async (e) => {
     e.preventDefault();
-    
-    if (!stripe || !elements) {
-      setError('Payment system not ready. Please refresh the page.');
-      return;
-    }
-
-    if (!termsAccepted) {
-      setError('Please accept the terms and conditions');
-      return;
-    }
 
     if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone) {
       setError('Please fill in all required fields');
@@ -83,96 +57,42 @@ export default function Checkout() {
     setError(null);
 
     try {
-      console.log('Creating payment intent with API URL:', apiUrl);
-      
-      // Step 1: Create payment intent on backend
-      const paymentIntentUrl = `${apiUrl}/api/payment?action=create-intent`;
-      console.log('Payment intent URL:', paymentIntentUrl);
-      
-      const paymentIntentResponse = await axios.post(paymentIntentUrl, {
-        amount: program.price,
-        programId: program.id,
-        studentInfo: formData,
-      });
+      const stripe = await stripePromise;
 
-      const clientSecret = paymentIntentResponse.data.clientSecret;
-      console.log('Payment intent created:', clientSecret);
-
-      // Step 2: Confirm payment with Stripe
-      console.log('Confirming payment with Stripe...');
-      const cardElement = elements.getElement(CardElement);
-      const { error: stripeError, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-        payment_method: {
-          card: cardElement,
-          billing_details: {
-            name: `${formData.firstName} ${formData.lastName}`,
-            email: formData.email,
-          },
+      // Create checkout session
+      const response = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-      });
-
-      if (stripeError) {
-        console.error('Stripe error:', stripeError);
-        setError(stripeError.message);
-        setLoading(false);
-        return;
-      }
-
-      console.log('Payment intent status:', paymentIntent.status);
-      
-      if (paymentIntent.status === 'succeeded') {
-        // Step 3: Confirm payment on backend and send email
-        console.log('Payment succeeded, confirming on backend...');
-        const confirmUrl = `${apiUrl}/api/payment?action=confirm`;
-        console.log('Confirm URL:', confirmUrl);
-        
-        await axios.post(confirmUrl, {
-          paymentIntentId: paymentIntent.id,
-          studentInfo: formData,
+        body: JSON.stringify({
           programId: program.id,
           programName: program.name,
           programPrice: program.price,
-        });
+          studentInfo: formData,
+        }),
+      });
 
-        console.log('Enrollment confirmed!');
-        setSuccess(true);
-        setLoading(false);
-      } else {
-        setError('Payment failed. Please try again.');
-        setLoading(false);
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to create checkout session');
+      }
+
+      const { sessionId } = await response.json();
+
+      // Redirect to Stripe Checkout
+      const result = await stripe.redirectToCheckout({ sessionId });
+
+      if (result.error) {
+        setError(result.error.message);
       }
     } catch (err) {
-      console.error('Payment error:', err);
-      console.error('Error details:', {
-        message: err.message,
-        response: err.response?.data,
-        status: err.response?.status,
-        url: err.config?.url,
-      });
-      setError(err.response?.data?.error || err.message || 'Payment processing failed');
+      console.error('Checkout error:', err);
+      setError(err.message || 'Failed to process checkout');
+    } finally {
       setLoading(false);
     }
   };
-
-  if (success) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-green-50 to-green-100 flex items-center justify-center p-4">
-        <div className="bg-white rounded-lg shadow-xl p-8 max-w-md w-full text-center">
-          <div className="text-6xl mb-4">✓</div>
-          <h1 className="text-3xl font-bold text-green-600 mb-2">Payment Successful!</h1>
-          <p className="text-gray-600 mb-6">
-            Thank you for enrolling in {program.name}. You'll receive a confirmation email shortly.
-          </p>
-          <button
-            onClick={() => navigate('/')}
-            className="btn-primary w-full"
-          >
-            Return to Home
-          </button>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="w-full">
@@ -221,8 +141,7 @@ export default function Checkout() {
 
                 <div className="bg-blue-50 p-4 rounded-lg">
                   <p className="text-xs text-gray-600 flex items-start gap-2">
-                    <Lock size={16} className="flex-shrink-0 mt-0.5" />
-                    Your payment information is secure and encrypted.
+                    🔒 Your payment information is secure and encrypted.
                   </p>
                 </div>
               </div>
@@ -231,7 +150,7 @@ export default function Checkout() {
             {/* Payment Form */}
             <div className="lg:col-span-2">
               <div className="card">
-                <h2 className="text-2xl font-bold mb-6 text-dark">Payment Information</h2>
+                <h2 className="text-2xl font-bold mb-6 text-dark">Student Information</h2>
 
                 {error && (
                   <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
@@ -239,10 +158,9 @@ export default function Checkout() {
                   </div>
                 )}
 
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleCheckout} className="space-y-6">
                   {/* Student Information */}
                   <div>
-                    <h3 className="font-bold text-dark mb-4">Student Information</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium text-dark mb-2">
@@ -305,55 +223,17 @@ export default function Checkout() {
                     </div>
                   </div>
 
-                  {/* Card Information */}
-                  <div>
-                    <h3 className="font-bold text-dark mb-4">Card Information</h3>
-                    <div className="p-4 border border-gray-300 rounded-lg">
-                      <CardElement
-                        options={{
-                          style: {
-                            base: {
-                              fontSize: '16px',
-                              color: '#1a2332',
-                              '::placeholder': {
-                                color: '#9ca3af',
-                              },
-                            },
-                            invalid: {
-                              color: '#ef4444',
-                            },
-                          },
-                        }}
-                      />
-                    </div>
-                  </div>
-
-                  {/* Terms & Conditions */}
-                  <div className="flex items-start gap-3">
-                    <input
-                      id="terms"
-                      type="checkbox"
-                      checked={termsAccepted}
-                      onChange={(e) => setTermsAccepted(e.target.checked)}
-                      className="mt-1 w-4 h-4 text-primary rounded focus:ring-primary cursor-pointer"
-                    />
-                    <label htmlFor="terms" className="text-sm text-gray-600 cursor-pointer">
-                      I agree to the terms and conditions and privacy policy
-                    </label>
-                  </div>
-
                   {/* Submit Button */}
                   <button
                     type="submit"
-                    disabled={loading || !stripe}
-                    className="w-full btn-primary py-3 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled={loading}
+                    className="w-full btn-primary py-3 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed text-lg font-semibold"
                   >
-                    <Lock size={18} />
-                    {loading ? 'Processing...' : `Pay $${program.price}`}
+                    {loading ? 'Processing...' : `Pay $${program.price} with Stripe`}
                   </button>
 
                   <p className="text-xs text-center text-gray-500">
-                    Secure payment powered by Stripe
+                    Secure payment powered by Stripe. You'll be redirected to complete your payment.
                   </p>
                 </form>
               </div>
