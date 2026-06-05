@@ -19,7 +19,8 @@ export default function Checkout() {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
 
-  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+  // Use Vercel API routes in production, local server in development
+  const apiUrl = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:3001' : '');
 
   if (!program) {
     return (
@@ -43,7 +44,7 @@ export default function Checkout() {
 
     try {
       // Step 1: Create payment intent on backend
-      const paymentIntentResponse = await axios.post(`${apiUrl}/api/create-payment-intent`, {
+      const paymentIntentResponse = await axios.post(`${apiUrl}/api/payment?action=create-intent`, {
         amount: program.price,
         programId: program.id,
         studentInfo: formData,
@@ -71,7 +72,7 @@ export default function Checkout() {
 
       if (paymentIntent.status === 'succeeded') {
         // Step 3: Confirm payment on backend and send email
-        await axios.post(`${apiUrl}/api/confirm-payment`, {
+        await axios.post(`${apiUrl}/api/payment?action=confirm`, {
           paymentIntentId: paymentIntent.id,
           studentInfo: formData,
           programId: program.id,

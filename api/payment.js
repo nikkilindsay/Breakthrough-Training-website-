@@ -32,7 +32,9 @@ export default async function handler(req, res) {
   }
 
   try {
-    if (req.url === '/api/create-payment-intent' && req.method === 'POST') {
+    const action = req.query.action;
+
+    if (action === 'create-intent' && req.method === 'POST') {
       const { amount, programId, studentInfo } = req.body;
 
       if (!amount || !programId || !studentInfo) {
@@ -52,7 +54,7 @@ export default async function handler(req, res) {
       return res.status(200).json({ clientSecret: paymentIntent.client_secret });
     }
 
-    if (req.url === '/api/confirm-payment' && req.method === 'POST') {
+    if (action === 'confirm' && req.method === 'POST') {
       const { paymentIntentId, studentInfo, programId, programName, programPrice } = req.body;
 
       if (!paymentIntentId || !studentInfo || !programId) {
@@ -112,7 +114,7 @@ export default async function handler(req, res) {
       });
     }
 
-    if (req.url === '/api/enrollment-count' && req.method === 'GET') {
+    if (action === 'count' && req.method === 'GET') {
       return res.status(200).json({
         currentEnrollments: enrollmentCount,
         maxCapacity: 25,
@@ -120,7 +122,7 @@ export default async function handler(req, res) {
       });
     }
 
-    if (req.url === '/api/enrollments' && req.method === 'GET') {
+    if (action === 'list' && req.method === 'GET') {
       return res.status(200).json(enrollments);
     }
 
