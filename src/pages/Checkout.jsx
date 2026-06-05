@@ -13,11 +13,19 @@ export default function Checkout() {
   const elements = useElements();
 
   const program = programs.find(p => p.id === programId);
-  const formData = location.state?.formData || {};
+  const passedFormData = location.state?.formData || {};
+
+  const [formData, setFormData] = useState({
+    firstName: passedFormData.firstName || '',
+    lastName: passedFormData.lastName || '',
+    email: passedFormData.email || '',
+    phone: passedFormData.phone || '',
+  });
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   // Use Vercel API routes in production, local server in development
   const getApiUrl = () => {
@@ -45,20 +53,36 @@ export default function Checkout() {
     );
   }
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!stripe || !elements) return;
+    
+    if (!stripe || !elements) {
+      setError('Payment system not ready. Please refresh the page.');
+      return;
+    }
+
+    if (!termsAccepted) {
+      setError('Please accept the terms and conditions');
+      return;
+    }
+
+    if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone) {
+      setError('Please fill in all required fields');
+      return;
+    }
 
     setLoading(true);
     setError(null);
 
     try {
-      if (!formData.firstName || !formData.lastName || !formData.email) {
-        setError('Please fill in all student information');
-        setLoading(false);
-        return;
-      }
-
       console.log('Creating payment intent with API URL:', apiUrl);
       
       // Step 1: Create payment intent on backend
@@ -222,37 +246,61 @@ export default function Checkout() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium text-dark mb-2">
-                          First Name
+                          First Name <span className="text-red-500">*</span>
                         </label>
                         <input
                           type="text"
-                          value={formData.firstName || ''}
-                          disabled
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-600"
+                          name="firstName"
+                          value={formData.firstName}
+                          onChange={handleInputChange}
+                          placeholder="John"
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                          required
                         />
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-dark mb-2">
-                          Last Name
+                          Last Name <span className="text-red-500">*</span>
                         </label>
                         <input
                           type="text"
-                          value={formData.lastName || ''}
-                          disabled
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-600"
+                          name="lastName"
+                          value={formData.lastName}
+                          onChange={handleInputChange}
+                          placeholder="Doe"
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                          required
                         />
                       </div>
                     </div>
 
                     <div className="mt-4">
                       <label className="block text-sm font-medium text-dark mb-2">
-                        Email Address
+                        Email Address <span className="text-red-500">*</span>
                       </label>
                       <input
                         type="email"
-                        value={formData.email || ''}
-                        disabled
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-600"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        placeholder="john@example.com"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                        required
+                      />
+                    </div>
+
+                    <div className="mt-4">
+                      <label className="block text-sm font-medium text-dark mb-2">
+                        Phone Number <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="tel"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        placeholder="(555) 123-4567"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                        required
                       />
                     </div>
                   </div>
@@ -280,15 +328,16 @@ export default function Checkout() {
                     </div>
                   </div>
 
-                  {/* Terms */}
+                  {/* Terms & Conditions */}
                   <div className="flex items-start gap-3">
                     <input
-                      type="checkbox"
                       id="terms"
-                      required
-                      className="mt-1"
+                      type="checkbox"
+                      checked={termsAccepted}
+                      onChange={(e) => setTermsAccepted(e.target.checked)}
+                      className="mt-1 w-4 h-4 text-primary rounded focus:ring-primary cursor-pointer"
                     />
-                    <label htmlFor="terms" className="text-sm text-gray-600">
+                    <label htmlFor="terms" className="text-sm text-gray-600 cursor-pointer">
                       I agree to the terms and conditions and privacy policy
                     </label>
                   </div>
@@ -297,13 +346,13 @@ export default function Checkout() {
                   <button
                     type="submit"
                     disabled={loading || !stripe}
-                    className="btn-primary w-full flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full btn-primary py-3 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    <Lock size={20} />
+                    <Lock size={18} />
                     {loading ? 'Processing...' : `Pay $${program.price}`}
                   </button>
 
-                  <p className="text-xs text-gray-500 text-center">
+                  <p className="text-xs text-center text-gray-500">
                     Secure payment powered by Stripe
                   </p>
                 </form>
