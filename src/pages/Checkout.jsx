@@ -3,6 +3,7 @@ import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { programs } from '../data/schoolData';
 import { ArrowLeft, Lock } from 'lucide-react';
+import axios from 'axios';
 
 export default function Checkout() {
   const { programId } = useParams();
@@ -17,6 +18,8 @@ export default function Checkout() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
+
+  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
   if (!program) {
     return (
@@ -39,18 +42,52 @@ export default function Checkout() {
     setError(null);
 
     try {
-      // In a real app, you would:
-      // 1. Create a payment intent on your server
-      // 2. Confirm the payment with Stripe
-      // 3. Handle the response
-      
-      // For now, we'll simulate a successful payment
-      setTimeout(() => {
+      // Step 1: Create payment intent on backend
+      const paymentIntentResponse = await axios.post(`${apiUrl}/api/create-payment-intent`, {
+        amount: program.price,
+        programId: program.id,
+        studentInfo: formData,
+      });
+
+      const clientSecret = paymentIntentResponse.data.clientSecret;
+
+      // Step 2: Confirm payment with Stripe
+      const cardElement = elements.getElement(CardElement);
+      const { error: stripeError, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: cardElement,
+          billing_details: {
+            name: `${formData.firstName} ${formData.lastName}`,
+            email: formData.email,
+          },
+        },
+      });
+
+      if (stripeError) {
+        setError(stripeError.message);
+        setLoading(false);
+        return;
+      }
+
+      if (paymentIntent.status === 'succeeded') {
+        // Step 3: Confirm payment on backend and send email
+        await axios.post(`${apiUrl}/api/confirm-payment`, {
+          paymentIntentId: paymentIntent.id,
+          studentInfo: formData,
+          programId: program.id,
+          programName: program.name,
+          programPrice: program.price,
+        });
+
         setSuccess(true);
         setLoading(false);
-      }, 2000);
+      } else {
+        setError('Payment failed. Please try again.');
+        setLoading(false);
+      }
     } catch (err) {
-      setError(err.message);
+      console.error('Payment error:', err);
+      setError(err.response?.data?.error || err.message || 'Payment processing failed');
       setLoading(false);
     }
   };
