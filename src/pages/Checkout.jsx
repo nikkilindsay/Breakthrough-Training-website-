@@ -1,23 +1,21 @@
-import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { programs } from '../data/schoolData';
 import { ArrowLeft } from 'lucide-react';
+
+// Stripe Payment Links — one per program
+// To update: create a new Payment Link in Stripe Dashboard and paste the URL here
+const STRIPE_PAYMENT_LINKS = {
+  'cna':          'https://buy.stripe.com/28EfZg0AEdPTfj6dLY6g800',
+  'cna-hybrid':   '', // TODO: create payment link for $1,175 hybrid program
+  'cna-clinical': '', // TODO: create payment link for $915 clinical program
+};
 
 export default function Checkout() {
   const { programId } = useParams();
   const navigate = useNavigate();
 
   const program = programs.find(p => p.id === programId);
-
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-  });
-
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const paymentLink = STRIPE_PAYMENT_LINKS[programId];
 
   if (!program) {
     return (
@@ -32,69 +30,12 @@ export default function Checkout() {
     );
   }
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone) {
-      setError('Please fill in all required fields');
-      return;
-    }
-
-    setError(null);
-    setLoading(true);
-
-    try {
-      const response = await fetch('/api/create-checkout-session', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          programId: program.id,
-          programName: program.name,
-          programPrice: program.price,
-          studentInfo: {
-            firstName: formData.firstName,
-            lastName: formData.lastName,
-            email: formData.email,
-            phone: formData.phone,
-          },
-        }),
-      });
-
-      if (!response.ok) {
-        const errData = await response.json();
-        throw new Error(errData.error || 'Failed to create checkout session');
-      }
-
-      const { sessionId, url } = await response.json();
-
-      if (url) {
-        // Redirect directly to Stripe Checkout URL
-        window.location.href = url;
-      } else if (sessionId) {
-        // Fallback: redirect using Stripe.js if URL not returned
-        const { loadStripe } = await import('@stripe/stripe-js');
-        const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
-        const { error: stripeError } = await stripe.redirectToCheckout({ sessionId });
-        if (stripeError) {
-          throw new Error(stripeError.message);
-        }
-      } else {
-        throw new Error('No checkout URL returned from server');
-      }
-    } catch (err) {
-      console.error('Checkout error:', err);
-      setError(err.message || 'Something went wrong. Please try again or contact us at btiadmissionoffice@gmail.com');
-      setLoading(false);
+  const handleEnroll = () => {
+    if (paymentLink) {
+      window.location.href = paymentLink;
+    } else {
+      // Fallback: contact us if no payment link configured
+      window.location.href = 'mailto:btiadmissionoffice@gmail.com?subject=Enrollment%20Inquiry%20-%20' + encodeURIComponent(program.name);
     }
   };
 
@@ -115,120 +56,53 @@ export default function Checkout() {
         </div>
       </section>
 
-      {/* Form Section */}
+      {/* Enrollment Section */}
       <section className="py-12">
         <div className="container mx-auto px-4 max-w-2xl">
           <div className="bg-white rounded-lg shadow-lg p-8">
-            <h2 className="text-2xl font-bold mb-6">Student Information</h2>
+            <h2 className="text-2xl font-bold mb-6">Enrollment Summary</h2>
 
-            {/* Order Summary */}
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-              <p className="text-sm text-gray-700">
-                <span className="font-semibold">Program:</span> {program.name}
-              </p>
-              <p className="text-sm text-gray-700 mt-2">
-                <span className="font-semibold">Price:</span> ${program.price}
-              </p>
+            {/* Program Details */}
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8">
+              <p className="text-lg font-bold text-gray-900 mb-2">{program.name}</p>
+              <p className="text-sm text-gray-600 mb-4">{program.shortDescription}</p>
+              <div className="flex items-center justify-between border-t border-blue-200 pt-4">
+                <span className="font-semibold text-gray-700">Total Due Today</span>
+                <span className="text-2xl font-bold text-blue-600">${program.price.toLocaleString()}</span>
+              </div>
             </div>
 
-            {/* Error Message */}
-            {error && (
-              <div className="bg-red-50 border border-red-200 text-red-800 p-4 rounded mb-6">
-                <p className="font-semibold mb-1">Error</p>
-                <p>{error}</p>
-              </div>
-            )}
-
-            {/* Form */}
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-semibold mb-2">First Name *</label>
-                  <input
-                    type="text"
-                    name="firstName"
-                    value={formData.firstName}
-                    onChange={handleInputChange}
-                    placeholder="John"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required
-                    disabled={loading}
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-semibold mb-2">Last Name *</label>
-                  <input
-                    type="text"
-                    name="lastName"
-                    value={formData.lastName}
-                    onChange={handleInputChange}
-                    placeholder="Doe"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required
-                    disabled={loading}
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold mb-2">Email Address *</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  placeholder="john@example.com"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  required
-                  disabled={loading}
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold mb-2">Phone Number *</label>
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  placeholder="(314) 555-0000"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  required
-                  disabled={loading}
-                />
-              </div>
-
-              <div className="flex items-start gap-3">
-                <input
-                  type="checkbox"
-                  id="terms"
-                  required
-                  className="mt-1"
-                  disabled={loading}
-                />
-                <label htmlFor="terms" className="text-sm text-gray-700">
-                  I agree to the <a href="/terms" className="text-blue-600 hover:underline">terms and conditions</a> and <a href="/privacy" className="text-blue-600 hover:underline">privacy policy</a>
-                </label>
-              </div>
-
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-bold py-3 px-6 rounded-lg transition flex items-center justify-center gap-2"
-              >
-                {loading ? (
-                  <>
-                    <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            {/* What's included */}
+            <div className="mb-8">
+              <h3 className="font-semibold text-gray-800 mb-3">What's Included:</h3>
+              <ul className="space-y-2">
+                {program.features.slice(0, 4).map((feature, i) => (
+                  <li key={i} className="flex items-start gap-2 text-sm text-gray-700">
+                    <svg className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
-                    Redirecting to Secure Payment...
-                  </>
-                ) : (
-                  `Continue to Payment — $${program.price}`
-                )}
-              </button>
-            </form>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* CTA Button */}
+            <button
+              onClick={handleEnroll}
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-lg transition text-lg flex items-center justify-center gap-2"
+            >
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+              </svg>
+              {paymentLink ? `Proceed to Secure Payment — $${program.price.toLocaleString()}` : 'Contact Us to Enroll'}
+            </button>
+
+            <p className="text-center text-xs text-gray-500 mt-4">
+              {paymentLink
+                ? 'You will be redirected to Stripe\'s secure payment page to complete your enrollment.'
+                : 'Click above to email us and we\'ll get you enrolled right away.'}
+            </p>
 
             <div className="mt-6 flex items-center justify-center gap-2 text-sm text-gray-500">
               <svg className="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
@@ -236,6 +110,11 @@ export default function Checkout() {
               </svg>
               <span>Secure payment powered by Stripe</span>
             </div>
+          </div>
+
+          {/* Questions */}
+          <div className="mt-6 text-center text-sm text-gray-600">
+            <p>Questions? Call us at <a href="tel:3146495586" className="text-blue-600 font-semibold">314-649-5586</a> or email <a href="mailto:btiadmissionoffice@gmail.com" className="text-blue-600 font-semibold">btiadmissionoffice@gmail.com</a></p>
           </div>
         </div>
       </section>
