@@ -32,8 +32,8 @@ export default async function handler(req, res) {
       ],
       customer_email: studentInfo.email,
       mode: 'payment',
-      success_url: `${process.env.VITE_APP_URL || 'https://www.btieducation.com'}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.VITE_APP_URL || 'https://www.btieducation.com'}/checkout/${programId}`,
+      success_url: `https://www.btieducation.com/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `https://www.btieducation.com/checkout/${programId}`,
       metadata: {
         firstName: studentInfo.firstName,
         lastName: studentInfo.lastName,
@@ -44,9 +44,10 @@ export default async function handler(req, res) {
       },
     });
 
-    return res.status(200).json({ sessionId: session.id });
+    // Return both sessionId and url so the frontend can redirect directly
+    return res.status(200).json({ sessionId: session.id, url: session.url });
   } catch (error) {
-    console.error('Stripe error:', error);
+    console.error('[create-checkout-session] Stripe error:', error);
     return res.status(500).json({ error: error.message });
   }
 }
