@@ -6,8 +6,8 @@ import { ArrowLeft } from 'lucide-react';
 // To update: create a new Payment Link in Stripe Dashboard and paste the URL here
 const STRIPE_PAYMENT_LINKS = {
   'cna':          'https://buy.stripe.com/28EfZg0AEdPTfj6dLY6g800',
-  'cna-hybrid':   '', // TODO: create payment link for $1,175 hybrid program
-  'cna-clinical': '', // TODO: create payment link for $915 clinical program
+  'cna-hybrid':   'https://buy.stripe.com/14AfZg3MQ3bf3AocHU6g801',
+  'cna-clinical': 'https://buy.stripe.com/eVqcN497a3bfdaYazM6g802',
 };
 
 export default function Checkout() {
