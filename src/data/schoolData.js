@@ -60,7 +60,7 @@ export const programs = [
     shortDescription: 'Already Completed CNA Theory? Finish Your Clinicals Here',
     fullDescription: 'Already completed your CNA classroom training or theory portion? This program is designed for you. Complete your required 100+ supervised clinical hours at local St. Louis healthcare facilities, prepare for your Missouri state certification exam, and earn your CNA certificate. Note: the CNA certificate is issued only after successfully completing clinicals and passing the state test.',
     duration: 'Variable',
-    price: 'Contact for pricing',
+    price: 915,
     access: 'Based on facility',
     features: [
       '100+ hours of supervised clinical practice',
