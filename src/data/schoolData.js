@@ -133,7 +133,7 @@ export const blogPosts = [
     author: 'Shanekia Lindsay',
     date: '2026-06-02',
     category: 'Career',
-    image: '/blog/cna-career.jpg'
+    image: '/blog/year-2026.jpg'
   },
   {
     id: 5,
