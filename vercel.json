@@ -1,16 +1,7 @@
 {
-  "buildCommand": "npm run build",
-  "devCommand": "npm run dev:all",
-  "installCommand": "npm install",
-  "framework": "vite",
+  "buildCommand": "echo 'Using pre-built dist'",
+  "installCommand": "echo 'No install needed'",
   "outputDirectory": "dist",
-  "env": {
-    "STRIPE_SECRET_KEY": "@stripe_secret_key",
-    "EMAIL_USER": "@email_user",
-    "EMAIL_PASSWORD": "@email_password",
-    "VITE_STRIPE_PUBLISHABLE_KEY": "@vite_stripe_publishable_key",
-    "VITE_API_URL": "@vite_api_url"
-  },
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/$1" },
     { "source": "/(.*)", "destination": "/index.html" }
