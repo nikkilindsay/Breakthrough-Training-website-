@@ -317,7 +317,7 @@ export default function Checkout() {
             </form>
 
             <p className="text-center text-sm text-gray-600 mt-4">
-              Secure payment powered by Stripe
+              Secure payment powered by Bluevine
             </p>
           </div>
         </div>
