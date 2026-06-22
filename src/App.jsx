@@ -15,6 +15,7 @@ import Checkout from './pages/Checkout';
 import Enroll from './pages/Enroll';
 import Success from './pages/Success';
 import Payment from './pages/Payment';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
             <Route path="/checkout/:programId" element={<Checkout />} />
             <Route path="/pay" element={<Payment />} />
             <Route path="/success" element={<Success />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           </Routes>
         </main>
         <Footer />
