@@ -632,7 +632,7 @@ export default function Enroll() {
                     <Phone size={20} className="flex-shrink-0 mt-0.5" />
                     <div>
                       <p className="text-sm opacity-90">Call us</p>
-                      <p className="font-semibold">314-649-5586</p>
+                      <p className="font-semibold">636-242-5722</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">

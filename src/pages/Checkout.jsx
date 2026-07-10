@@ -114,7 +114,7 @@ export default function Checkout() {
 
           {/* Questions */}
           <div className="mt-6 text-center text-sm text-gray-600">
-            <p>Questions? Call us at <a href="tel:3146495586" className="text-blue-600 font-semibold">314-649-5586</a> or email <a href="mailto:btiadmissionoffice@gmail.com" className="text-blue-600 font-semibold">btiadmissionoffice@gmail.com</a></p>
+            <p>Questions? Call us at <a href="tel:6362425722" className="text-blue-600 font-semibold">636-242-5722</a> or email <a href="mailto:btiadmissionoffice@gmail.com" className="text-blue-600 font-semibold">btiadmissionoffice@gmail.com</a></p>
           </div>
         </div>
       </section>

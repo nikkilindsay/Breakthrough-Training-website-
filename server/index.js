@@ -31,6 +31,9 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+// Admin notification recipient
+const ADMIN_EMAIL = 'nikkidconnors@gmail.com';
+
 // Routes
 app.post('/api/create-payment-intent', async (req, res) => {
   try {
@@ -88,37 +91,140 @@ app.post('/api/confirm-payment', async (req, res) => {
     enrollments.push(enrollment);
     enrollmentCount++;
 
-    // Send confirmation email
+    // Send confirmation email to student
     try {
       await transporter.sendMail({
         from: process.env.EMAIL_USER,
         to: studentInfo.email,
         subject: `Welcome to ${programName} - Enrollment Confirmed!`,
         html: `
-          <h1>Welcome to Breakthrough Training Institute!</h1>
-          <p>Hi ${studentInfo.firstName},</p>
-          <p>Thank you for enrolling in our <strong>${programName}</strong> program!</p>
-          <p>Your payment of <strong>$${programPrice}</strong> has been successfully processed.</p>
-          <h2>Next Steps:</h2>
-          <ul>
-            <li>Check your email for program details and login credentials</li>
-            <li>Review the course materials and schedule</li>
-            <li>Contact us if you have any questions: btiadmissionoffice@gmail.com</li>
-          </ul>
-          <p>We're excited to have you join our inaugural class!</p>
-          <p>Best regards,<br>Breakthrough Training Institute Team</p>
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <div style="background: linear-gradient(135deg, #1e40af, #7c3aed); padding: 24px; border-radius: 10px 10px 0 0; text-align: center;">
+              <h1 style="color: white; margin: 0; font-size: 28px;">Welcome to Breakthrough Training Institute!</h1>
+            </div>
+            <div style="background: #ffffff; padding: 24px; border: 1px solid #e2e8f0; border-radius: 0 0 10px 10px;">
+              <p style="font-size: 16px; color: #1f2937;">Hi ${studentInfo.firstName},</p>
+              <p style="font-size: 16px; color: #1f2937;">Thank you for enrolling in our <strong>${programName}</strong> program!</p>
+              <p style="font-size: 16px; color: #1f2937;">Your payment of <strong style="color: #22c55e;">$${programPrice}</strong> has been successfully processed.</p>
+              
+              <div style="background: #f0f9ff; padding: 16px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #1e40af;">
+                <p style="margin: 0; color: #1e40af; font-weight: bold; font-size: 16px;">Next Steps:</p>
+                <ol style="color: #374151; font-size: 15px; padding-left: 20px;">
+                  <li style="margin-bottom: 8px;">Download the <strong>Breakthrough Training app</strong> to access your coursework</li>
+                  <li style="margin-bottom: 8px;">Our team will review your documents and reach out within <strong>24-48 hours</strong></li>
+                  <li style="margin-bottom: 8px;">Complete your checklist items (background check, TB test, etc.)</li>
+                  <li style="margin-bottom: 8px;">Contact us with any questions: <a href="mailto:btiadmissionoffice@gmail.com">btiadmissionoffice@gmail.com</a> or <a href="tel:6362425722">636-242-5722</a></li>
+                </ol>
+              </div>
+
+              <div style="background: #faf5ff; padding: 16px; border-radius: 8px; margin: 20px 0; text-align: center;">
+                <p style="font-style: italic; color: #6b21a8; font-size: 16px; margin: 0;">"The future belongs to those who believe in the beauty of their dreams."</p>
+                <p style="color: #9333ea; font-size: 13px; margin: 8px 0 0 0;">— Eleanor Roosevelt</p>
+              </div>
+
+              <p style="font-size: 16px; color: #1f2937;">We're excited to have you join our program! This is YOUR breakthrough moment!</p>
+              <p style="font-size: 14px; color: #6b7280; margin-top: 24px;">
+                Best regards,<br>
+                <strong>Breakthrough Training Institute Team</strong><br>
+                636-242-5722 | btiadmissionoffice@gmail.com
+              </p>
+            </div>
+          </div>
         `,
       });
     } catch (emailError) {
-      console.error('Email sending error:', emailError);
+      console.error('Student email sending error:', emailError);
       // Don't fail the enrollment if email fails
+    }
+
+    // Send admin notification email to Nikki
+    try {
+      const enrollmentDate = new Date().toLocaleString('en-US', {
+        timeZone: 'America/Chicago',
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+
+      await transporter.sendMail({
+        from: process.env.EMAIL_USER,
+        to: ADMIN_EMAIL,
+        subject: `🎉 NEW ENROLLMENT: ${studentInfo.firstName} ${studentInfo.lastName} - ${programName}`,
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <div style="background: linear-gradient(135deg, #1e40af, #7c3aed); padding: 20px; border-radius: 10px 10px 0 0;">
+              <h1 style="color: white; margin: 0; font-size: 24px;">🎉 New Student Enrolled!</h1>
+            </div>
+            <div style="background: #f8fafc; padding: 24px; border: 1px solid #e2e8f0; border-radius: 0 0 10px 10px;">
+              <h2 style="color: #1e40af; margin-top: 0;">Student Information</h2>
+              <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                <tr style="border-bottom: 1px solid #e2e8f0;">
+                  <td style="padding: 10px 0; font-weight: bold; color: #374151; width: 140px;">Name:</td>
+                  <td style="padding: 10px 0; color: #1f2937;">${studentInfo.firstName} ${studentInfo.lastName}</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #e2e8f0;">
+                  <td style="padding: 10px 0; font-weight: bold; color: #374151;">Email:</td>
+                  <td style="padding: 10px 0; color: #1f2937;"><a href="mailto:${studentInfo.email}">${studentInfo.email}</a></td>
+                </tr>
+                <tr style="border-bottom: 1px solid #e2e8f0;">
+                  <td style="padding: 10px 0; font-weight: bold; color: #374151;">Phone:</td>
+                  <td style="padding: 10px 0; color: #1f2937;">${studentInfo.phone || 'Not provided'}</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #e2e8f0;">
+                  <td style="padding: 10px 0; font-weight: bold; color: #374151;">Program:</td>
+                  <td style="padding: 10px 0; color: #1f2937; font-weight: bold;">${programName}</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #e2e8f0;">
+                  <td style="padding: 10px 0; font-weight: bold; color: #374151;">Amount Paid:</td>
+                  <td style="padding: 10px 0; color: #22c55e; font-weight: bold; font-size: 18px;">$${programPrice}</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #e2e8f0;">
+                  <td style="padding: 10px 0; font-weight: bold; color: #374151;">Date/Time:</td>
+                  <td style="padding: 10px 0; color: #1f2937;">${enrollmentDate}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px 0; font-weight: bold; color: #374151;">Payment ID:</td>
+                  <td style="padding: 10px 0; color: #6b7280; font-size: 12px;">${paymentIntentId}</td>
+                </tr>
+              </table>
+              ${studentInfo.address ? `
+              <h3 style="color: #1e40af;">Address</h3>
+              <p style="color: #1f2937;">${studentInfo.address}${studentInfo.city ? `, ${studentInfo.city}` : ''}${studentInfo.state ? `, ${studentInfo.state}` : ''} ${studentInfo.zip || ''}</p>
+              ` : ''}
+              ${studentInfo.emergencyContact ? `
+              <h3 style="color: #1e40af;">Emergency Contact</h3>
+              <p style="color: #1f2937;">${studentInfo.emergencyContact}${studentInfo.emergencyPhone ? ` - ${studentInfo.emergencyPhone}` : ''}</p>
+              ` : ''}
+              <div style="background: #dbeafe; padding: 16px; border-radius: 8px; margin-top: 20px;">
+                <p style="margin: 0; color: #1e40af; font-weight: bold;">📋 Action Items:</p>
+                <ul style="color: #374151; margin: 8px 0 0 0; padding-left: 20px;">
+                  <li>Review student documents (DL, SSC)</li>
+                  <li>Verify payment in Stripe dashboard</li>
+                  <li>Send student their app login credentials</li>
+                  <li>Add to class roster</li>
+                </ul>
+              </div>
+              <p style="color: #6b7280; font-size: 12px; margin-top: 20px; text-align: center;">
+                Total Enrollments: ${enrollmentCount} | Spots Remaining: ${25 - enrollmentCount}
+              </p>
+            </div>
+          </div>
+        `,
+      });
+      console.log(`Admin notification sent for enrollment: ${studentInfo.firstName} ${studentInfo.lastName}`);
+    } catch (adminEmailError) {
+      console.error('Admin notification email error:', adminEmailError);
+      // Don't fail the enrollment if admin email fails
     }
 
     res.json({
       success: true,
       enrollment,
       enrollmentCount,
-      message: 'Enrollment confirmed and confirmation email sent',
+      message: 'Enrollment confirmed and notification emails sent',
     });
   } catch (error) {
     console.error('Confirmation error:', error);
