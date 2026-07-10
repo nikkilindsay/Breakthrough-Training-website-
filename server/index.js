@@ -32,7 +32,7 @@ const transporter = nodemailer.createTransport({
 });
 
 // Admin notification recipient
-const ADMIN_EMAIL = 'nikkidconnors@gmail.com';
+const ADMIN_EMAIL = 'btiadmissionoffice@gmail.com';
 
 // Routes
 app.post('/api/create-payment-intent', async (req, res) => {
