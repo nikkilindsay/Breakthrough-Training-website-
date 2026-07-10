@@ -36,7 +36,7 @@ export default function Home() {
   return (
     <div className="w-full">
       {/* Hero Section */}
-      <section className="relative h-screen md:h-[600px] flex items-center justify-center text-white overflow-hidden">
+      <section className="relative h-screen md:h-[700px] flex items-center justify-center text-white overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
           <img 
@@ -44,18 +44,18 @@ export default function Home() {
             alt="Professional team meeting" 
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-black/40"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70"></div>
         </div>
         
         <div className="container-custom relative z-10 text-center">
           <div className="max-w-3xl mx-auto">
-            <h1 className="text-5xl md:text-6xl font-bold mb-4 leading-tight">
+            <h1 className="text-5xl md:text-7xl font-extrabold mb-4 leading-tight drop-shadow-lg">
               CNA Classes in St. Louis, MO
             </h1>
-            <p className="text-2xl md:text-3xl font-semibold mb-6 text-orange-300">
+            <p className="text-2xl md:text-4xl font-bold mb-6 text-orange-400 drop-shadow-md">
               State-Approved CNA Certification Programs
             </p>
-            <p className="text-xl md:text-2xl mb-8 text-gray-100">
+            <p className="text-xl md:text-2xl mb-8 text-gray-100 font-medium">
               Hybrid and self-paced CNA training designed to launch your healthcare career. Next hybrid class starts July 7!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

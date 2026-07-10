@@ -15,6 +15,7 @@ export default function Navigation() {
     { name: 'Events', path: '/events' },
     { name: 'Gallery', path: '/gallery' },
     { name: 'Instructors', path: '/instructors' },
+    { name: 'Careers', path: '/careers' },
     { name: 'Contact', path: '/contact' },
   ];
 
@@ -24,10 +25,10 @@ export default function Navigation() {
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
-            <img src="/logo.png" alt="Breakthrough Training Institute" className="w-20 h-20 object-contain" />
+            <img src="/logo.png" alt="Breakthrough Training Institute" className="w-28 h-28 md:w-32 md:h-32 object-contain" />
             <div>
-              <h1 className="font-bold text-sm md:text-lg text-dark leading-tight">{schoolData.name}</h1>
-              <p className="text-xs text-orange-500 font-semibold">{schoolData.tagline}</p>
+              <h1 className="font-bold text-base md:text-xl text-dark leading-tight">{schoolData.name}</h1>
+              <p className="text-sm md:text-base text-orange-500 font-semibold">{schoolData.tagline}</p>
             </div>
           </Link>
 

@@ -16,6 +16,7 @@ import Enroll from './pages/Enroll';
 import Success from './pages/Success';
 import Payment from './pages/Payment';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import Careers from './pages/Careers';
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
             <Route path="/pay" element={<Payment />} />
             <Route path="/success" element={<Success />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/careers" element={<Careers />} />
           </Routes>
         </main>
         <Footer />

@@ -22,6 +22,9 @@ app.use(express.json());
 let enrollments = [];
 let enrollmentCount = 0;
 
+// In-memory storage for email subscribers
+let subscribers = [];
+
 // Email configuration
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -242,6 +245,94 @@ app.get('/api/enrollment-count', (req, res) => {
 
 app.get('/api/enrollments', (req, res) => {
   res.json(enrollments);
+});
+
+// Email subscription endpoint
+app.post('/api/subscribe', async (req, res) => {
+  try {
+    const { name, email } = req.body;
+
+    if (!name || !email) {
+      return res.status(400).json({ error: 'Name and email are required' });
+    }
+
+    // Check for duplicate
+    const existing = subscribers.find(s => s.email.toLowerCase() === email.toLowerCase());
+    if (existing) {
+      return res.json({ success: true, message: 'Already subscribed' });
+    }
+
+    // Store subscriber
+    const subscriber = {
+      name,
+      email,
+      subscribedAt: new Date().toISOString(),
+    };
+    subscribers.push(subscriber);
+
+    // Send confirmation email to subscriber
+    try {
+      await transporter.sendMail({
+        from: `"Breakthrough Training Institute" <${process.env.EMAIL_USER}>`,
+        to: email,
+        subject: 'Welcome to the BTI Community!',
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <div style="background: linear-gradient(135deg, #f97316, #ea580c); padding: 30px; text-align: center;">
+              <h1 style="color: white; margin: 0;">Welcome to BTI!</h1>
+            </div>
+            <div style="padding: 30px; background: #ffffff;">
+              <p style="font-size: 18px; color: #333;">Hi ${name},</p>
+              <p style="color: #555; line-height: 1.6;">Thank you for subscribing to updates from Breakthrough Training Institute! You'll now receive:</p>
+              <ul style="color: #555; line-height: 2;">
+                <li>🎯 New job openings</li>
+                <li>📝 Blog posts and educational content</li>
+                <li>📅 Upcoming events and class schedules</li>
+                <li>🎓 Student success stories</li>
+                <li>💡 Healthcare industry insights</li>
+              </ul>
+              <p style="color: #555; line-height: 1.6;">We're glad to have you in our community!</p>
+              <p style="color: #555;">— The BTI Team</p>
+              <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
+              <p style="color: #999; font-size: 12px; text-align: center;">Breakthrough Training Institute | 636-242-5722 | btiadmissionoffice@gmail.com</p>
+            </div>
+          </div>
+        `,
+      });
+    } catch (emailError) {
+      console.error('Subscriber confirmation email error:', emailError);
+    }
+
+    // Notify admin of new subscriber
+    try {
+      await transporter.sendMail({
+        from: `"BTI Website" <${process.env.EMAIL_USER}>`,
+        to: ADMIN_EMAIL,
+        subject: `New Subscriber: ${name}`,
+        html: `
+          <div style="font-family: Arial, sans-serif; padding: 20px;">
+            <h2 style="color: #f97316;">New Email Subscriber</h2>
+            <p><strong>Name:</strong> ${name}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Date:</strong> ${new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' })}</p>
+            <p><strong>Total Subscribers:</strong> ${subscribers.length}</p>
+          </div>
+        `,
+      });
+    } catch (adminError) {
+      console.error('Admin subscriber notification error:', adminError);
+    }
+
+    res.json({ success: true, message: 'Subscribed successfully' });
+  } catch (error) {
+    console.error('Subscription error:', error);
+    res.status(500).json({ error: 'Failed to subscribe' });
+  }
+});
+
+// Get subscribers list (admin)
+app.get('/api/subscribers', (req, res) => {
+  res.json({ subscribers, total: subscribers.length });
 });
 
 // Health check
