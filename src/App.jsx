@@ -17,6 +17,8 @@ import Success from './pages/Success';
 import Payment from './pages/Payment';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import Careers from './pages/Careers';
+import HowToPay from './pages/HowToPay';
+import FAQ from './pages/FAQ';
 
 function App() {
   return (
@@ -40,6 +42,8 @@ function App() {
             <Route path="/success" element={<Success />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/careers" element={<Careers />} />
+            <Route path="/how-to-pay" element={<HowToPay />} />
+            <Route path="/faq" element={<FAQ />} />
           </Routes>
         </main>
         <Footer />

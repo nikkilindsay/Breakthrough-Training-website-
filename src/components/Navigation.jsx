@@ -15,7 +15,9 @@ export default function Navigation() {
     { name: 'Events', path: '/events' },
     { name: 'Gallery', path: '/gallery' },
     { name: 'Instructors', path: '/instructors' },
+    { name: 'How to Pay', path: '/how-to-pay' },
     { name: 'Careers', path: '/careers' },
+    { name: 'FAQ', path: '/faq' },
     { name: 'Contact', path: '/contact' },
   ];
 
