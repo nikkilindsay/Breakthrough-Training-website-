@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { CheckCircle, Clock, DollarSign, Users, Award, ArrowRight } from 'lucide-react';
+import { CheckCircle, Clock, DollarSign, Users, Award, ArrowRight, Calendar } from 'lucide-react';
 import { programs } from '../data/schoolData';
 
 export default function ProgramDetail() {
@@ -89,6 +89,20 @@ export default function ProgramDetail() {
                   ))}
                 </div>
               </div>
+
+              {/* Class Schedule Link - Hybrid Program */}
+              {program.id === 'cna-hybrid' && (
+                <div className="bg-orange-50 border border-orange-200 rounded-lg p-6 mb-12">
+                  <div className="flex items-center gap-3 mb-3">
+                    <Calendar size={24} className="text-orange-500" />
+                    <h3 className="text-xl font-bold text-gray-900">Upcoming Cohort Dates</h3>
+                  </div>
+                  <p className="text-gray-700 mb-4">New cohorts start every 4th Tuesday. Next cohort: <strong>July 28, 2026</strong>. Seats are limited!</p>
+                  <Link to="/class-schedule" className="inline-flex items-center gap-2 bg-orange-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-orange-600 transition-colors">
+                    View Full Class Schedule <ArrowRight size={18} />
+                  </Link>
+                </div>
+              )}
 
               {/* Program Details */}
               <div className="bg-gray-50 rounded-lg p-8 mb-12">

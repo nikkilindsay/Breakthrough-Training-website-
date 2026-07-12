@@ -20,7 +20,7 @@ const faqs = [
       },
       {
         q: 'When does the next class start?',
-        a: 'Our Self-Paced CNA program allows you to start immediately after enrollment. The Hybrid Program runs in cohorts — the next class starts July 7, 2026. Check our Programs page for the most current schedule.'
+        a: 'Our Self-Paced CNA program allows you to start immediately after enrollment. The Hybrid Program runs in cohorts starting every 4th Tuesday — the next class starts July 28, 2026. Check our Class Schedule page for upcoming dates.'
       },
       {
         q: 'Can I enroll if I live outside of St. Louis?',
@@ -33,7 +33,7 @@ const faqs = [
     questions: [
       {
         q: 'What is the difference between the Self-Paced and Hybrid programs?',
-        a: 'The Self-Paced CNA program ($475) is 100% online theory that you complete at your own pace within 4 months. The Hybrid Program ($1,175) is a 5-week intensive that combines in-person classroom instruction (2 days/week) with online coursework and supervised clinical practice. Both prepare you for the state certification exam.'
+        a: 'The Self-Paced CNA program ($475) is 100% online theory that you complete at your own pace within 4 months. The Hybrid Program ($1,175) is a 5-week intensive that starts with 2 days of in-person classroom instruction to kick off your cohort, then the remainder of your theory classes are completed online, followed by supervised clinical practice. Both prepare you for the state certification exam.'
       },
       {
         q: 'What is the Clinical Experience Only program?',
@@ -112,7 +112,7 @@ const faqs = [
       },
       {
         q: 'Do I need a computer to take classes?',
-        a: 'For the Self-Paced program, you can complete everything on your phone or tablet using our app. However, we recommend having access to a computer for the best learning experience, especially for watching video tutorials and completing assessments.'
+        a: 'For the Self-Paced program, you can complete everything on your phone or tablet using our app. However, we recommend having access to a computer for the best learning experience, especially for watching video tutorials and completing assessments. If you need a computer, you can use one in our classroom by scheduling through the office — just email us at btiadmissionoffice@gmail.com to reserve a time.'
       },
       {
         q: 'How do I access my course materials?',
@@ -129,15 +129,15 @@ const faqs = [
       },
       {
         q: 'How much do CNAs make in St. Louis?',
-        a: 'CNA salaries in the St. Louis area typically range from $14-$22 per hour depending on experience, facility type, and shift. Many facilities offer sign-on bonuses, shift differentials, and benefits.'
+        a: 'CNA salaries in the St. Louis area typically range from $17-$35 per hour depending on experience, facility type, and shift. Many facilities offer sign-on bonuses, shift differentials, and benefits.'
       },
       {
         q: 'Do you help with job placement?',
-        a: 'Yes! Our Hybrid Program includes job placement assistance. We have relationships with local healthcare facilities and can help connect you with employment opportunities after certification.'
+        a: 'Yes! We have affiliate partners and healthcare facilities where our graduates can apply directly. Additionally, through Breakthrough Healthcare — our sister company — BTI students receive priority consideration for open CNA positions. We\'re committed to helping you land your first healthcare job after certification.'
       },
       {
         q: 'Can I work while taking classes?',
-        a: 'Absolutely! Our Self-Paced program is designed for working adults — study on your schedule. The Hybrid Program meets only 2 days per week, making it possible to maintain employment during training.'
+        a: 'Absolutely! Our Self-Paced program is designed for working adults — study on your schedule. The Hybrid Program starts with just 2 in-person days, then moves online, making it possible to maintain employment during training.'
       }
     ]
   }

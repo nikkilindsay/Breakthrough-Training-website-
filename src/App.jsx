@@ -19,6 +19,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import Careers from './pages/Careers';
 import HowToPay from './pages/HowToPay';
 import FAQ from './pages/FAQ';
+import ClassSchedule from './pages/ClassSchedule';
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
             <Route path="/careers" element={<Careers />} />
             <Route path="/how-to-pay" element={<HowToPay />} />
             <Route path="/faq" element={<FAQ />} />
+            <Route path="/class-schedule" element={<ClassSchedule />} />
           </Routes>
         </main>
         <Footer />

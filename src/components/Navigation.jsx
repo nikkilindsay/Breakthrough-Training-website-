@@ -17,6 +17,7 @@ export default function Navigation() {
     { name: 'Instructors', path: '/instructors' },
     { name: 'How to Pay', path: '/how-to-pay' },
     { name: 'Careers', path: '/careers' },
+    { name: 'Class Schedule', path: '/class-schedule' },
     { name: 'FAQ', path: '/faq' },
     { name: 'Contact', path: '/contact' },
   ];

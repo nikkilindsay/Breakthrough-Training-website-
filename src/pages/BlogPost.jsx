@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Calendar, User, ArrowLeft, Share2 } from 'lucide-react';
-import { blogPosts } from '../data/schoolData';
+import { newBlogPosts as blogPosts } from '../data/blogPosts';
 
 export default function BlogPost() {
   const { id } = useParams();
