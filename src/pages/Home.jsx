@@ -1,11 +1,12 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, CheckCircle, Users, Award, Zap } from 'lucide-react';
+import { ArrowRight, CheckCircle, Users, Award, Zap, Mail } from 'lucide-react';
 import { programs, schoolData } from '../data/schoolData';
 import enrollmentConfig from '../data/enrollmentConfig.json';
 import heroImage from '../assets/hero-team-meeting.webp';
 import MotivationalSidebar from '../components/MotivationalSidebar';
+import EmailSignupForm from '../components/EmailSignupForm';
 
 export default function Home() {
   const [enrollmentData, setEnrollmentData] = useState(enrollmentConfig);
@@ -171,6 +172,18 @@ export default function Home() {
           <Link to="/enroll" className="btn-secondary inline-flex items-center gap-2 bg-white text-primary hover:bg-gray-100">
             Enroll Now <ArrowRight size={20} />
           </Link>
+        </div>
+      </section>
+
+      {/* Email Subscription Section */}
+      <section className="py-16 bg-gradient-to-r from-orange-500 to-orange-600">
+        <div className="container-custom text-center">
+          <div className="max-w-2xl mx-auto">
+            <Mail size={40} className="text-white mx-auto mb-4" />
+            <h2 className="text-3xl font-bold text-white mb-3">Stay Updated with BTI</h2>
+            <p className="text-orange-100 text-lg mb-6">Get class schedules, job openings, student tips, and enrollment reminders delivered to your inbox.</p>
+            <EmailSignupForm />
+          </div>
         </div>
       </section>
 
