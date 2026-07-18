@@ -183,16 +183,16 @@ export default function Home() {
               <p className="text-gray-600">{enrollmentData.currentEnrollments} of {enrollmentData.maxCapacity} Students</p>
             </div>
             <div>
-              <div className="text-4xl font-bold text-secondary mb-2">95%</div>
-              <p className="text-gray-600">Pass Rate</p>
+              <div className="text-4xl font-bold text-secondary mb-2">5 Weeks</div>
+              <p className="text-gray-600">To CNA Certification</p>
             </div>
             <div>
               <div className="text-4xl font-bold text-primary mb-2">100%</div>
-              <p className="text-gray-600">Job Placement</p>
+              <p className="text-gray-600">Job Placement Support</p>
             </div>
             <div>
               <div className="text-4xl font-bold text-secondary mb-2">28+</div>
-              <p className="text-gray-600">Years Experience</p>
+              <p className="text-gray-600">Years Nursing Experience</p>
             </div>
           </div>
         </div>

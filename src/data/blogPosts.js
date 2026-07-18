@@ -30,7 +30,7 @@ CNAs work in:
 - Rehabilitation centers
 - Clinics and medical offices
 
-With our **95% pass rate** and **100% job placement support**, you'll be ready to start your career immediately after certification.
+With our **100% job placement support** and comprehensive exam preparation, you'll be ready to start your career immediately after certification.
 
 ## The Earning Potential
 
@@ -82,7 +82,7 @@ The healthcare industry isn't slowing down, and neither should you. Every day yo
     content: `
 # How to Pass the CNA Certification Exam: 5 Expert Tips
 
-The CNA certification exam can feel intimidating, but with the right preparation, you can pass with confidence. We've helped hundreds of students achieve a **95% pass rate**, and we're sharing our top 5 expert tips to help you succeed.
+The CNA certification exam can feel intimidating, but with the right preparation, you can pass with confidence. Our program is designed to prepare you thoroughly for exam day, and we're sharing our top 5 expert tips to help you succeed.
 
 ## Tip #1: Start Studying Early (But Don't Cram)
 
@@ -166,7 +166,7 @@ Our CNA program includes:
 
 We're committed to your success. If you don't pass the state exam on your first attempt, we provide retake support and additional study materials at no extra cost.
 
-**Ready to ace your CNA exam?** [Enroll in our program](https://btieducation.com/enroll) today and join hundreds of successful graduates.
+**Ready to ace your CNA exam?** [Enroll in our program](https://btieducation.com/enroll) today and start your journey toward a rewarding healthcare career.
 
 ---
 
@@ -186,7 +186,7 @@ We're committed to your success. If you don't pass the state exam on your first 
     content: `
 # A Day in the Life of a Certified Nursing Assistant
 
-Curious about what it's really like to work as a CNA? Let's follow Maria, one of our graduates, through a typical day at a local nursing home. Her story might inspire you to start your own healthcare journey.
+Curious about what it's really like to work as a CNA? Let's follow Maria, a CNA at a local nursing home, through a typical day. Her story might inspire you to start your own healthcare journey.
 
 ## 6:30 AM - Arriving at Work
 
@@ -645,19 +645,19 @@ With so many CNA programs available, why should you choose Breakthrough Training
 
 When you learn from Shanekia and our team, you're learning from the best.
 
-## Reason #2: Proven Results - 95% Pass Rate
+## Reason #2: Commitment to Your Success
 
 **What makes us different:** We don't just enroll students; we ensure they succeed.
 
-**Our track record:**
-- ✅ 95% pass rate on state certification exams
+**Our commitment:**
+- ✅ Thorough preparation for state certification exams
 - ✅ 100% job placement support for graduates
-- ✅ Hundreds of successful graduates
-- ✅ Consistent, reliable results year after year
+- ✅ Priority hiring through Breakthrough Healthcare
+- ✅ Missouri State Approved program
 
-**Why this matters:** A high pass rate means our program actually works. We prepare you thoroughly for the state exam, and most importantly, we prepare you to be a competent, confident CNA.
+**Why this matters:** Our program is designed by experienced RNs to prepare you thoroughly for the state exam, and most importantly, to prepare you to be a competent, confident CNA.
 
-When you enroll with us, you're joining a program with a proven track record of success.
+When you enroll with us, you're joining a program built on decades of nursing expertise.
 
 ## Reason #3: Flexible, Self-Paced Learning
 
@@ -689,7 +689,7 @@ Whether you want to complete your CNA in lightning speed or take your time, we'v
 - ✅ Real-world scenarios and case studies
 - ✅ Video demonstrations of every skill
 
-**Why this matters:** You won't just pass the exam—you'll be prepared to actually do the job. Our graduates report feeling confident and ready on their first day of work.
+**Why this matters:** You won't just pass the exam—you'll be prepared to actually do the job. Our goal is for every graduate to feel confident and ready on their first day of work.
 
 ## Reason #5: Affordable Pricing with Real Value
 
@@ -722,13 +722,13 @@ Plus, consider the ROI: Your $475 investment leads to a career earning $28,000-$
 
 **Why this matters:** You're not alone in this journey. You're joining a community of healthcare professionals who support each other's success.
 
-## What Our Graduates Say
+## What to Expect as a BTI Student
 
-> "I completed the program in 4 weeks and passed the exam on my first try. The instruction was clear, the materials were comprehensive, and I felt completely prepared. I'm now working as a CNA and loving it!" — **Maria T.**
-
-> "The self-paced format was perfect for me. I was able to work full-time while completing the program. Shanekia and the team were incredibly supportive throughout." — **James R.**
-
-> "The best investment I ever made. For $475, I got a career that's paying me $32,000 a year. I'm already considering advancing to LPN. Thank you, Breakthrough Training Institute!" — **Keisha M.**
+- Personalized support from experienced RN instructors
+- Flexible scheduling that works around your life
+- Comprehensive exam prep with practice tests
+- Clinical experience at real healthcare facilities
+- Job placement assistance upon completion
 
 ## Your Success is Our Mission
 
@@ -738,7 +738,7 @@ At Breakthrough Training Institute, we're not just in the business of education�
 
 You've learned about our expert instructors, proven results, flexible learning, comprehensive curriculum, affordable pricing, and exceptional support. Now it's time to take action.
 
-**[Enroll in our CNA program today](https://btieducation.com/enroll)** and join hundreds of successful graduates who have transformed their lives through Breakthrough Training Institute.
+**[Enroll in our CNA program today](https://btieducation.com/enroll)** and start your journey toward a rewarding healthcare career with Breakthrough Training Institute.
 
 Your healthcare career is just 4 weeks away. Let's make it happen!
 
