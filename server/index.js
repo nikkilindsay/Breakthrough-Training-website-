@@ -3,10 +3,18 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import stripe from 'stripe';
 import nodemailer from 'nodemailer';
+import mailchimp from '@mailchimp/mailchimp_marketing';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
 dotenv.config();
+
+// Mailchimp configuration
+mailchimp.setConfig({
+  apiKey: process.env.MAILCHIMP_API_KEY,
+  server: process.env.MAILCHIMP_SERVER_PREFIX || 'us1',
+});
+const MAILCHIMP_LIST_ID = process.env.MAILCHIMP_LIST_ID || '22a2321d2a';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -256,52 +264,38 @@ app.post('/api/subscribe', async (req, res) => {
       return res.status(400).json({ error: 'Name and email are required' });
     }
 
-    // Check for duplicate
-    const existing = subscribers.find(s => s.email.toLowerCase() === email.toLowerCase());
-    if (existing) {
-      return res.json({ success: true, message: 'Already subscribed' });
+    // Split name into first/last
+    const nameParts = name.trim().split(' ');
+    const firstName = nameParts[0] || '';
+    const lastName = nameParts.slice(1).join(' ') || '';
+
+    // Add to Mailchimp
+    try {
+      await mailchimp.lists.addListMember(MAILCHIMP_LIST_ID, {
+        email_address: email,
+        status: 'subscribed',
+        merge_fields: {
+          FNAME: firstName,
+          LNAME: lastName,
+        },
+        tags: ['website-signup'],
+      });
+    } catch (mcError) {
+      // If already subscribed, that's fine
+      if (mcError.status === 400 && mcError.response?.body?.title === 'Member Exists') {
+        return res.json({ success: true, message: 'Already subscribed' });
+      }
+      console.error('Mailchimp error:', mcError.response?.body || mcError.message);
+      // Continue even if Mailchimp fails - still store locally
     }
 
-    // Store subscriber
+    // Also store locally as backup
     const subscriber = {
       name,
       email,
       subscribedAt: new Date().toISOString(),
     };
     subscribers.push(subscriber);
-
-    // Send confirmation email to subscriber
-    try {
-      await transporter.sendMail({
-        from: `"Breakthrough Training Institute" <${process.env.EMAIL_USER}>`,
-        to: email,
-        subject: 'Welcome to the BTI Community!',
-        html: `
-          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-            <div style="background: linear-gradient(135deg, #f97316, #ea580c); padding: 30px; text-align: center;">
-              <h1 style="color: white; margin: 0;">Welcome to BTI!</h1>
-            </div>
-            <div style="padding: 30px; background: #ffffff;">
-              <p style="font-size: 18px; color: #333;">Hi ${name},</p>
-              <p style="color: #555; line-height: 1.6;">Thank you for subscribing to updates from Breakthrough Training Institute! You'll now receive:</p>
-              <ul style="color: #555; line-height: 2;">
-                <li>🎯 New job openings</li>
-                <li>📝 Blog posts and educational content</li>
-                <li>📅 Upcoming events and class schedules</li>
-                <li>🎓 Student success stories</li>
-                <li>💡 Healthcare industry insights</li>
-              </ul>
-              <p style="color: #555; line-height: 1.6;">We're glad to have you in our community!</p>
-              <p style="color: #555;">— The BTI Team</p>
-              <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
-              <p style="color: #999; font-size: 12px; text-align: center;">Breakthrough Training Institute | 636-242-5722 | btiadmissionoffice@gmail.com</p>
-            </div>
-          </div>
-        `,
-      });
-    } catch (emailError) {
-      console.error('Subscriber confirmation email error:', emailError);
-    }
 
     // Notify admin of new subscriber
     try {
@@ -315,7 +309,7 @@ app.post('/api/subscribe', async (req, res) => {
             <p><strong>Name:</strong> ${name}</p>
             <p><strong>Email:</strong> ${email}</p>
             <p><strong>Date:</strong> ${new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' })}</p>
-            <p><strong>Total Subscribers:</strong> ${subscribers.length}</p>
+            <p><strong>Source:</strong> Website signup (added to Mailchimp)</p>
           </div>
         `,
       });
@@ -323,7 +317,7 @@ app.post('/api/subscribe', async (req, res) => {
       console.error('Admin subscriber notification error:', adminError);
     }
 
-    res.json({ success: true, message: 'Subscribed successfully' });
+    res.json({ success: true, message: 'Subscribed successfully! Check your email for a welcome message.' });
   } catch (error) {
     console.error('Subscription error:', error);
     res.status(500).json({ error: 'Failed to subscribe' });
@@ -331,8 +325,21 @@ app.post('/api/subscribe', async (req, res) => {
 });
 
 // Get subscribers list (admin)
-app.get('/api/subscribers', (req, res) => {
-  res.json({ subscribers, total: subscribers.length });
+app.get('/api/subscribers', async (req, res) => {
+  try {
+    const response = await mailchimp.lists.getListMembersInfo(MAILCHIMP_LIST_ID, { count: 100 });
+    const members = response.members.map(m => ({
+      name: `${m.merge_fields.FNAME} ${m.merge_fields.LNAME}`.trim(),
+      email: m.email_address,
+      status: m.status,
+      subscribedAt: m.timestamp_opt || m.timestamp_signup,
+    }));
+    res.json({ subscribers: members, total: response.total_items });
+  } catch (error) {
+    console.error('Mailchimp list error:', error);
+    // Fallback to local storage
+    res.json({ subscribers, total: subscribers.length });
+  }
 });
 
 // Health check

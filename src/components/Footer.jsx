@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin } from 'lucide-react';
 import { schoolData } from '../data/schoolData';
+import EmailSignupForm from './EmailSignupForm';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -67,6 +68,15 @@ export default function Footer() {
                 </a>
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* Newsletter Signup */}
+        <div className="border-t border-gray-700 pt-8 pb-8">
+          <div className="max-w-xl mx-auto text-center mb-6">
+            <h4 className="font-bold text-lg mb-2">Subscribe to BTI Updates</h4>
+            <p className="text-gray-400 text-sm mb-4">Class schedules, job openings, and student resources — straight to your inbox.</p>
+            <EmailSignupForm variant="footer" />
           </div>
         </div>
 
