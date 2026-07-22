@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -20,6 +20,7 @@ import Careers from './pages/Careers';
 import HowToPay from './pages/HowToPay';
 import FAQ from './pages/FAQ';
 import ClassSchedule from './pages/ClassSchedule';
+import Scholarship from './pages/Scholarship';
 
 function App() {
   return (
@@ -46,6 +47,9 @@ function App() {
             <Route path="/how-to-pay" element={<HowToPay />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/class-schedule" element={<ClassSchedule />} />
+            <Route path="/scholarship" element={<Scholarship />} />
+            <Route path="/about" element={<Navigate to="/instructors" replace />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
         <Footer />

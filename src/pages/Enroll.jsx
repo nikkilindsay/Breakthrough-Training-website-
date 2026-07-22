@@ -175,7 +175,7 @@ export default function Enroll() {
         <div className="container-custom">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Start Your CNA Journey Today</h1>
           <p className="text-xl text-blue-100 max-w-2xl">
-            Join hundreds of successful students. Quick enrollment, flexible learning, affordable pricing.
+            Be part of our founding class. Quick enrollment, flexible learning, affordable pricing.
           </p>
         </div>
       </section>

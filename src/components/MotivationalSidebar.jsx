@@ -23,7 +23,7 @@ export default function MotivationalSidebar() {
       </h3>
       
       <p className="text-center text-yellow-100 font-semibold mb-4">
-        Now Enrolling: {enrollmentData.currentEnrollments} of {enrollmentData.maxCapacity} Students
+        Founding Cohort — Only {enrollmentData.maxCapacity - enrollmentData.currentEnrollments} Seats Available
       </p>
 
       <p className="text-center text-sm text-yellow-100 mb-6">
@@ -83,7 +83,7 @@ export default function MotivationalSidebar() {
 
       {/* Enrollment Status */}
       <div className="mt-6 pt-6 border-t border-yellow-300 border-opacity-30 text-center text-xs text-yellow-100">
-        <p>Inaugural Class • {enrollmentData.maxCapacity - enrollmentData.currentEnrollments} spots remaining</p>
+        <p>Inaugural Class • Limited to {enrollmentData.maxCapacity} students for personalized attention</p>
       </div>
     </div>
   );

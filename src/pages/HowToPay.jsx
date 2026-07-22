@@ -17,6 +17,79 @@ export default function HowToPay() {
         </div>
       </section>
 
+      {/* Ways to Pay $0 — Funding Options */}
+      <section className="py-16 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center mb-10">
+            <span className="inline-block bg-green-600 text-white text-sm font-bold px-4 py-1 rounded-full mb-4">NEW — FUNDING OPTIONS</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Ways to Pay $0 (or Get Your Money Back)</h2>
+            <p className="text-lg text-gray-700 max-w-3xl mx-auto">
+              Believe it or not, most of our students may qualify to have their CNA training paid for — or paid back. Here's the treasure map. We'll help you apply for every single one.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-white rounded-xl shadow-md p-6 border-l-4 border-green-500">
+              <h3 className="text-xl font-bold text-gray-900 mb-2">💰 Tuition Reimbursement (Federal OBRA '87 Law)</h3>
+              <p className="text-gray-700 mb-2">Here's the best-kept secret in healthcare: if you're hired by a Medicaid/Medicare-certified nursing facility within <strong>12 months</strong> of passing your CNA exam, federal law requires the facility to <strong>reimburse your training and testing costs</strong>.</p>
+              <p className="text-green-700 font-semibold">Translation: Train now. Get hired. Get your tuition back.</p>
+            </div>
+
+            <div className="bg-white rounded-xl shadow-md p-6 border-l-4 border-blue-500">
+              <h3 className="text-xl font-bold text-gray-900 mb-2">🏛️ WIOA / Missouri Job Centers</h3>
+              <p className="text-gray-700 mb-2">If you're unemployed, underemployed, or a young adult, the Workforce Innovation & Opportunity Act may cover your tuition through your local Missouri Job Center.</p>
+              <p className="text-blue-700 font-semibold">Visit your nearest Job Center and ask about training funds for CNA programs.</p>
+            </div>
+
+            <div className="bg-white rounded-xl shadow-md p-6 border-l-4 border-purple-500">
+              <h3 className="text-xl font-bold text-gray-900 mb-2">🌐 SLATE — St. Louis City Residents</h3>
+              <p className="text-gray-700 mb-2">Live in the City of St. Louis? SLATE (the city's workforce agency) offers eligible residents up to <strong>$10,000</strong> in training assistance for tuition, books, and supplies.</p>
+              <p className="text-purple-700 font-semibold">That's more than 8x our self-paced tuition. Yes, really.</p>
+            </div>
+
+            <div className="bg-white rounded-xl shadow-md p-6 border-l-4 border-orange-500">
+              <h3 className="text-xl font-bold text-gray-900 mb-2">🍽️ SkillUP — SNAP Recipients</h3>
+              <p className="text-gray-700 mb-2">Receive SNAP (food stamp) benefits? Missouri's SkillUP program can pay for short-term training, books, supplies, uniforms — even help with transportation.</p>
+              <p className="text-orange-700 font-semibold">Ask us how to connect with a SkillUP provider near you.</p>
+            </div>
+
+            <div className="bg-white rounded-xl shadow-md p-6 border-l-4 border-teal-500">
+              <h3 className="text-xl font-bold text-gray-900 mb-2">🎓 Missouri Fast Track Grant</h3>
+              <p className="text-gray-700 mb-2">25 or older (or out of school 2+ years), earning under $40,000 single / $80,000 joint, and no bachelor's degree? The Fast Track Workforce Incentive Grant may cover your tuition and fees.</p>
+              <p className="text-teal-700 font-semibold">Healthcare is a designated high-need field — CNAs count.</p>
+            </div>
+
+            <div className="bg-white rounded-xl shadow-md p-6 border-l-4 border-red-500">
+              <h3 className="text-xl font-bold text-gray-900 mb-2">✈️ MyCAA — Military Spouses</h3>
+              <p className="text-gray-700 mb-2">Military spouses (of E1–E6, W1–W2, O1–O3 service members) can receive up to <strong>$4,000</strong> for portable career training through MyCAA. CNA is a perfect portable career for every duty station.</p>
+              <p className="text-red-700 font-semibold">Scott AFB families — we're 25 minutes away!</p>
+            </div>
+
+            <div className="bg-white rounded-xl shadow-md p-6 border-l-4 border-indigo-500">
+              <h3 className="text-xl font-bold text-gray-900 mb-2">🏥 Employer Sponsorship</h3>
+              <p className="text-gray-700 mb-2">Some nursing homes, assisted living communities, and home health agencies will sponsor your training in exchange for joining their team after certification.</p>
+              <p className="text-indigo-700 font-semibold">Already have an employer in mind? Have them call us — we offer partnership rates.</p>
+            </div>
+
+            <div className="bg-white rounded-xl shadow-md p-6 border-l-4 border-amber-500">
+              <h3 className="text-xl font-bold text-gray-900 mb-2">♿ Vocational Rehabilitation</h3>
+              <p className="text-gray-700 mb-2">Missouri Vocational Rehabilitation helps people with disabilities pay for job training. If you have a documented disability, VR may cover your full training costs.</p>
+              <p className="text-amber-700 font-semibold">Contact your local VR office or ask us for guidance.</p>
+            </div>
+          </div>
+
+          <div className="text-center mt-10">
+            <p className="text-gray-700 text-lg mb-4 font-semibold">Not sure which one fits you? That's literally our job.</p>
+            <Link to="/contact" className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full transition-colors">
+              Ask Us About Funding <ArrowRight size={18} />
+            </Link>
+            <p className="text-gray-500 text-xs mt-6 max-w-2xl mx-auto">
+              Funding availability, eligibility, and amounts are determined by each program's administering agency and are subject to change. Reimbursement under OBRA '87 applies when hired by a Medicaid/Medicare-certified nursing facility within 12 months of certification, per federal and Missouri guidelines.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Payment Methods */}
       <section className="py-16 max-w-6xl mx-auto px-4">
         <h2 className="text-3xl font-bold text-center text-gray-900 mb-4">Accepted Payment Methods</h2>
@@ -164,7 +237,7 @@ export default function HowToPay() {
               <span className="absolute -top-3 right-4 bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full">MOST POPULAR</span>
               <h3 className="text-xl font-bold text-gray-900 mb-2">CNA Hybrid Program</h3>
               <p className="text-4xl font-bold text-purple-600 mb-4">$1,175</p>
-              <p className="text-gray-600 mb-4">5-week in-person + online. Next class starts July 7!</p>
+              <p className="text-gray-600 mb-4">5-week in-person + online. Next class starts July 28!</p>
               <Link to="/enroll" className="inline-flex items-center gap-2 text-purple-600 font-semibold hover:text-purple-800">
                 Enroll Now <ArrowRight size={16} />
               </Link>

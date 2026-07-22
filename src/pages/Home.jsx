@@ -57,7 +57,7 @@ export default function Home() {
               State-Approved CNA Certification Programs
             </p>
             <p className="text-xl md:text-2xl mb-8 text-gray-100 font-medium">
-              Hybrid and self-paced CNA training designed to launch your healthcare career. Next hybrid class starts July 7!
+              Hybrid and self-paced CNA training designed to launch your healthcare career. Next hybrid class starts July 28!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link to="/enroll" className="btn-secondary inline-flex items-center justify-center gap-2">
@@ -105,7 +105,7 @@ export default function Home() {
             <h2 className="section-title">CNA Certification Programs in St. Louis</h2>
             <p className="section-subtitle">Affordable, state-approved CNA classes — hybrid and self-paced options available</p>
             <div className="mt-4 inline-block bg-orange-100 border border-orange-400 text-orange-800 px-6 py-3 rounded-lg font-semibold">
-              📅 Next Hybrid Class Starts July 7, 2026 — Limited Seats Available!
+              📅 Next Hybrid Class Starts July 28, 2026 — Limited Seats Available!
             </div>
           </div>
           
@@ -167,7 +167,7 @@ export default function Home() {
         <div className="container-custom text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">Start Your CNA Career in St. Louis</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Join our state-approved CNA certification program and launch your healthcare career. Next hybrid class starts July 7 — enroll today before seats fill up!
+            Join our state-approved CNA certification program and launch your healthcare career. Next hybrid class starts July 28 — enroll today before seats fill up!
           </p>
           <Link to="/enroll" className="btn-secondary inline-flex items-center gap-2 bg-white text-primary hover:bg-gray-100">
             Enroll Now <ArrowRight size={20} />
@@ -193,7 +193,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
             <div>
               <div className="text-4xl font-bold text-primary mb-2">Now Enrolling</div>
-              <p className="text-gray-600">{enrollmentData.currentEnrollments} of {enrollmentData.maxCapacity} Students</p>
+              <p className="text-gray-600">Founding Cohort — {enrollmentData.maxCapacity - enrollmentData.currentEnrollments} Seats Open</p>
             </div>
             <div>
               <div className="text-4xl font-bold text-secondary mb-2">5 Weeks</div>

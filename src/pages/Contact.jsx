@@ -224,19 +224,20 @@ export default function Contact() {
           <h2 className="text-3xl font-bold mb-8 text-dark text-center">Visit Us</h2>
           
           <div className="bg-white rounded-lg shadow-lg overflow-hidden h-96">
-            {/* Map Placeholder */}
-            <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
-              <div className="text-center">
-                <MapPin size={48} className="mx-auto mb-4 text-gray-600" />
-                <p className="text-gray-600 font-semibold">
-                  {schoolData.address}
-                </p>
-                <p className="text-gray-500 text-sm mt-2">
-                  Interactive map coming soon
-                </p>
-              </div>
-            </div>
+            <iframe
+              title="Breakthrough Training Institute Location"
+              src="https://www.google.com/maps?q=11862+Lackland+Rd,+St.+Louis,+MO+63146&output=embed"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
           </div>
+          <p className="text-center text-gray-700 font-semibold mt-4">
+            {schoolData.address} — Look for the Breakthrough Training Institute (BTI) suite sign
+          </p>
         </div>
       </section>
 

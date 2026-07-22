@@ -99,7 +99,7 @@ const faqs = [
       },
       {
         q: 'Do you accept financial aid or grants?',
-        a: 'We are currently exploring partnerships with workforce development programs and grant opportunities. Contact us to discuss your situation — we\'re committed to making education accessible and may be able to help you find funding resources.'
+        a: 'Yes — there are several ways your training could be paid for or even paid back! If you\'re hired by a Medicaid/Medicare-certified nursing facility within 12 months of certification, federal law (OBRA \'87) requires them to reimburse your training costs. St. Louis City residents may qualify for up to $10,000 through SLATE, SNAP recipients can use SkillUP, income-qualified adults 25+ may qualify for the Missouri Fast Track grant, military spouses can use MyCAA (up to $4,000), and WIOA funds are available through Missouri Job Centers. Visit our How to Pay page for the full list — we\'ll help you figure out which ones fit you.'
       }
     ]
   },
