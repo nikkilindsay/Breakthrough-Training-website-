@@ -321,9 +321,9 @@ export default function HowToPay() {
 
                 <div className="mt-6 bg-orange-50 border border-orange-200 rounded-lg p-4">
                   <p className="text-gray-800 font-semibold mb-1">Submit your application to:</p>
-                  <a href="mailto:btiadmissionoffice@gmail.com?subject=Warren Collins Jr. Scholarship Application" 
+                  <a href="mailto:admissions@btieducation.com?subject=Warren Collins Jr. Scholarship Application" 
                      className="text-orange-600 font-bold hover:text-orange-800 text-lg">
-                    btiadmissionoffice@gmail.com
+                    admissions@btieducation.com
                   </a>
                   <p className="text-gray-600 text-sm mt-1">Subject line: "Warren Collins Jr. Scholarship Application"</p>
                 </div>

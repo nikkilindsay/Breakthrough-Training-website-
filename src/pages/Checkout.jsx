@@ -35,7 +35,7 @@ export default function Checkout() {
       window.location.href = paymentLink;
     } else {
       // Fallback: contact us if no payment link configured
-      window.location.href = 'mailto:btiadmissionoffice@gmail.com?subject=Enrollment%20Inquiry%20-%20' + encodeURIComponent(program.name);
+      window.location.href = 'mailto:admissions@btieducation.com?subject=Enrollment%20Inquiry%20-%20' + encodeURIComponent(program.name);
     }
   };
 
@@ -114,7 +114,7 @@ export default function Checkout() {
 
           {/* Questions */}
           <div className="mt-6 text-center text-sm text-gray-600">
-            <p>Questions? Call us at <a href="tel:6362425722" className="text-blue-600 font-semibold">636-242-5722</a> or email <a href="mailto:btiadmissionoffice@gmail.com" className="text-blue-600 font-semibold">btiadmissionoffice@gmail.com</a></p>
+            <p>Questions? Call us at <a href="tel:6362425722" className="text-blue-600 font-semibold">636-242-5722</a> or email <a href="mailto:admissions@btieducation.com" className="text-blue-600 font-semibold">admissions@btieducation.com</a></p>
           </div>
         </div>
       </section>

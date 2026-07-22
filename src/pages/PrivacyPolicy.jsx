@@ -166,7 +166,7 @@ function PrivacyPolicy() {
             <div className="bg-blue-50 rounded-lg p-6">
               <p className="text-lg font-semibold text-blue-900">Breakthrough Training Institute</p>
               <ul className="mt-3 space-y-2 text-lg list-none">
-                <li>Email: <a href="mailto:btiadmissionoffice@gmail.com" className="text-blue-600 underline">btiadmissionoffice@gmail.com</a></li>
+                <li>Email: <a href="mailto:admissions@btieducation.com" className="text-blue-600 underline">admissions@btieducation.com</a></li>
                 <li>Phone: <a href="tel:6362425722" className="text-blue-600 underline">636-242-5722</a></li>
                 <li>Address: 11862 Lackland Rd, Suite BTI, St. Louis, MO 63146</li>
               </ul>

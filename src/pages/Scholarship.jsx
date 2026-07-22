@@ -102,10 +102,10 @@ export default function Scholarship() {
               <Mail className="text-blue-600 mx-auto mb-3" size={32} />
               <p className="text-gray-800 font-semibold text-lg mb-2">Submit your application to:</p>
               <a
-                href="mailto:btiadmissionoffice@gmail.com?subject=Warren Collins Jr. Scholarship Application"
+                href="mailto:admissions@btieducation.com?subject=Warren Collins Jr. Scholarship Application"
                 className="text-blue-600 font-bold text-xl hover:text-blue-800"
               >
-                btiadmissionoffice@gmail.com
+                admissions@btieducation.com
               </a>
               <p className="text-gray-600 text-sm mt-2">Subject line: "Warren Collins Jr. Scholarship Application"</p>
             </div>

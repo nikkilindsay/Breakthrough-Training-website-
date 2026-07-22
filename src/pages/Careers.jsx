@@ -158,7 +158,7 @@ export default function Careers() {
                       </div>
                     </div>
                     <a
-                      href="mailto:btiadmissionoffice@gmail.com?subject=Application for {job.title}"
+                      href="mailto:admissions@btieducation.com?subject=Application for {job.title}"
                       className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-lg transition-colors whitespace-nowrap"
                     >
                       <Mail size={18} /> Apply Now
@@ -206,10 +206,10 @@ export default function Careers() {
               Send your resume and a brief cover letter to:
             </p>
             <a 
-              href="mailto:btiadmissionoffice@gmail.com?subject=Job Application - Breakthrough Training Institute" 
+              href="mailto:admissions@btieducation.com?subject=Job Application - Breakthrough Training Institute" 
               className="text-2xl font-bold text-orange-500 hover:text-orange-600 transition-colors"
             >
-              btiadmissionoffice@gmail.com
+              admissions@btieducation.com
             </a>
             <p className="text-gray-600 mt-4">
               Please include the position title in your subject line. We review applications on a rolling basis and will contact qualified candidates for an interview.

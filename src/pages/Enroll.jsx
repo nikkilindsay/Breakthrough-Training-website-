@@ -639,7 +639,7 @@ export default function Enroll() {
                     <Mail size={20} className="flex-shrink-0 mt-0.5" />
                     <div>
                       <p className="text-sm opacity-90">Email us</p>
-                      <p className="font-semibold">btiadmissionoffice@gmail.com</p>
+                      <p className="font-semibold">admissions@btieducation.com</p>
                     </div>
                   </div>
                 </div>

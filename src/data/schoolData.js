@@ -4,7 +4,7 @@ export const schoolData = {
   description: 'Breakthrough Training Institute offers comprehensive, professional healthcare training programs designed to prepare students for successful careers in healthcare.',
   address: '11862 Lackland Rd, Suite BTI, St. Louis, MO 63146',
   phone: '636-242-5722',
-  email: 'btiadmissionoffice@gmail.com',
+  email: 'admissions@btieducation.com',
   website: 'https://breakthroughtraining.com',
   logo: '/logo.png',
 };
@@ -93,7 +93,7 @@ export const instructors = [
       'Serial Entrepreneur, Author & Inventor'
     ],
     image: '/shanekia-lindsay.png',
-    email: 'btiadmissionoffice@gmail.com'
+    email: 'admissions@btieducation.com'
   }
 ];
 

@@ -95,7 +95,7 @@ const faqs = [
       },
       {
         q: 'Is there a refund policy?',
-        a: 'Please contact our admissions office at btiadmissionoffice@gmail.com to discuss our refund policy. Refund eligibility depends on how far you\'ve progressed in the program.'
+        a: 'Please contact our admissions office at admissions@btieducation.com to discuss our refund policy. Refund eligibility depends on how far you\'ve progressed in the program.'
       },
       {
         q: 'Do you accept financial aid or grants?',
@@ -112,7 +112,7 @@ const faqs = [
       },
       {
         q: 'Do I need a computer to take classes?',
-        a: 'For the Self-Paced program, you can complete everything on your phone or tablet using our app. However, we recommend having access to a computer for the best learning experience, especially for watching video tutorials and completing assessments. If you need a computer, you can use one in our classroom by scheduling through the office — just email us at btiadmissionoffice@gmail.com to reserve a time.'
+        a: 'For the Self-Paced program, you can complete everything on your phone or tablet using our app. However, we recommend having access to a computer for the best learning experience, especially for watching video tutorials and completing assessments. If you need a computer, you can use one in our classroom by scheduling through the office — just email us at admissions@btieducation.com to reserve a time.'
       },
       {
         q: 'How do I access my course materials?',
@@ -212,7 +212,7 @@ export default function FAQ() {
             We're here to help! Reach out to our admissions team and we'll get back to you within 24 hours.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="mailto:btiadmissionoffice@gmail.com" className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full transition-colors">
+            <a href="mailto:admissions@btieducation.com" className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full transition-colors">
               Email Us
             </a>
             <a href="tel:6362425722" className="bg-blue-900 hover:bg-blue-800 text-white font-bold py-3 px-8 rounded-full transition-colors">

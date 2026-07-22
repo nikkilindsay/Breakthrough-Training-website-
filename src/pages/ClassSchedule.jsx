@@ -185,7 +185,7 @@ export default function ClassSchedule() {
             </Link>
           </div>
           <p className="text-orange-100 text-sm mt-6">
-            Questions? Call us at <a href="tel:636-242-5722" className="text-white font-semibold underline">636-242-5722</a> or email <a href="mailto:btiadmissionoffice@gmail.com" className="text-white font-semibold underline">btiadmissionoffice@gmail.com</a>
+            Questions? Call us at <a href="tel:636-242-5722" className="text-white font-semibold underline">636-242-5722</a> or email <a href="mailto:admissions@btieducation.com" className="text-white font-semibold underline">admissions@btieducation.com</a>
           </p>
         </div>
       </section>

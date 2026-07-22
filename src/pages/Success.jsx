@@ -138,7 +138,7 @@ export default function Success() {
         <div className="bg-blue-50 rounded-xl p-4 mb-6">
           <p className="text-gray-700 font-medium mb-1">Questions? We're here for you!</p>
           <p className="text-gray-600">
-            Call <a href="tel:6362425722" className="text-blue-600 font-semibold">636-242-5722</a> or email <a href="mailto:btiadmissionoffice@gmail.com" className="text-blue-600 font-semibold">btiadmissionoffice@gmail.com</a>
+            Call <a href="tel:6362425722" className="text-blue-600 font-semibold">636-242-5722</a> or email <a href="mailto:admissions@btieducation.com" className="text-blue-600 font-semibold">admissions@btieducation.com</a>
           </p>
         </div>
 
