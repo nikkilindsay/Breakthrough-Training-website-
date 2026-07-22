@@ -81,16 +81,19 @@ export const programs = [
 export const instructors = [
   {
     id: 'shanekia',
-    name: 'Shanekia Lindsay',
-    title: 'Program Director & Founder',
-    bio: 'Shanekia Lindsay is the visionary founder and Program Director of Breakthrough Training Institute. With extensive experience in healthcare education and patient care, she is dedicated to preparing the next generation of healthcare professionals.',
+    name: 'Shanekia "Nikki" Lindsay, RN, BSN, MBA',
+    title: 'Founder, Program Director & Lead Instructor',
+    bio: 'Shanekia "Nikki" Lindsay, RN, BSN, MBA, is the visionary founder and Program Director of Breakthrough Training Institute. A Registered Nurse with 28+ years of healthcare experience, she is a serial entrepreneur, author, and inventor who is currently pursuing her Nurse Practitioner (NP) degree. Nikki combines bedside expertise with business leadership to prepare the next generation of healthcare professionals — and to prove that every student is capable of a breakthrough.',
     credentials: [
-      'Certified Nursing Assistant (CNA)',
-      'Healthcare Education Specialist',
-      'Program Development & Management'
+      'Registered Nurse (RN)',
+      'Bachelor of Science in Nursing (BSN)',
+      'Master of Business Administration (MBA)',
+      'Nurse Practitioner (NP) — currently in progress',
+      '28+ Years of Healthcare Experience',
+      'Serial Entrepreneur, Author & Inventor'
     ],
     image: '/shanekia-lindsay.png',
-    email: 'shanekia@breakthroughtraining.com'
+    email: 'btiadmissionoffice@gmail.com'
   }
 ];
 
