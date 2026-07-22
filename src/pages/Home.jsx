@@ -56,9 +56,14 @@ export default function Home() {
             <p className="text-2xl md:text-4xl font-bold mb-6 text-orange-400 drop-shadow-md">
               State-Approved CNA Certification Programs
             </p>
-            <p className="text-xl md:text-2xl mb-8 text-gray-100 font-medium">
+            <p className="text-xl md:text-2xl mb-6 text-gray-100 font-medium">
               Hybrid and self-paced CNA training designed to launch your healthcare career. Next hybrid class starts July 28!
             </p>
+            <div className="inline-block bg-green-600/90 border-2 border-green-300 rounded-xl px-6 py-3 mb-8 shadow-lg">
+              <p className="text-lg md:text-xl font-bold text-white">
+                ✅ The Breakthrough Job Guarantee: Complete your training, get a job offer at our award-winning sister company — <span className="underline">certified or not</span>.
+              </p>
+            </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link to="/enroll" className="btn-secondary inline-flex items-center justify-center gap-2">
             Enroll Now <ArrowRight size={20} />
@@ -67,6 +72,16 @@ export default function Home() {
                 Get More Info <ArrowRight size={20} />
               </Link>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Trust Bar */}
+      <section className="bg-primary text-white py-4">
+        <div className="container-custom">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-10 text-center">
+            <p className="font-semibold text-base md:text-lg">🏛️ Licensed to Operate by the Missouri Dept. of Higher Education &amp; Workforce Development (Cert. #78357-00)</p>
+            <p className="font-semibold text-base md:text-lg">🏆 Sister company voted “Best Home Caregiver” — St. Louis American readers</p>
           </div>
         </div>
       </section>
@@ -153,6 +168,35 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Job Guarantee Section */}
+      <section className="py-20 bg-green-50">
+        <div className="container-custom">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="inline-block bg-green-600 text-white text-sm font-bold uppercase tracking-wide px-4 py-1 rounded-full mb-4">Only at BTI</div>
+            <h2 className="text-4xl md:text-5xl font-bold text-dark mb-6">The Breakthrough Job Guarantee</h2>
+            <p className="text-xl text-gray-700 mb-10">
+              Our sister company, <strong>Breakthrough Healthcare LLC</strong> — voted <strong>“Best Home Caregiver”</strong> by St. Louis American readers — is hiring right now. Complete your BTI training and you are <strong>guaranteed a job offer</strong>. No other school in the St. Louis metro can promise that.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+              <div className="bg-white rounded-xl shadow-md p-8 border-t-4 border-green-600">
+                <h3 className="text-2xl font-bold text-dark mb-3">✅ Pass Your State Exam</h3>
+                <p className="text-gray-700 text-lg">Get hired as a <strong>Certified Nursing Assistant (CNA)</strong> at a higher pay tier — with the skills to work in home care, assisted living, or nursing facilities.</p>
+              </div>
+              <div className="bg-white rounded-xl shadow-md p-8 border-t-4 border-blue-600">
+                <h3 className="text-2xl font-bold text-dark mb-3">🕒 Still Working Toward Your Exam?</h3>
+                <p className="text-gray-700 text-lg">You're <strong>still guaranteed a job offer</strong> as a Home Health Aide — start earning right away and keep studying. When you pass, you move up.</p>
+              </div>
+            </div>
+            <p className="text-sm text-gray-500 mt-8">Job offer contingent on standard background screening required for healthcare employment in Missouri. Positions with Breakthrough Healthcare LLC, an affiliated company.</p>
+            <div className="mt-8">
+              <Link to="/enroll" className="btn-secondary inline-flex items-center gap-2 text-lg">
+                Claim Your Guaranteed Path <ArrowRight size={20} />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Motivational Sidebar Section */}
       <section className="py-20 bg-gray-50">
         <div className="container-custom">
@@ -201,7 +245,7 @@ export default function Home() {
             </div>
             <div>
               <div className="text-4xl font-bold text-primary mb-2">100%</div>
-              <p className="text-gray-600">Job Placement Support</p>
+              <p className="text-gray-600">Guaranteed Job Offer*</p>
             </div>
             <div>
               <div className="text-4xl font-bold text-secondary mb-2">28+</div>

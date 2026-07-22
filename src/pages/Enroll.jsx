@@ -614,7 +614,7 @@ export default function Enroll() {
                     'Flexible self-paced learning',
                     'Affordable pricing',
                     '95% pass rate',
-                    'Job placement support'
+                    'Guaranteed job offer at our sister company'
                   ].map((benefit, idx) => (
                     <div key={idx} className="flex items-start gap-3">
                       <CheckCircle size={20} className="text-green-600 flex-shrink-0 mt-0.5" />

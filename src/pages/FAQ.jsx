@@ -45,7 +45,7 @@ const faqs = [
       },
       {
         q: 'Is the program approved by the state of Missouri?',
-        a: 'Yes! Breakthrough Training Institute is a state-approved CNA training program in Missouri. Our curriculum meets all Missouri Department of Health and Senior Services requirements for CNA certification.'
+        a: 'Yes! Breakthrough Training Institute LLC holds a Certificate to Operate from the Missouri Coordinating Board for Higher Education (Certificate #78357-00), and our curriculum meets all Missouri Department of Health and Senior Services requirements for CNA certification.'
       },
       {
         q: 'What does the curriculum cover?',
@@ -74,7 +74,7 @@ const faqs = [
       },
       {
         q: 'What if I fail the state exam?',
-        a: 'Don\'t worry — you can retake the exam. We provide additional study support and test prep resources to help you pass on your next attempt. Many students pass on their first try with our preparation.'
+        a: 'Don\'t worry — you can retake the exam (Missouri allows up to three attempts), and we provide additional study support and test prep to help you pass the next time. Even better: under the Breakthrough Job Guarantee, completing your BTI training earns you a job offer from Breakthrough Healthcare as a Home Health Aide even before you\'re certified — so you can start earning while you prepare to retest. When you pass, you move up to the CNA pay tier.'
       }
     ]
   },
@@ -133,7 +133,7 @@ const faqs = [
       },
       {
         q: 'Do you help with job placement?',
-        a: 'Yes! We have affiliate partners and healthcare facilities where our graduates can apply directly. Additionally, through Breakthrough Healthcare — our sister company — BTI students receive priority consideration for open CNA positions. We\'re committed to helping you land your first healthcare job after certification.'
+        a: 'We do better than help — we guarantee it. Through the Breakthrough Job Guarantee, every student who completes BTI training receives a job offer from Breakthrough Healthcare LLC, our sister company voted "Best Home Caregiver" by St. Louis American readers. Pass your state exam and you\'re hired at the CNA pay tier; still working toward your exam and you\'re hired as a Home Health Aide while you study. We also have affiliate partners and healthcare facilities where graduates can apply directly. (Job offers are contingent on the standard background screening Missouri requires for healthcare workers.)'
       },
       {
         q: 'Can I work while taking classes?',
