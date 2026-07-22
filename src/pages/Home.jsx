@@ -175,7 +175,7 @@ export default function Home() {
             <div className="inline-block bg-green-600 text-white text-sm font-bold uppercase tracking-wide px-4 py-1 rounded-full mb-4">Only at BTI</div>
             <h2 className="text-4xl md:text-5xl font-bold text-dark mb-6">The Breakthrough Job Guarantee</h2>
             <p className="text-xl text-gray-700 mb-10">
-              Our sister company, <strong>Breakthrough Healthcare LLC</strong> — voted <strong>“Best Home Caregiver”</strong> by St. Louis American readers — is hiring right now. Complete your BTI training and you are <strong>guaranteed a job offer</strong>. No other school in the St. Louis metro can promise that.
+              Our family of care companies — <strong>Breakthrough Healthcare LLC</strong>, voted <strong>“Best Home Caregiver”</strong> by St. Louis American readers, and <strong>Daybreak Adult Day Care</strong> — is hiring right now. Complete your BTI training and you are <strong>guaranteed a job offer</strong>. No other school in the St. Louis metro can promise that.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
               <div className="bg-white rounded-xl shadow-md p-8 border-t-4 border-green-600">
@@ -187,7 +187,7 @@ export default function Home() {
                 <p className="text-gray-700 text-lg">You're <strong>still guaranteed a job offer</strong> as a Home Health Aide — start earning right away and keep studying. When you pass, you move up.</p>
               </div>
             </div>
-            <p className="text-sm text-gray-500 mt-8">Job offer contingent on standard background screening required for healthcare employment in Missouri. Positions with Breakthrough Healthcare LLC, an affiliated company.</p>
+            <p className="text-sm text-gray-500 mt-8">Job offer contingent on standard background screening required for healthcare employment in Missouri. Positions with Breakthrough Healthcare LLC and Daybreak Adult Day Care, affiliated companies.</p>
             <div className="mt-8">
               <Link to="/enroll" className="btn-secondary inline-flex items-center gap-2 text-lg">
                 Claim Your Guaranteed Path <ArrowRight size={20} />

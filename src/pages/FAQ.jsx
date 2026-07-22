@@ -133,7 +133,7 @@ const faqs = [
       },
       {
         q: 'Do you help with job placement?',
-        a: 'We do better than help — we guarantee it. Through the Breakthrough Job Guarantee, every student who completes BTI training receives a job offer from Breakthrough Healthcare LLC, our sister company voted "Best Home Caregiver" by St. Louis American readers. Pass your state exam and you\'re hired at the CNA pay tier; still working toward your exam and you\'re hired as a Home Health Aide while you study. We also have affiliate partners and healthcare facilities where graduates can apply directly. (Job offers are contingent on the standard background screening Missouri requires for healthcare workers.)'
+        a: 'We do better than help — we guarantee it. Through the Breakthrough Job Guarantee, every student who completes BTI training receives a job offer from our family of care companies: Breakthrough Healthcare LLC (voted "Best Home Caregiver" by St. Louis American readers) and Daybreak Adult Day Care. Pass your state exam and you\'re hired at the CNA pay tier; still working toward your exam and you\'re hired as a Home Health Aide while you study. We also have affiliate partners and healthcare facilities where graduates can apply directly. (Job offers are contingent on the standard background screening Missouri requires for healthcare workers.)'
       },
       {
         q: 'Can I work while taking classes?',
