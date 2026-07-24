@@ -52,6 +52,7 @@ export default async function handler(req, res) {
           Accept: 'application/json',
           Origin: 'https://www.btieducation.com',
           Referer: 'https://www.btieducation.com/request-info',
+          'User-Agent': 'Mozilla/5.0 (compatible; BTIWebsite/1.0; +https://www.btieducation.com)',
         },
         body: JSON.stringify({
           _subject: `🔥 NEW LEAD: ${lead.firstName} ${lead.lastName} — ${lead.program}`,
@@ -67,11 +68,13 @@ export default async function handler(req, res) {
           'Next step': 'Speed to lead wins — call or text within 5 minutes if possible!',
         }),
       });
-      const fsData = await fsResp.json().catch(() => ({}));
+      const fsText = await fsResp.text();
+      let fsData = {};
+      try { fsData = JSON.parse(fsText); } catch { /* non-JSON body */ }
       if (fsResp.ok && String(fsData.success) === 'true') {
         emailSent = true;
       } else {
-        console.error('[lead] FormSubmit response:', JSON.stringify(fsData));
+        console.error('[lead] FormSubmit status:', fsResp.status, 'body:', fsText.slice(0, 300));
       }
     } catch (fsErr) {
       console.error('[lead] FormSubmit error:', fsErr.message);
