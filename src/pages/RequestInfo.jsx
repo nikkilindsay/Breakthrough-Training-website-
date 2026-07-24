@@ -24,21 +24,49 @@ export default function RequestInfo() {
     e.preventDefault();
     setStatus('submitting');
     setErrorMsg('');
+
+    // Primary: send the lead straight from the visitor's browser to FormSubmit
+    // (delivers an email to admissions; browser requests are never bot-blocked).
+    let delivered = false;
     try {
-      const res = await fetch('/api/lead', {
+      const fsRes = await fetch('https://formsubmit.co/ajax/admissions@btieducation.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          _subject: `🔥 NEW LEAD: ${formData.firstName} ${formData.lastName} — ${formData.program || 'Program not specified'}`,
+          _template: 'table',
+          Name: `${formData.firstName} ${formData.lastName}`,
+          Phone: formData.phone,
+          Email: formData.email || 'Not provided',
+          ZIP: formData.zip || 'Not provided',
+          Program: formData.program || 'Not specified',
+          'Wants to start': formData.startTimeframe || 'Not specified',
+          Source: 'Request Info page',
+          'Next step': 'Speed to lead wins — call or text within 5 minutes!',
+        }),
+      });
+      const fsData = await fsRes.json().catch(() => ({}));
+      delivered = fsRes.ok && String(fsData.success) === 'true';
+    } catch (err) {
+      // fall through to backup
+    }
+
+    // Backup: also record the lead through our API (never blocks the visitor)
+    try {
+      await fetch('/api/lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...formData, source: 'Request Info page' }),
+        body: JSON.stringify({ ...formData, source: delivered ? 'Request Info page' : 'Request Info page (FormSubmit blocked — check API logs)' }),
       });
-      const data = await res.json();
-      if (res.ok && data.success) {
-        setStatus('success');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else {
-        setStatus('error');
-        setErrorMsg(data.error || 'Something went wrong. Please call us at ' + schoolData.phone);
-      }
+      delivered = true;
     } catch (err) {
+      // only fail if BOTH paths failed
+    }
+
+    if (delivered) {
+      setStatus('success');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
       setStatus('error');
       setErrorMsg('Connection problem. Please call us at ' + schoolData.phone);
     }
