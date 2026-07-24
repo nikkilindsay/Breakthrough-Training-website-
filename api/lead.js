@@ -2,6 +2,10 @@ import nodemailer from 'nodemailer';
 
 // Lead capture endpoint — receives Request Info form submissions
 // and emails them to admissions so the team can follow up by phone.
+//
+// Email delivery strategy:
+//   1) FormSubmit (zero-config, activated for admissions@btieducation.com) — primary
+//   2) Gmail SMTP via EMAIL_USER/EMAIL_PASSWORD env vars — used if configured
 export default async function handler(req, res) {
   // CORS
   res.setHeader('Access-Control-Allow-Credentials', 'true');
@@ -37,8 +41,43 @@ export default async function handler(req, res) {
       receivedAt: new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' }),
     };
 
-    // Email the lead to admissions (best effort — never block the lead on email failure)
     let emailSent = false;
+
+    // ---- 1) Primary: FormSubmit (no credentials required) ----
+    try {
+      const fsResp = await fetch('https://formsubmit.co/ajax/admissions@btieducation.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Origin: 'https://www.btieducation.com',
+          Referer: 'https://www.btieducation.com/request-info',
+        },
+        body: JSON.stringify({
+          _subject: `🔥 NEW LEAD: ${lead.firstName} ${lead.lastName} — ${lead.program}`,
+          _template: 'table',
+          Name: `${lead.firstName} ${lead.lastName}`,
+          Phone: lead.phone,
+          Email: lead.email,
+          ZIP: lead.zip,
+          Program: lead.program,
+          'Wants to start': lead.startTimeframe,
+          Source: lead.source,
+          'Received (Central)': lead.receivedAt,
+          'Next step': 'Speed to lead wins — call or text within 5 minutes if possible!',
+        }),
+      });
+      const fsData = await fsResp.json().catch(() => ({}));
+      if (fsResp.ok && String(fsData.success) === 'true') {
+        emailSent = true;
+      } else {
+        console.error('[lead] FormSubmit response:', JSON.stringify(fsData));
+      }
+    } catch (fsErr) {
+      console.error('[lead] FormSubmit error:', fsErr.message);
+    }
+
+    // ---- 2) Fallback / auto-reply: Gmail SMTP if configured ----
     if (process.env.EMAIL_USER && process.env.EMAIL_PASSWORD) {
       try {
         const transporter = nodemailer.createTransport({
@@ -49,31 +88,33 @@ export default async function handler(req, res) {
           },
         });
 
-        // 1) Notify admissions
-        await transporter.sendMail({
-          from: process.env.EMAIL_USER,
-          to: 'admissions@btieducation.com',
-          subject: `🔥 NEW LEAD: ${lead.firstName} ${lead.lastName} — ${lead.program}`,
-          html: `
-            <div style="font-family: Arial, sans-serif; font-size: 16px; color: #111;">
-              <h2 style="color:#1d4ed8;">New Request Info Lead</h2>
-              <table style="border-collapse: collapse; font-size: 16px;">
-                <tr><td style="padding:6px 12px; font-weight:bold;">Name</td><td style="padding:6px 12px;">${lead.firstName} ${lead.lastName}</td></tr>
-                <tr><td style="padding:6px 12px; font-weight:bold;">Phone</td><td style="padding:6px 12px;"><a href="tel:${lead.phone}">${lead.phone}</a></td></tr>
-                <tr><td style="padding:6px 12px; font-weight:bold;">Email</td><td style="padding:6px 12px;">${lead.email}</td></tr>
-                <tr><td style="padding:6px 12px; font-weight:bold;">ZIP</td><td style="padding:6px 12px;">${lead.zip}</td></tr>
-                <tr><td style="padding:6px 12px; font-weight:bold;">Program</td><td style="padding:6px 12px;">${lead.program}</td></tr>
-                <tr><td style="padding:6px 12px; font-weight:bold;">Wants to start</td><td style="padding:6px 12px;">${lead.startTimeframe}</td></tr>
-                <tr><td style="padding:6px 12px; font-weight:bold;">Source</td><td style="padding:6px 12px;">${lead.source}</td></tr>
-                <tr><td style="padding:6px 12px; font-weight:bold;">Received</td><td style="padding:6px 12px;">${lead.receivedAt} (Central)</td></tr>
-              </table>
-              <p style="margin-top:16px;"><strong>Speed to lead wins:</strong> call or text within 5 minutes if possible!</p>
-            </div>
-          `,
-        });
-        emailSent = true;
+        // Notify admissions via SMTP only if FormSubmit failed
+        if (!emailSent) {
+          await transporter.sendMail({
+            from: process.env.EMAIL_USER,
+            to: 'admissions@btieducation.com',
+            subject: `🔥 NEW LEAD: ${lead.firstName} ${lead.lastName} — ${lead.program}`,
+            html: `
+              <div style="font-family: Arial, sans-serif; font-size: 16px; color: #111;">
+                <h2 style="color:#1d4ed8;">New Request Info Lead</h2>
+                <table style="border-collapse: collapse; font-size: 16px;">
+                  <tr><td style="padding:6px 12px; font-weight:bold;">Name</td><td style="padding:6px 12px;">${lead.firstName} ${lead.lastName}</td></tr>
+                  <tr><td style="padding:6px 12px; font-weight:bold;">Phone</td><td style="padding:6px 12px;"><a href="tel:${lead.phone}">${lead.phone}</a></td></tr>
+                  <tr><td style="padding:6px 12px; font-weight:bold;">Email</td><td style="padding:6px 12px;">${lead.email}</td></tr>
+                  <tr><td style="padding:6px 12px; font-weight:bold;">ZIP</td><td style="padding:6px 12px;">${lead.zip}</td></tr>
+                  <tr><td style="padding:6px 12px; font-weight:bold;">Program</td><td style="padding:6px 12px;">${lead.program}</td></tr>
+                  <tr><td style="padding:6px 12px; font-weight:bold;">Wants to start</td><td style="padding:6px 12px;">${lead.startTimeframe}</td></tr>
+                  <tr><td style="padding:6px 12px; font-weight:bold;">Source</td><td style="padding:6px 12px;">${lead.source}</td></tr>
+                  <tr><td style="padding:6px 12px; font-weight:bold;">Received</td><td style="padding:6px 12px;">${lead.receivedAt} (Central)</td></tr>
+                </table>
+                <p style="margin-top:16px;"><strong>Speed to lead wins:</strong> call or text within 5 minutes if possible!</p>
+              </div>
+            `,
+          });
+          emailSent = true;
+        }
 
-        // 2) Auto-reply to the lead (if they gave an email)
+        // Auto-reply to the lead (if they gave an email)
         if (email && String(email).includes('@')) {
           try {
             await transporter.sendMail({
@@ -105,7 +146,7 @@ export default async function handler(req, res) {
           }
         }
       } catch (emailErr) {
-        console.error('[lead] Admissions email error:', emailErr.message);
+        console.error('[lead] SMTP email error:', emailErr.message);
       }
     }
 
