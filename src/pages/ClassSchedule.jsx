@@ -134,7 +134,7 @@ export default function ClassSchedule() {
                   <MapPin size={20} className="text-orange-500 mt-1 flex-shrink-0" />
                   <div>
                     <h4 className="font-semibold text-gray-900">Location</h4>
-                    <p className="text-gray-600">11862 Lackland Rd, Suite BTI, St. Louis, MO 63146</p>
+                    <p className="text-gray-600">11862 Lackland Rd, Suite BTI, Maryland Heights, MO 63146</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">

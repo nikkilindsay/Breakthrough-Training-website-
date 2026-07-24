@@ -32,7 +32,7 @@ export default function Careers() {
     {
       title: 'Administrative Assistant',
       type: 'Part-Time',
-      location: '11862 Lackland Rd, Suite BTI, St. Louis, MO',
+      location: '11862 Lackland Rd, Suite BTI, Maryland Heights, MO',
       description: 'We are seeking a detail-oriented and organized Administrative Assistant to support daily operations at Breakthrough Training Institute. This role involves managing student records, coordinating schedules, handling communications, and providing exceptional customer service to students and staff.',
       responsibilities: [
         'Manage student enrollment paperwork and records',
@@ -54,7 +54,7 @@ export default function Careers() {
     {
       title: 'CNA Theory Instructor',
       type: 'Part-Time / Contract',
-      location: '11862 Lackland Rd, Suite BTI, St. Louis, MO',
+      location: '11862 Lackland Rd, Suite BTI, Maryland Heights, MO',
       description: 'Breakthrough Training Institute is looking for passionate and knowledgeable CNA Theory Instructors to teach classroom-based curriculum. You will be responsible for delivering engaging lectures, facilitating discussions, and preparing students for the Missouri CNA State Exam.',
       responsibilities: [
         'Deliver CNA theory curriculum in an engaging and accessible manner',

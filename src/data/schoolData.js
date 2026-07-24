@@ -2,7 +2,7 @@ export const schoolData = {
   name: 'Breakthrough Training Institute',
   tagline: 'Empowering Healthcare Professionals',
   description: 'Breakthrough Training Institute offers comprehensive, professional healthcare training programs designed to prepare students for successful careers in healthcare.',
-  address: '11862 Lackland Rd, Suite BTI, St. Louis, MO 63146',
+  address: '11862 Lackland Rd, Suite BTI, Maryland Heights, MO 63146',
   phone: '636-242-5722',
   email: 'admissions@btieducation.com',
   website: 'https://breakthroughtraining.com',
@@ -196,7 +196,7 @@ export const events = [
     title: 'CNA Program Orientation',
     date: '2024-02-15',
     time: '10:00 AM',
-    location: '11862 Lackland Rd, Suite BTI, St. Louis, MO 63146',
+    location: '11862 Lackland Rd, Suite BTI, Maryland Heights, MO 63146',
     description: 'Join us for an orientation session to learn about our CNA program, meet instructors, and ask questions.',
     type: 'Orientation',
     capacity: 20
@@ -206,7 +206,7 @@ export const events = [
     title: 'Clinical Skills Workshop',
     date: '2024-02-20',
     time: '2:00 PM',
-    location: '11862 Lackland Rd, Suite BTI, St. Louis, MO 63146',
+    location: '11862 Lackland Rd, Suite BTI, Maryland Heights, MO 63146',
     description: 'Hands-on workshop covering essential clinical skills and best practices.',
     type: 'Workshop',
     capacity: 15
@@ -216,7 +216,7 @@ export const events = [
     title: 'State Exam Preparation Seminar',
     date: '2024-02-28',
     time: '6:00 PM',
-    location: '11862 Lackland Rd, Suite BTI, St. Louis, MO 63146',
+    location: '11862 Lackland Rd, Suite BTI, Maryland Heights, MO 63146',
     description: 'Comprehensive review and preparation for the state certification exam.',
     type: 'Seminar',
     capacity: 25
@@ -226,7 +226,7 @@ export const events = [
     title: 'Graduation Ceremony',
     date: '2024-03-15',
     time: '5:00 PM',
-    location: '11862 Lackland Rd, Suite BTI, St. Louis, MO 63146',
+    location: '11862 Lackland Rd, Suite BTI, Maryland Heights, MO 63146',
     description: 'Celebrate our graduates\' achievements and accomplishments.',
     type: 'Graduation',
     capacity: 100
