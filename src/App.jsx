@@ -21,6 +21,7 @@ import HowToPay from './pages/HowToPay';
 import FAQ from './pages/FAQ';
 import ClassSchedule from './pages/ClassSchedule';
 import Scholarship from './pages/Scholarship';
+import RequestInfo from './pages/RequestInfo';
 
 function App() {
   return (
@@ -48,6 +49,9 @@ function App() {
             <Route path="/faq" element={<FAQ />} />
             <Route path="/class-schedule" element={<ClassSchedule />} />
             <Route path="/scholarship" element={<Scholarship />} />
+            <Route path="/request-info" element={<RequestInfo />} />
+            <Route path="/info" element={<Navigate to="/request-info" replace />} />
+            <Route path="/start" element={<Navigate to="/request-info" replace />} />
             <Route path="/about" element={<Navigate to="/instructors" replace />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
