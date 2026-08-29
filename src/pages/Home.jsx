@@ -57,7 +57,7 @@ export default function Home() {
               State-Approved CNA Certification Programs
             </p>
             <p className="text-xl md:text-2xl mb-6 text-gray-100 font-medium">
-              Hybrid and self-paced CNA training designed to launch your healthcare career. Next hybrid class starts July 28!
+              Self-paced CNA training — start anytime! Hybrid cohorts begin every 4th Tuesday — next class starts September 22, 2026!
             </p>
             <div className="inline-block bg-green-600/90 border-2 border-green-300 rounded-xl px-6 py-3 mb-8 shadow-lg">
               <p className="text-lg md:text-xl font-bold text-white">
@@ -120,7 +120,7 @@ export default function Home() {
             <h2 className="section-title">CNA Certification Programs in St. Louis</h2>
             <p className="section-subtitle">Affordable, state-approved CNA classes — hybrid and self-paced options available</p>
             <div className="mt-4 inline-block bg-orange-100 border border-orange-400 text-orange-800 px-6 py-3 rounded-lg font-semibold">
-              📅 Next Hybrid Class Starts July 28, 2026 — Limited Seats Available!
+              📅 Next Hybrid Class Starts September 22, 2026 — Limited Seats! • Self-Paced: Start Anytime
             </div>
           </div>
           
@@ -211,7 +211,7 @@ export default function Home() {
         <div className="container-custom text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">Start Your CNA Career in St. Louis</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Join our state-approved CNA certification program and launch your healthcare career. Next hybrid class starts July 28 — enroll today before seats fill up!
+            Join our state-approved CNA certification program and launch your healthcare career. Self-paced students start anytime; the next hybrid cohort begins September 22 — enroll today before seats fill up!
           </p>
           <Link to="/enroll" className="btn-secondary inline-flex items-center gap-2 bg-white text-primary hover:bg-gray-100">
             Enroll Now <ArrowRight size={20} />

@@ -20,7 +20,7 @@ const faqs = [
       },
       {
         q: 'When does the next class start?',
-        a: 'Our Self-Paced CNA program allows you to start immediately after enrollment. The Hybrid Program runs in cohorts starting every 4th Tuesday — the next class starts July 28, 2026. Check our Class Schedule page for upcoming dates.'
+        a: 'Our Self-Paced CNA program allows you to start immediately after enrollment — start anytime! The Hybrid Program runs in cohorts starting every 4th Tuesday — the next class starts September 22, 2026. Check our Class Schedule page for upcoming dates.'
       },
       {
         q: 'Can I enroll if I live outside of St. Louis?',

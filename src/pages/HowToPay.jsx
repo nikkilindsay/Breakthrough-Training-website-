@@ -237,7 +237,7 @@ export default function HowToPay() {
               <span className="absolute -top-3 right-4 bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full">MOST POPULAR</span>
               <h3 className="text-xl font-bold text-gray-900 mb-2">CNA Hybrid Program</h3>
               <p className="text-4xl font-bold text-purple-600 mb-4">$1,175</p>
-              <p className="text-gray-600 mb-4">5-week in-person + online. Next class starts July 28!</p>
+              <p className="text-gray-600 mb-4">5-week in-person + online. Next class starts September 22, 2026!</p>
               <Link to="/enroll" className="inline-flex items-center gap-2 text-purple-600 font-semibold hover:text-purple-800">
                 Enroll Now <ArrowRight size={16} />
               </Link>

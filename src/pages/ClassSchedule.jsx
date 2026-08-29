@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 import { Calendar, Clock, MapPin, Users, ArrowRight, CheckCircle } from 'lucide-react';
 
 const cohortDates = [
-  { date: 'July 28, 2026', status: 'enrolling', spotsLeft: 'Limited Seats' },
-  { date: 'August 25, 2026', status: 'upcoming', spotsLeft: 'Open' },
-  { date: 'September 22, 2026', status: 'upcoming', spotsLeft: 'Open' },
+  { date: 'September 22, 2026', status: 'enrolling', spotsLeft: 'Limited Seats' },
   { date: 'October 20, 2026', status: 'upcoming', spotsLeft: 'Open' },
   { date: 'November 17, 2026', status: 'upcoming', spotsLeft: 'Open' },
   { date: 'December 15, 2026', status: 'upcoming', spotsLeft: 'Open' },
   { date: 'January 12, 2027', status: 'upcoming', spotsLeft: 'Open' },
   { date: 'February 9, 2027', status: 'upcoming', spotsLeft: 'Open' },
+  { date: 'March 9, 2027', status: 'upcoming', spotsLeft: 'Open' },
+  { date: 'April 6, 2027', status: 'upcoming', spotsLeft: 'Open' },
 ];
 
 export default function ClassSchedule() {
