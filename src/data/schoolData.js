@@ -13,7 +13,7 @@ export const programs = [
   {
     id: 'cna',
     name: 'Certified Nursing Assistant (CNA)',
-    shortDescription: 'Self-Paced CNA Certification — St. Louis, MO',
+    shortDescription: 'Self-Paced CNA Certification — Start Anytime, St. Louis, MO',
     fullDescription: 'Our state-approved self-paced CNA program lets you complete the theory portion entirely online — at the pace of a snail or the pace of lightning, the choice is yours. Finish within 4 months from anywhere in Missouri. Clinical hours are completed separately at a facility of your choice. Perfect for working adults in St. Louis looking to start a healthcare career.',
     duration: 'Flexible',
     price: 475,
@@ -35,8 +35,8 @@ export const programs = [
   {
     id: 'cna-hybrid',
     name: 'CNA Hybrid Program',
-    shortDescription: 'Next Class Starts July 28, 2026 — Limited Seats!',
-    fullDescription: 'Our 5-week CNA Hybrid Program in St. Louis starts with 2 days of in-person classroom instruction to kick off your cohort, then the remainder of your theory classes are completed online. After theory, you\'ll complete 100+ hours of supervised clinical practice. This is the fastest path to CNA certification in Missouri. New cohorts start every 4th Tuesday — next cohort starts July 28, 2026. Enroll now before seats fill up!',
+    shortDescription: 'Next Class Starts September 22, 2026 — Limited Seats!',
+    fullDescription: 'Our 5-week CNA Hybrid Program in St. Louis starts with 2 days of in-person classroom instruction to kick off your cohort, then the remainder of your theory classes are completed online. After theory, you\'ll complete 100+ hours of supervised clinical practice. This is the fastest path to CNA certification in Missouri. New cohorts start every 4th Tuesday — next cohort starts September 22, 2026. Enroll now before seats fill up!',
     duration: '5 weeks',
     price: 1175,
     access: 'Full program',
