@@ -5,7 +5,6 @@ import { ArrowRight, CheckCircle, Users, Award, Zap, Mail } from 'lucide-react';
 import { programs, schoolData } from '../data/schoolData';
 import enrollmentConfig from '../data/enrollmentConfig.json';
 import heroImage from '../assets/hero-team-meeting.webp';
-import MotivationalSidebar from '../components/MotivationalSidebar';
 import EmailSignupForm from '../components/EmailSignupForm';
 
 export default function Home() {
@@ -193,15 +192,6 @@ export default function Home() {
                 Claim Your Guaranteed Path <ArrowRight size={20} />
               </Link>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Motivational Sidebar Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="container-custom">
-          <div className="max-w-md mx-auto">
-            <MotivationalSidebar />
           </div>
         </div>
       </section>
