@@ -516,7 +516,7 @@ export default function Enroll() {
                           className="mt-1 w-4 h-4 text-primary"
                         />
                         <label htmlFor="agreeToTerms" className="text-sm text-gray-700">
-                          <strong>I certify that all information provided is true and accurate.</strong> I understand that providing false information may result in dismissal from the program. I agree to the <a href="/terms" className="text-blue-600 underline">enrollment terms and conditions</a> and <a href="/privacy-policy" className="text-blue-600 underline">privacy policy</a>.
+                          <strong>I certify that all information provided is true and accurate.</strong> I understand that providing false information may result in dismissal from the program. I agree to the <a href="/privacy-policy" className="text-blue-600 underline">enrollment terms and privacy policy</a>.
                         </label>
                       </div>
                       {errors.agreeToTerms && <p className="text-red-500 text-xs">{errors.agreeToTerms}</p>}
