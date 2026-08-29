@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { programs } from '../data/schoolData';
-import { ArrowRight, CheckCircle, Phone, Mail, Upload, AlertCircle } from 'lucide-react';
+import { ArrowRight, CheckCircle, Phone, Mail, AlertCircle, Upload } from 'lucide-react';
 
 export default function Enroll() {
   const navigate = useNavigate();
   const [selectedProgram, setSelectedProgram] = useState('cna');
-  const [step, setStep] = useState(1); // 1 = program + personal, 2 = documents + agreement
+  const [step, setStep] = useState(1); // 1 = program + personal, 2 = document + agreement
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     email: '',
     phone: '',
     dateOfBirth: '',
-    ssn: '',
     address: '',
     city: '',
     state: 'MO',
@@ -24,12 +23,10 @@ export default function Enroll() {
     agreeToContact: true,
     agreeToTerms: false,
   });
-  const [files, setFiles] = useState({
-    driversLicense: null,
-    socialSecurityCard: null,
-  });
+  const [idDocument, setIdDocument] = useState(null);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [notifyWarning, setNotifyWarning] = useState(false);
   const [errors, setErrors] = useState({});
 
   const handleInputChange = (e) => {
@@ -38,36 +35,16 @@ export default function Enroll() {
       ...prev,
       [name]: type === 'checkbox' ? checked : value
     }));
-    // Clear error when field is edited
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: null }));
     }
   };
 
   const handleFileChange = (e) => {
-    const { name, files: fileList } = e.target;
-    if (fileList && fileList[0]) {
-      setFiles(prev => ({
-        ...prev,
-        [name]: fileList[0]
-      }));
-      if (errors[name]) {
-        setErrors(prev => ({ ...prev, [name]: null }));
-      }
+    if (e.target.files && e.target.files[0]) {
+      setIdDocument(e.target.files[0]);
+      if (errors.idDocument) setErrors(prev => ({ ...prev, idDocument: null }));
     }
-  };
-
-  const formatSSN = (value) => {
-    const digits = value.replace(/\D/g, '').slice(0, 9);
-    if (digits.length <= 3) return digits;
-    if (digits.length <= 5) return `${digits.slice(0, 3)}-${digits.slice(3)}`;
-    return `${digits.slice(0, 3)}-${digits.slice(3, 5)}-${digits.slice(5)}`;
-  };
-
-  const handleSSNChange = (e) => {
-    const formatted = formatSSN(e.target.value);
-    setFormData(prev => ({ ...prev, ssn: formatted }));
-    if (errors.ssn) setErrors(prev => ({ ...prev, ssn: null }));
   };
 
   const formatPhone = (value) => {
@@ -95,7 +72,6 @@ export default function Enroll() {
     if (!formData.email.trim()) newErrors.email = 'Email is required';
     if (!formData.phone.trim()) newErrors.phone = 'Phone number is required';
     if (!formData.dateOfBirth) newErrors.dateOfBirth = 'Date of birth is required';
-    if (!formData.ssn || formData.ssn.replace(/\D/g, '').length !== 9) newErrors.ssn = 'Valid SSN is required (XXX-XX-XXXX)';
     if (!formData.address.trim()) newErrors.address = 'Address is required';
     if (!formData.city.trim()) newErrors.city = 'City is required';
     if (!formData.zip.trim()) newErrors.zip = 'ZIP code is required';
@@ -106,8 +82,7 @@ export default function Enroll() {
 
   const validateStep2 = () => {
     const newErrors = {};
-    if (!files.driversLicense) newErrors.driversLicense = 'Driver\'s license or State ID is required';
-    if (!files.socialSecurityCard) newErrors.socialSecurityCard = 'Social Security card is required';
+    if (!idDocument) newErrors.idDocument = 'Please upload one identifying document (passport, ID card, birth certificate, or student visa)';
     if (!formData.agreeToTerms) newErrors.agreeToTerms = 'You must agree to the enrollment terms';
     if (!formData.emergencyContactName.trim()) newErrors.emergencyContactName = 'Emergency contact name is required';
     if (!formData.emergencyContactPhone.trim()) newErrors.emergencyContactPhone = 'Emergency contact phone is required';
@@ -123,32 +98,56 @@ export default function Enroll() {
     }
   };
 
+  // Emails the enrollment details (with the ID document attached when possible)
+  // to the admissions inbox so the school is notified before payment.
+  const notifyAdmissions = async () => {
+    const program = programs.find(p => p.id === selectedProgram);
+    try {
+      const payload = new FormData();
+      payload.append('_subject', `New Enrollment: ${formData.firstName} ${formData.lastName} — ${program ? program.name : selectedProgram}`);
+      payload.append('_template', 'table');
+      payload.append('_captcha', 'false');
+      payload.append('program', program ? `${program.name} ($${program.price})` : selectedProgram);
+      payload.append('firstName', formData.firstName);
+      payload.append('lastName', formData.lastName);
+      payload.append('email', formData.email);
+      payload.append('phone', formData.phone);
+      payload.append('dateOfBirth', formData.dateOfBirth);
+      payload.append('address', `${formData.address}, ${formData.city}, ${formData.state} ${formData.zip}`);
+      payload.append('healthcareExperience', formData.experience);
+      payload.append('emergencyContact', `${formData.emergencyContactName} — ${formData.emergencyContactPhone}`);
+      payload.append('idDocumentAttached', idDocument ? `Yes — ${idDocument.name}` : 'No — student will text/email it');
+      payload.append('submittedAt', new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' }));
+      if (idDocument) payload.append('attachment', idDocument);
+
+      const resp = await fetch('https://formsubmit.co/ajax/admissions@btieducation.com', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: payload,
+      });
+      return resp.ok;
+    } catch (err) {
+      console.error('Admissions notification failed:', err);
+      return false;
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateStep2()) return;
 
     setLoading(true);
+    const notified = await notifyAdmissions();
+    if (!notified) setNotifyWarning(true);
 
-    try {
-      // In production, this would send to your backend with file uploads
-      console.log('Enrollment submitted:', { ...formData, program: selectedProgram, files });
-      
-      setSubmitted(true);
-      
-      // Redirect to checkout after 2 seconds
-      setTimeout(() => {
-        const program = programs.find(p => p.id === selectedProgram);
-        if (program) {
-          navigate(`/checkout/${selectedProgram}`, {
-            state: { formData }
-          });
-        }
-      }, 2000);
-    } catch (error) {
-      console.error('Error submitting form:', error);
-    } finally {
-      setLoading(false);
-    }
+    setSubmitted(true);
+    setLoading(false);
+    window.scrollTo(0, 0);
+
+    // Redirect to checkout (Stripe payment link) after a short pause
+    setTimeout(() => {
+      navigate(`/checkout/${selectedProgram}`, { state: { formData } });
+    }, 2500);
   };
 
   const selectedProgramData = programs.find(p => p.id === selectedProgram);
@@ -160,7 +159,7 @@ export default function Enroll() {
           <div className="text-6xl mb-4">✓</div>
           <h1 className="text-3xl font-bold text-green-600 mb-2">Thank You!</h1>
           <p className="text-gray-600 mb-6">
-            We've received your enrollment information. Redirecting to payment...
+            We've received your enrollment information. Redirecting to secure payment...
           </p>
           <div className="animate-spin inline-block w-8 h-8 border-4 border-green-600 border-t-transparent rounded-full"></div>
         </div>
@@ -193,7 +192,7 @@ export default function Enroll() {
             </div>
             <div className={`flex items-center gap-2 ${step >= 2 ? 'text-blue-600' : 'text-gray-400'}`}>
               <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${step >= 2 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-500'}`}>2</div>
-              <span className="font-medium hidden sm:inline">Documents</span>
+              <span className="font-medium hidden sm:inline">Document</span>
             </div>
             <div className="w-12 h-0.5 bg-gray-200"></div>
             <div className="flex items-center gap-2 text-gray-400">
@@ -269,32 +268,16 @@ export default function Enroll() {
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                        <div>
-                          <label className="block text-sm font-medium text-dark mb-2">Date of Birth *</label>
-                          <input
-                            type="date"
-                            name="dateOfBirth"
-                            value={formData.dateOfBirth}
-                            onChange={handleInputChange}
-                            className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent ${errors.dateOfBirth ? 'border-red-500' : 'border-gray-300'}`}
-                          />
-                          {errors.dateOfBirth && <p className="text-red-500 text-xs mt-1">{errors.dateOfBirth}</p>}
-                        </div>
-                        <div>
-                          <label className="block text-sm font-medium text-dark mb-2">Social Security Number *</label>
-                          <input
-                            type="text"
-                            name="ssn"
-                            value={formData.ssn}
-                            onChange={handleSSNChange}
-                            placeholder="XXX-XX-XXXX"
-                            maxLength={11}
-                            className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent ${errors.ssn ? 'border-red-500' : 'border-gray-300'}`}
-                          />
-                          {errors.ssn && <p className="text-red-500 text-xs mt-1">{errors.ssn}</p>}
-                          <p className="text-xs text-gray-500 mt-1">Required for state certification registration</p>
-                        </div>
+                      <div className="mt-4">
+                        <label className="block text-sm font-medium text-dark mb-2">Date of Birth *</label>
+                        <input
+                          type="date"
+                          name="dateOfBirth"
+                          value={formData.dateOfBirth}
+                          onChange={handleInputChange}
+                          className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent ${errors.dateOfBirth ? 'border-red-500' : 'border-gray-300'}`}
+                        />
+                        {errors.dateOfBirth && <p className="text-red-500 text-xs mt-1">{errors.dateOfBirth}</p>}
                       </div>
                     </div>
 
@@ -419,7 +402,7 @@ export default function Enroll() {
                       type="submit"
                       className="btn-primary w-full flex items-center justify-center gap-2 py-3 text-lg"
                     >
-                      Continue to Document Upload
+                      Continue to Document &amp; Agreement
                       <ArrowRight size={20} />
                     </button>
                   </form>
@@ -436,60 +419,44 @@ export default function Enroll() {
                         ← Back to Personal Info
                       </button>
                     </div>
-                    <h2 className="text-3xl font-bold text-dark">Required Documents</h2>
-                    <p className="text-gray-600">Please upload clear photos or scans of the following documents. These are required for state certification registration.</p>
+                    <h2 className="text-3xl font-bold text-dark">Identification &amp; Agreement</h2>
 
-                    {/* Document Uploads */}
-                    <div className="space-y-6">
-                      {/* Driver's License */}
-                      <div className={`border-2 border-dashed rounded-lg p-6 text-center ${errors.driversLicense ? 'border-red-400 bg-red-50' : files.driversLicense ? 'border-green-400 bg-green-50' : 'border-gray-300 hover:border-blue-400'}`}>
-                        <Upload size={32} className={`mx-auto mb-3 ${files.driversLicense ? 'text-green-600' : 'text-gray-400'}`} />
-                        <h4 className="font-semibold text-dark mb-1">Driver's License or State ID *</h4>
-                        <p className="text-sm text-gray-500 mb-3">Upload a clear photo of the front of your ID</p>
-                        {files.driversLicense ? (
+                    {/* One identifying document — works for everyone including visa students */}
+                    <div>
+                      <p className="text-gray-600 mb-4">
+                        Upload <strong>one</strong> identifying document. Any of these works:
+                        <strong> passport, driver's license or state ID card, birth certificate, or student visa</strong>.
+                        International students are welcome — a passport or student visa is all you need to get started.
+                      </p>
+                      <div className={`border-2 border-dashed rounded-lg p-6 text-center ${errors.idDocument ? 'border-red-400 bg-red-50' : idDocument ? 'border-green-400 bg-green-50' : 'border-gray-300 hover:border-blue-400'}`}>
+                        <Upload size={32} className={`mx-auto mb-3 ${idDocument ? 'text-green-600' : 'text-gray-400'}`} />
+                        <h4 className="font-semibold text-dark mb-1">Identifying Document *</h4>
+                        <p className="text-sm text-gray-500 mb-3">A clear photo or scan — passport, ID card, birth certificate, or student visa</p>
+                        {idDocument ? (
                           <div className="flex items-center justify-center gap-2 text-green-600">
                             <CheckCircle size={16} />
-                            <span className="text-sm font-medium">{files.driversLicense.name}</span>
+                            <span className="text-sm font-medium">{idDocument.name}</span>
                           </div>
                         ) : (
                           <label className="inline-block cursor-pointer bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition text-sm font-medium">
                             Choose File
                             <input
                               type="file"
-                              name="driversLicense"
+                              name="idDocument"
                               accept="image/*,.pdf"
                               onChange={handleFileChange}
                               className="hidden"
                             />
                           </label>
                         )}
-                        {errors.driversLicense && <p className="text-red-500 text-xs mt-2">{errors.driversLicense}</p>}
+                        {errors.idDocument && <p className="text-red-500 text-xs mt-2">{errors.idDocument}</p>}
                       </div>
-
-                      {/* Social Security Card */}
-                      <div className={`border-2 border-dashed rounded-lg p-6 text-center ${errors.socialSecurityCard ? 'border-red-400 bg-red-50' : files.socialSecurityCard ? 'border-green-400 bg-green-50' : 'border-gray-300 hover:border-blue-400'}`}>
-                        <Upload size={32} className={`mx-auto mb-3 ${files.socialSecurityCard ? 'text-green-600' : 'text-gray-400'}`} />
-                        <h4 className="font-semibold text-dark mb-1">Social Security Card *</h4>
-                        <p className="text-sm text-gray-500 mb-3">Upload a clear photo of your Social Security card</p>
-                        {files.socialSecurityCard ? (
-                          <div className="flex items-center justify-center gap-2 text-green-600">
-                            <CheckCircle size={16} />
-                            <span className="text-sm font-medium">{files.socialSecurityCard.name}</span>
-                          </div>
-                        ) : (
-                          <label className="inline-block cursor-pointer bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition text-sm font-medium">
-                            Choose File
-                            <input
-                              type="file"
-                              name="socialSecurityCard"
-                              accept="image/*,.pdf"
-                              onChange={handleFileChange}
-                              className="hidden"
-                            />
-                          </label>
-                        )}
-                        {errors.socialSecurityCard && <p className="text-red-500 text-xs mt-2">{errors.socialSecurityCard}</p>}
-                      </div>
+                      <p className="text-xs text-gray-500 mt-2">
+                        Trouble uploading? You can also text it to <strong>636-242-5722</strong> or email <strong>admissions@btieducation.com</strong> after checkout.
+                      </p>
+                      <p className="text-xs text-gray-500 mt-2">
+                        Note: when it's time to register for the state certification exam, Missouri may ask for a Social Security Number — our office will help you with that step when you get there.
+                      </p>
                     </div>
 
                     {/* Emergency Contact */}
@@ -559,7 +526,7 @@ export default function Enroll() {
                     <div className="flex items-start gap-3 p-4 bg-gray-50 rounded-lg border">
                       <AlertCircle size={20} className="text-gray-500 flex-shrink-0 mt-0.5" />
                       <p className="text-xs text-gray-600">
-                        Your personal information including SSN and documents are encrypted and stored securely. We only use this information for state certification registration and program enrollment. We never share your information with third parties.
+                        Your information is used only for enrollment and state certification registration. We never share your information with third parties.
                       </p>
                     </div>
 
@@ -569,12 +536,18 @@ export default function Enroll() {
                       disabled={loading}
                       className="btn-primary w-full flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed py-3 text-lg"
                     >
-                      {loading ? 'Processing...' : 'Continue to Payment'}
+                      {loading ? 'Processing...' : 'Continue to Secure Payment'}
                       <ArrowRight size={20} />
                     </button>
 
+                    {notifyWarning && (
+                      <p className="text-xs text-amber-600 text-center">
+                        Note: we had trouble delivering your document automatically — after paying, please text it to 636-242-5722 so we can finish your file.
+                      </p>
+                    )}
+
                     <p className="text-xs text-gray-500 text-center">
-                      After submitting, you will be redirected to our secure payment page.
+                      After submitting, you will be redirected to our secure Stripe payment page.
                     </p>
                   </form>
                 )}
@@ -599,6 +572,7 @@ export default function Enroll() {
                     <div className="border-t pt-4 bg-white p-3 rounded-lg">
                       <p className="text-sm text-gray-600">Total Price</p>
                       <p className="text-3xl font-bold text-primary">${selectedProgramData.price}</p>
+                      <p className="text-xs text-gray-500 mt-1">State exam fee paid separately to the testing center</p>
                     </div>
                   </div>
                 </div>
@@ -655,12 +629,14 @@ export default function Enroll() {
           <h2 className="text-3xl font-bold text-center mb-12 text-dark">Frequently Asked Questions</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {[
-              { q: 'How long does the CNA program take?', a: 'Our self-paced CNA program can be completed in as little as 4 weeks or at your own pace up to 6 months.' },
+              { q: 'How long does the CNA program take?', a: 'The self-paced course is 75 hours of theory you can complete on your schedule (up to 14 weeks). The hybrid program runs 5 weeks; the clinical-only track runs 3 weeks.' },
               { q: "What's the pass rate?", a: 'We have a 95% pass rate on the state certification exam. Our comprehensive training prepares you thoroughly.' },
-              { q: 'Do you offer payment plans?', a: 'Yes! We offer flexible payment options. Contact us for details on payment plans.' },
-              { q: 'Is the program online or in-person?', a: 'We offer self-paced online learning with optional in-person clinical experience components.' },
+              { q: 'Do you offer payment plans?', a: 'Yes — Klarna installment options appear automatically at checkout, and you can contact us about other arrangements.' },
+              { q: 'Is the program online or in-person?', a: 'We offer self-paced online learning, a hybrid program with in-person lab and clinical hours, and a clinical-only track.' },
               { q: "What if I don't pass the exam?", a: 'We offer retake support and additional study materials at no extra cost.' },
-              { q: 'Can I get a refund?', a: "Yes, we offer a 7-day money-back guarantee if you're not satisfied with the program." }
+              { q: 'Can I get a refund?', a: 'Per your enrollment agreement: a full refund is available within 3 business days of signing; after class begins, refunds follow the schedule in your agreement (50% if less than 25% of the program is completed).' },
+              { q: 'What ID do I need to enroll?', a: 'Just one identifying document: a passport, driver\'s license or state ID card, birth certificate, or student visa. International students are welcome — a passport or student visa is all you need to get started.' },
+              { q: 'Is the state exam fee included?', a: 'No — the state exam fee is paid directly to the testing center when you register for the exam.' }
             ].map((faq, idx) => (
               <div key={idx} className="bg-white p-6 rounded-lg shadow-sm">
                 <h3 className="font-bold text-dark mb-2">{faq.q}</h3>
