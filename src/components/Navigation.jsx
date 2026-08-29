@@ -28,7 +28,7 @@ export default function Navigation() {
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
-            <img src="/logo.png" alt="Breakthrough Training Institute" className="w-28 h-28 md:w-32 md:h-32 object-contain" />
+            <img src="/logo.png" alt="Breakthrough Training Institute" className="h-12 w-12 md:h-14 md:w-14 object-contain" />
             <div>
               <h1 className="font-bold text-base md:text-xl text-dark leading-tight">{schoolData.name}</h1>
               <p className="text-sm md:text-base text-orange-500 font-semibold">{schoolData.tagline}</p>
@@ -48,13 +48,21 @@ export default function Navigation() {
             ))}
           </div>
 
-          {/* CTA Button */}
-          <Link
-            to="/enroll"
-            className="hidden md:block btn-primary"
-          >
-            Enroll Now
-          </Link>
+          {/* CTA Buttons */}
+          <div className="hidden md:flex items-center gap-3">
+            <a
+              href="https://learn.btieducation.com"
+              className="px-4 py-2 rounded-lg font-semibold text-primary border-2 border-primary hover:bg-blue-50 transition-colors"
+            >
+              Student Login
+            </a>
+            <Link
+              to="/enroll"
+              className="btn-primary"
+            >
+              Enroll Now
+            </Link>
+          </div>
 
           {/* Mobile Menu Button */}
           <button
@@ -78,9 +86,16 @@ export default function Navigation() {
                 {link.name}
               </Link>
             ))}
+            <a
+              href="https://learn.btieducation.com"
+              className="block mt-4 text-center px-4 py-2 rounded-lg font-semibold text-primary border-2 border-primary hover:bg-blue-50 transition-colors"
+              onClick={() => setIsOpen(false)}
+            >
+              Student Login
+            </a>
             <Link
               to="/enroll"
-              className="block mt-4 btn-primary text-center"
+              className="block mt-2 btn-primary text-center"
               onClick={() => setIsOpen(false)}
             >
               Enroll Now
