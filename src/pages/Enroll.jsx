@@ -3,6 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { programs } from '../data/schoolData';
 import { ArrowRight, CheckCircle, Phone, Mail, AlertCircle, Upload } from 'lucide-react';
 
+// Stripe Payment Links — one per program (matches Checkout.jsx)
+// To update: create a new Payment Link in Stripe Dashboard and paste the URL here AND in Checkout.jsx
+const STRIPE_PAYMENT_LINKS = {
+  'cna':          'https://buy.stripe.com/28EfZg0AEdPTfj6dLY6g800',
+  'cna-hybrid':   'https://buy.stripe.com/14AfZg3MQ3bf3AocHU6g801',
+  'cna-clinical': 'https://buy.stripe.com/eVqcN497a3bfdaYazM6g802',
+};
+
 export default function Enroll() {
   const navigate = useNavigate();
   const [selectedProgram, setSelectedProgram] = useState('cna');
@@ -144,10 +152,16 @@ export default function Enroll() {
     setLoading(false);
     window.scrollTo(0, 0);
 
-    // Redirect to checkout (Stripe payment link) after a short pause
+    // Send the student STRAIGHT to their Stripe payment page — no intermediate
+    // checkout screen. Fewer clicks = fewer lost enrollments.
     setTimeout(() => {
-      navigate(`/checkout/${selectedProgram}`, { state: { formData } });
-    }, 2500);
+      const link = STRIPE_PAYMENT_LINKS[selectedProgram];
+      if (link) {
+        window.location.href = link;
+      } else {
+        navigate(`/checkout/${selectedProgram}`, { state: { formData } });
+      }
+    }, 2000);
   };
 
   const selectedProgramData = programs.find(p => p.id === selectedProgram);
@@ -157,9 +171,9 @@ export default function Enroll() {
       <div className="min-h-screen bg-gradient-to-br from-green-50 to-green-100 flex items-center justify-center p-4">
         <div className="bg-white rounded-lg shadow-xl p-8 max-w-md w-full text-center">
           <div className="text-6xl mb-4">✓</div>
-          <h1 className="text-3xl font-bold text-green-600 mb-2">Thank You!</h1>
+          <h1 className="text-3xl font-bold text-green-600 mb-2">Almost Done!</h1>
           <p className="text-gray-600 mb-6">
-            We've received your enrollment information. Redirecting to secure payment...
+            We've received your enrollment information. <b>One step left — your tuition payment.</b> Taking you to secure checkout now...
           </p>
           <div className="animate-spin inline-block w-8 h-8 border-4 border-green-600 border-t-transparent rounded-full"></div>
         </div>
@@ -516,7 +530,7 @@ export default function Enroll() {
                           className="mt-1 w-4 h-4 text-primary"
                         />
                         <label htmlFor="agreeToTerms" className="text-sm text-gray-700">
-                          <strong>I certify that all information provided is true and accurate.</strong> I understand that providing false information may result in dismissal from the program. I agree to the <a href="/privacy-policy" className="text-blue-600 underline">enrollment terms and privacy policy</a>.
+                          <strong>I certify that all information provided is true and accurate.</strong> I understand that providing false information may result in dismissal from the program. I agree to the <a href="/terms" className="text-blue-600 underline">enrollment terms and conditions</a> and <a href="/privacy-policy" className="text-blue-600 underline">privacy policy</a>.
                         </label>
                       </div>
                       {errors.agreeToTerms && <p className="text-red-500 text-xs">{errors.agreeToTerms}</p>}
