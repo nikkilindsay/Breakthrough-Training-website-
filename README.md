@@ -1,195 +1,87 @@
-# Breakthrough Training Institute Website
+# BTI CNA LMS — Event & Quality Scaffold (React + Supabase)
 
-Professional marketing website for Breakthrough Training Institute - a healthcare training school offering CNA, Medical Assistant, and other professional programs.
+Started 2026-09-14. This turns your portal (`learn.btieducation.com`) into the
+single platform: students finish modules → a row changes in Supabase → a
+Postgres trigger writes a `quality_events` row → the Cohort & Quality
+dashboards fill themselves in.
 
-## Features
-
-- **Homepage** - Hero section, program overview, statistics, and call-to-action
-- **Program Pages** - Detailed program information with enrollment forms
-- **Blog** - Educational articles and insights with category filtering
-- **Events Calendar** - Upcoming events, workshops, and graduations
-- **Gallery** - Showcase of student achievements, graduations, and events
-- **Instructor Profiles** - Meet the team, including Shanekia Lindsay (Program Director & Founder)
-- **Contact Page** - Contact form and location information
-- **Stripe Integration** - Secure payment processing for program enrollment
-
-## Tech Stack
-
-- **Frontend**: React 18 + Vite
-- **Styling**: Tailwind CSS
-- **Routing**: React Router v6
-- **Icons**: Lucide React
-- **Payments**: Stripe
-- **Build Tool**: Vite
-
-## Project Structure
+## What's in this repo
 
 ```
-src/
-├── components/
-│   ├── Navigation.jsx      # Top navigation bar
-│   └── Footer.jsx          # Footer with contact info
-├── pages/
-│   ├── Home.jsx            # Homepage
-│   ├── Programs.jsx        # Program listing
-│   ├── ProgramDetail.jsx   # Individual program details
-│   ├── Blog.jsx            # Blog listing
-│   ├── BlogPost.jsx        # Blog post detail
-│   ├── Events.jsx          # Events calendar
-│   ├── Gallery.jsx         # Gallery/showcase
-│   ├── Instructors.jsx     # Instructor profiles
-│   ├── Contact.jsx         # Contact page
-│   └── Checkout.jsx        # Payment checkout
-├── data/
-│   └── schoolData.js       # School info, programs, blog posts, events, gallery
-├── App.jsx                 # Main app component with routing
-├── main.jsx                # React entry point
-└── index.css               # Global styles
-
+bti_lms/
+├── supabase/migrations/0001_lms_event_schema.sql   ← run this FIRST in Supabase
+├── src/
+│   ├── lib/supabaseClient.js   ← client + role helpers (director/instructor/student)
+│   ├── lib/lmsEvents.js        ← event emitters (call these from the UI)
+│   └── components/
+│       ├── ModuleRating.jsx        ← thumbs up/down widget
+│       ├── CohortDashboard.jsx     ← instructor/director: live cohort progress
+│       └── QualityDashboard.jsx    ← director: alerts + module NPS
+├── .env.example
+└── package.json
 ```
 
-## Getting Started
+## File-by-file
 
-### Installation
+| File | Purpose |
+|---|---|
+| `0001_lms_event_schema.sql` | Tables, row-level security, 3 triggers, 3 dashboard views. Run once in Supabase SQL editor (or `supabase db push`). |
+| `supabaseClient.js` | Inits the client; `isDirector()` / `isInstructor()` role gates. |
+| `lmsEvents.js` | `emitModuleCompleted`, `emitModuleRated`, `emitQuizAttempt`, `logClockHours`, `logSkillCheckoff`, `logAttendance`. Each INSERT is what fires a trigger. |
+| `ModuleRating.jsx` | 👍/👎 widget; rating ≤ 2 auto-alerts the Director. |
+| `CohortDashboard.jsx` | Realtime table of students × modules × hours × status (reads `v_student_progress`). |
+| `QualityDashboard.jsx` | Last-30-days alert feed + module NPS (reads `v_recent_quality_alerts`, `v_module_nps`). |
 
-```bash
-npm install
-```
+## Setup (10 minutes)
 
-### Development
+1. **Supabase**: create a project → SQL editor → paste & run `0001_lms_event_schema.sql`.
+2. **Env**: copy `.env.example` → `.env`, fill in your Supabase project URL + anon key.
+3. **Install**: `npm install` then `npm run dev`.
+4. **Auth**: enable email/magic-link auth in Supabase; first user gets role `director`
+   via a manual row in `profiles` (or assign in dashboard).
 
-```bash
-npm run dev
-```
-
-The site will be available at `http://localhost:3001`
-
-### Build for Production
-
-```bash
-npm run build
-```
-
-This creates an optimized production build in the `dist/` directory.
-
-## Configuration
-
-### School Information
-
-Edit `src/data/schoolData.js` to update:
-- School name, address, phone, email
-- Programs and pricing
-- Blog posts
-- Events
-- Gallery items
-- Instructor profiles
-
-### Stripe Integration
-
-Set your Stripe publishable key in the environment:
+## How the event flow works (your "triggers")
 
 ```
-VITE_STRIPE_PUBLISHABLE_KEY=pk_your_key_here
+Student finishes module / quiz
+        │  UI calls emitQuizAttempt() / emitModuleCompleted()
+        ▼
+INSERT into quiz_attempts / module_completions      ← the "row change"
+        │
+        ▼  Postgres trigger (AFTER INSERT)
+┌───────────────────────────────────────────────┐
+│ trg_quiz_passed → auto-completes the module    │
+│ trg_module_completed → writes module.completed │
+│   + student.near_completion at ≥80% of modules │
+│ trg_low_rating → Director alert when rating≤2  │
+└───────────────────────────────────────────────┘
+        ▼
+quality_events table (director/instructor can read; students cannot)
+        ▼
+CohortDashboard / QualityDashboard update in realtime
 ```
 
-## Pages Overview
+## Which quality measures automate vs stay manual
 
-### Home
-- Hero section with school tagline
-- Feature highlights
-- Program overview cards
-- Statistics section
-- Call-to-action buttons
+Auto-filled (student actions fire them):
+- #8 Student satisfaction → `module_ratings` avg
+- #9 NPS → `v_module_nps`
+- #1/#2 Completion → `module_completions`
+- #20 Knowledge checkpoints → `quiz_attempts`
 
-### Programs
-- Detailed program comparisons
-- Features and benefits
-- Enrollment information
-- FAQ section
+Manual rows (require a human — instructor/director inserts):
+- #7 Attendance / #18 Clinical shifts → `clock_hours` (kind `clinical`, `verified_by`)
+- #19 Skills competency → `skills_checkoffs` (hands-on, `attempt_1_pass`)
+- #17 Required filings → not in LMS (tracked in Quality Dashboard spreadsheet)
 
-### Program Detail
-- Full program description
-- Enrollment form
-- Stripe payment integration
-- Program features and details
+Not every row will be filled by the platform — by design. Hands-on items are
+logged by the instructor after the shift, exactly as you planned.
 
-### Blog
-- Article listing with categories
-- Search and filter functionality
-- Newsletter subscription
-- Related articles
+## Notes
 
-### Events
-- Event calendar with filtering
-- Event details and registration
-- Monthly schedule view
-
-### Gallery
-- Image showcase with lightbox
-- Category filtering
-- Student testimonials
-- Community statistics
-
-### Instructors
-- Instructor profiles
-- Credentials and experience
-- Teaching philosophy
-- Contact information
-
-### Contact
-- Contact form
-- Location and hours
-- Phone and email
-- FAQ section
-
-## Customization
-
-### Colors
-
-Edit `tailwind.config.js` to change the color scheme:
-
-```js
-colors: {
-  primary: '#0a7ea4',      // Main blue
-  secondary: '#f59e0b',    // Orange/gold
-  accent: '#ff9f43',       // Light orange
-}
-```
-
-### Content
-
-All content is managed in `src/data/schoolData.js`. Update:
-- `schoolData` - School information
-- `programs` - Program details
-- `instructors` - Instructor profiles
-- `blogPosts` - Blog articles
-- `events` - Calendar events
-- `galleryItems` - Gallery images
-
-## Deployment
-
-The website is ready to deploy to any static hosting service:
-
-- **Vercel**: `vercel deploy`
-- **Netlify**: Connect GitHub repo and deploy
-- **GitHub Pages**: `npm run build` and push `dist/` folder
-- **AWS S3**: Upload `dist/` folder to S3 bucket
-
-## Environment Variables
-
-Create a `.env` file in the root directory:
-
-```
-VITE_STRIPE_PUBLISHABLE_KEY=pk_your_key_here
-```
-
-## Support
-
-For questions or issues, contact:
-- **Phone**: 314-649-5586
-- **Email**: btiadmissionoffice@gmail.com
-- **Address**: 11862 Lackland Rd, Suite BTI, St. Louis, MO 63146
-
-## License
-
-© 2024 Breakthrough Training Institute. All rights reserved.
+- RLS: students see only their own rows; instructors only their cohort (primary
+  OR backup); director/admin sees everything.
+- Idle-at-risk nightly scan is commented at the bottom of the migration —
+  enable when you turn on `pg_cron`.
+- One-time `VITE_SUPABASE_URL` / `VITE_SUPABASE_ANON_KEY` are the only secrets;
+  keep the anon key public (RLS is what protects the data, not the key).
