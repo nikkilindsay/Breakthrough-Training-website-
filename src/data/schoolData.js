@@ -35,8 +35,8 @@ export const programs = [
   {
     id: 'cna-hybrid',
     name: 'CNA Hybrid Program',
-    shortDescription: 'Next Class Starts September 22, 2026 — Limited Seats!',
-    fullDescription: 'Our 5-week CNA Hybrid Program in St. Louis starts with 2 days of in-person classroom instruction to kick off your cohort, then the remainder of your theory classes are completed online. After theory, you\'ll complete 100+ hours of supervised clinical practice. This is the fastest path to CNA certification in Missouri. New cohorts start every 4th Tuesday — next cohort starts September 22, 2026. Enroll now before seats fill up!',
+    shortDescription: 'Next Class Starts October 20, 2026 — Limited Seats!',
+    fullDescription: 'Our 5-week CNA Hybrid Program in St. Louis starts with 2 days of in-person classroom instruction to kick off your cohort, then the remainder of your theory classes are completed online. After theory, you\'ll complete 100+ hours of supervised clinical practice. This is the fastest path to CNA certification in Missouri. New cohorts start every 4th Tuesday — next cohort starts October 20, 2026. Enroll now before seats fill up!',
     duration: '5 weeks',
     price: 1175,
     access: 'Full program',
