@@ -106,7 +106,7 @@ export default function RequestInfo() {
             {/* Left: value pitch */}
             <div>
               <p className="inline-block bg-yellow-400 text-gray-900 font-bold text-base px-4 py-1 rounded-full mb-4">
-                Next Hybrid Class Starts September 22 — Only 25 Seats
+                Next Hybrid Class Starts October 20 — Only 25 Seats
               </p>
               <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
                 Start Your CNA Career in as Little as 5 Weeks
@@ -250,7 +250,7 @@ export default function RequestInfo() {
                   >
                     <option value="">Select one</option>
                     <option value="ASAP — Self-Paced (start now)">ASAP — Self-Paced, I want to start now!</option>
-                    <option value="Hybrid — September 22 class">Hybrid — the September 22 class!</option>
+                    <option value="Hybrid — October 20 class">Hybrid — the October 20 class!</option>
                     <option value="Next 1-2 months">In the next 1–2 months</option>
                     <option value="Later this year">Later this year</option>
                     <option value="Just exploring">Just exploring for now</option>

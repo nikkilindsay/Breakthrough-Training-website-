@@ -97,7 +97,7 @@ export default function ProgramDetail() {
                     <Calendar size={24} className="text-orange-500" />
                     <h3 className="text-xl font-bold text-gray-900">Upcoming Cohort Dates</h3>
                   </div>
-                  <p className="text-gray-700 mb-4">New cohorts start every 4th Tuesday. Next cohort: <strong>September 22, 2026</strong>. Seats are limited!</p>
+                  <p className="text-gray-700 mb-4">New cohorts start every 4th Tuesday. Next cohort: <strong>October 20, 2026</strong>. Seats are limited!</p>
                   <Link to="/class-schedule" className="inline-flex items-center gap-2 bg-orange-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-orange-600 transition-colors">
                     View Full Class Schedule <ArrowRight size={18} />
                   </Link>
@@ -200,6 +200,7 @@ export default function ProgramDetail() {
                   <div className="bg-gray-50 p-4 rounded-lg my-6">
                     <p className="text-sm text-gray-600 mb-2">Program Investment</p>
                     <p className="text-3xl font-bold text-primary">${program.price}</p>
+                    <p className="mt-2 text-sm font-bold text-orange-600">BTI Payment Plan: $300 down to start - balance in weekly installments. No credit check, no interest.</p>
                   </div>
 
                   <button
