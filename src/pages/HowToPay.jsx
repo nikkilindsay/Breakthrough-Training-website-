@@ -145,9 +145,9 @@ export default function HowToPay() {
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-10">
             <span className="inline-block bg-orange-500 text-white text-sm font-bold px-4 py-1 rounded-full mb-4">BTI PAYMENT PLAN</span>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Start Today with $300 Down</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">No Registration Fee. Start Today with as Little as $75 Down.</h2>
             <p className="text-lg text-blue-100 max-w-3xl mx-auto">
-              Every BTI program can be started with a $300 down payment. The rest is split into simple weekly
+              Every BTI program starts with a small down payment and no registration fee - the fee other schools charge and never give back. The rest is split into a few simple
               installments while you train - no credit check, no interest, no outside lender.
             </p>
           </div>
@@ -155,26 +155,26 @@ export default function HowToPay() {
             <div className="bg-white/10 backdrop-blur rounded-xl p-6 border border-white/20">
               <h3 className="text-xl font-bold mb-1">Self-Paced CNA</h3>
               <p className="text-blue-200 text-sm mb-3">Tuition $475</p>
-              <p className="text-3xl font-bold text-orange-400 mb-1">$300 down</p>
-              <p className="text-blue-100">Then the $175 balance - 2 payments of $87.50, or pay it in full anytime during your program.</p>
+              <p className="text-3xl font-bold text-orange-400 mb-1">$75 down</p>
+              <p className="text-blue-100">Then 4 payments of $100 - $75 today reserves your seat, then $100 each.</p>
             </div>
             <div className="bg-white rounded-xl p-6 text-gray-900 border-4 border-orange-500 relative">
               <span className="absolute -top-3 right-4 bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full">MOST POPULAR</span>
               <h3 className="text-xl font-bold mb-1">CNA Hybrid Program</h3>
               <p className="text-gray-600 text-sm mb-3">Tuition $1,175 &middot; 5 weeks</p>
-              <p className="text-3xl font-bold text-orange-600 mb-1">$300 down</p>
-              <p className="text-gray-700">Then the $875 balance - 5 weekly payments of $175 while you are in class.</p>
+              <p className="text-3xl font-bold text-orange-600 mb-1">$150 down</p>
+              <p className="text-gray-700">Then 3 payments of $342 - $150 today reserves your seat, balance $1,025 (last payment $341).</p>
             </div>
             <div className="bg-white/10 backdrop-blur rounded-xl p-6 border border-white/20">
               <h3 className="text-xl font-bold mb-1">Clinical Experience Only</h3>
               <p className="text-blue-200 text-sm mb-3">Tuition $915</p>
-              <p className="text-3xl font-bold text-orange-400 mb-1">$300 down</p>
-              <p className="text-blue-100">Then the $615 balance - 3 weekly payments of $205 during your clinical weeks.</p>
+              <p className="text-3xl font-bold text-orange-400 mb-1">$150 down</p>
+              <p className="text-blue-100">Then 3 payments of $255 - $150 today reserves your seat, balance $765.</p>
             </div>
           </div>
           <div className="text-center mt-8">
             <p className="text-blue-100 text-sm max-w-2xl mx-auto">
-              The $300 down payment reserves your seat and starts your enrollment. The balance must be paid in full
+              Your down payment reserves your seat, and there is no registration fee to lose if plans change. The balance must be paid in full
               before your certificate of completion is issued. Plan terms are set at enrollment - call
               <a href="tel:6362425722" className="font-bold underline"> 636-242-5722 </a> or ask admissions.
             </p>
@@ -269,7 +269,7 @@ export default function HowToPay() {
             <div className="bg-white rounded-xl shadow-md p-8 border-t-4 border-blue-500">
               <h3 className="text-xl font-bold text-gray-900 mb-2">Self-Paced CNA</h3>
               <p className="text-4xl font-bold text-blue-600 mb-1">$475</p>
-              <p className="text-sm font-bold text-orange-600 mb-3">or $300 down + $175 balance</p>
+              <p className="text-sm font-bold text-orange-600 mb-3">or $75 down + 4 payments of $100</p>
               <p className="text-gray-600 mb-4">100% online theory. Complete within 4 months at your own pace.</p>
               <Link to="/enroll" className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-800">
                 Enroll Now <ArrowRight size={16} />
@@ -280,7 +280,7 @@ export default function HowToPay() {
               <span className="absolute -top-3 right-4 bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full">MOST POPULAR</span>
               <h3 className="text-xl font-bold text-gray-900 mb-2">CNA Hybrid Program</h3>
               <p className="text-4xl font-bold text-purple-600 mb-1">$1,175</p>
-              <p className="text-sm font-bold text-orange-600 mb-3">or $300 down + 5 weekly payments of $175</p>
+              <p className="text-sm font-bold text-orange-600 mb-3">or $150 down + 3 payments of $342</p>
               <p className="text-gray-600 mb-4">5-week in-person + online. Next class starts October 20, 2026!</p>
               <Link to="/enroll" className="inline-flex items-center gap-2 text-purple-600 font-semibold hover:text-purple-800">
                 Enroll Now <ArrowRight size={16} />
@@ -290,7 +290,7 @@ export default function HowToPay() {
             <div className="bg-white rounded-xl shadow-md p-8 border-t-4 border-green-500">
               <h3 className="text-xl font-bold text-gray-900 mb-2">Clinical Experience Only</h3>
               <p className="text-4xl font-bold text-green-600 mb-1">$915</p>
-              <p className="text-sm font-bold text-orange-600 mb-3">or $300 down + 3 weekly payments of $205</p>
+              <p className="text-sm font-bold text-orange-600 mb-3">or $150 down + 3 payments of $255</p>
               <p className="text-gray-600 mb-4">Already completed theory? Finish your clinicals and get certified.</p>
               <Link to="/enroll" className="inline-flex items-center gap-2 text-green-600 font-semibold hover:text-green-800">
                 Enroll Now <ArrowRight size={16} />

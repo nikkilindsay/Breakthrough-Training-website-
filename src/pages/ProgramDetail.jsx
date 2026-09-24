@@ -200,7 +200,7 @@ export default function ProgramDetail() {
                   <div className="bg-gray-50 p-4 rounded-lg my-6">
                     <p className="text-sm text-gray-600 mb-2">Program Investment</p>
                     <p className="text-3xl font-bold text-primary">${program.price}</p>
-                    <p className="mt-2 text-sm font-bold text-orange-600">BTI Payment Plan: $300 down to start - balance in weekly installments. No credit check, no interest.</p>
+                    <p className="mt-2 text-sm font-bold text-orange-600">BTI Payment Plan: low down payment, no registration fee - balance in a few payments. No credit check, no interest.</p>
                   </div>
 
                   <button
