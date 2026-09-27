@@ -246,6 +246,9 @@ export default function Enroll() {
                             <div className="ml-4 flex-1">
                               <p className="font-semibold text-dark">{program.name}</p>
                               <p className="text-sm text-gray-600">{program.duration} • ${program.price}</p>
+                              {program.paymentPlan && (
+                                <p className="text-xs font-bold text-orange-600">{program.paymentPlan}</p>
+                              )}
                             </div>
                           </label>
                         ))}
@@ -586,6 +589,9 @@ export default function Enroll() {
                     <div className="border-t pt-4 bg-white p-3 rounded-lg">
                       <p className="text-sm text-gray-600">Total Price</p>
                       <p className="text-3xl font-bold text-primary">${selectedProgramData.price}</p>
+                      {selectedProgramData.paymentPlan && (
+                        <p className="text-sm font-bold text-orange-600 mt-1">{selectedProgramData.paymentPlan}</p>
+                      )}
                       <p className="text-xs text-gray-500 mt-1">State exam fee paid separately to the testing center</p>
                     </div>
                   </div>
