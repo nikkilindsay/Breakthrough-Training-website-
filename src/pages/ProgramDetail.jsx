@@ -69,6 +69,9 @@ export default function ProgramDetail() {
                   <DollarSign size={32} className="mx-auto mb-2 text-secondary" />
                   <p className="text-sm text-gray-600 mb-1">Investment</p>
                   <p className="font-bold text-lg">${program.price}</p>
+                  {program.paymentPlan && (
+                    <p className="text-xs font-bold text-orange-600">{program.paymentPlan}</p>
+                  )}
                 </div>
                 <div className="card text-center">
                   <Award size={32} className="mx-auto mb-2 text-primary" />
@@ -200,7 +203,7 @@ export default function ProgramDetail() {
                   <div className="bg-gray-50 p-4 rounded-lg my-6">
                     <p className="text-sm text-gray-600 mb-2">Program Investment</p>
                     <p className="text-3xl font-bold text-primary">${program.price}</p>
-                    <p className="mt-2 text-sm font-bold text-orange-600">BTI Payment Plan: low down payment, no registration fee - balance in a few payments. No credit check, no interest.</p>
+                    <p className="mt-2 text-sm font-bold text-orange-600">BTI Payment Plan: {program.paymentPlan}. No registration fee, no credit check, no interest.</p>
                   </div>
 
                   <button
