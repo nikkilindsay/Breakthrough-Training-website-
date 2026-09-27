@@ -70,6 +70,13 @@ export default function Programs() {
                       </div>
                     </div>
 
+                    {/* Payment Plan */}
+                    {program.paymentPlan && (
+                      <div className="mb-8 rounded-lg border border-orange-200 bg-orange-50 px-4 py-3">
+                        <p className="text-sm font-bold text-orange-600">{program.paymentPlan}</p>
+                      </div>
+                    )}
+
                     {/* CTA */}
                     <Link
                       to={`/programs/${program.id}`}
