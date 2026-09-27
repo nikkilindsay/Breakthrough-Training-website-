@@ -11,7 +11,7 @@ export default function Programs() {
         <div className="container-custom">
           <h1 className="text-5xl font-bold mb-4">CNA Classes in St. Louis, MO</h1>
           <p className="text-xl text-blue-100">
-            State-approved CNA certification programs — hybrid and self-paced options available. Serving St. Louis, Maryland Heights, and surrounding Missouri communities.
+            State-approved CNA certification programs — hybrid and self-paced options available. Serving St. Louis and surrounding Missouri communities.
           </p>
         </div>
       </section>

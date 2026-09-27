@@ -94,10 +94,6 @@ const faqs = [
         a: 'Yes! We offer the Warren Collins Jr. Scholarship, which covers full tuition for the Self-Paced CNA program ($475 value). Two scholarships are awarded per year. Visit our How to Pay page for eligibility requirements and application details.'
       },
       {
-        q: 'Is there a refund policy?',
-        a: 'Please contact our admissions office at admissions@btieducation.com to discuss our refund policy. Refund eligibility depends on how far you\'ve progressed in the program.'
-      },
-      {
         q: 'Do you accept financial aid or grants?',
         a: 'Yes — there are several ways your training could be paid for or even paid back! If you\'re hired by a Medicaid/Medicare-certified nursing facility within 12 months of certification, federal law (OBRA \'87) requires them to reimburse your training costs. St. Louis City residents may qualify for up to $10,000 through SLATE, SNAP recipients can use SkillUP, income-qualified adults 25+ may qualify for the Missouri Fast Track grant, military spouses can use MyCAA (up to $4,000), and WIOA funds are available through Missouri Job Centers. Visit our How to Pay page for the full list — we\'ll help you figure out which ones fit you.'
       }
@@ -133,7 +129,7 @@ const faqs = [
       },
       {
         q: 'Do you help with job placement?',
-        a: 'We do better than help — we guarantee it. Through the Breakthrough Job Guarantee, every student who completes BTI training receives a job offer from our family of care companies: Breakthrough Healthcare LLC (voted "Best Home Caregiver" by St. Louis American readers) and Daybreak Adult Day Care. Pass your state exam and you\'re hired at the CNA pay tier; still working toward your exam and you\'re hired as a Home Health Aide while you study. We also have affiliate partners and healthcare facilities where graduates can apply directly. (Job offers are contingent on the standard background screening Missouri requires for healthcare workers.)'
+        a: 'We do better than help — we guarantee it. Through the Breakthrough Job Guarantee, every student who completes BTI training receives a job offer from our family of care companies: Breakthrough Healthcare LLC and Daybreak Adult Day Care. Pass your state exam and you\'re hired at the CNA pay tier; still working toward your exam and you\'re hired as a Home Health Aide while you study. We also have affiliate partners and healthcare facilities where graduates can apply directly. (Job offers are contingent on the standard background screening Missouri requires for healthcare workers.)'
       },
       {
         q: 'Can I work while taking classes?',

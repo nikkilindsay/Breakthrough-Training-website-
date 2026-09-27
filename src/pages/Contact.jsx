@@ -103,7 +103,7 @@ export default function Contact() {
                     <div>
                       <h3 className="text-lg font-bold text-dark mb-2">Location</h3>
                       <p className="text-gray-600">{schoolData.address}</p>
-                      <p className="text-sm text-gray-600 mt-2">Maryland Heights, Missouri (St. Louis metro)</p>
+                      <p className="text-sm text-gray-600 mt-2">St. Louis, Missouri</p>
                     </div>
                   </div>
                 </div>
@@ -226,7 +226,7 @@ export default function Contact() {
           <div className="bg-white rounded-lg shadow-lg overflow-hidden h-96">
             <iframe
               title="Breakthrough Training Institute Location"
-              src="https://www.google.com/maps?q=11862+Lackland+Rd+Suite+BTI,+Maryland+Heights,+MO+63146&output=embed"
+              src="https://www.google.com/maps?q=11862+Lackland+Rd+Suite+BTI,+St.+Louis,+MO+63146&output=embed"
               width="100%"
               height="100%"
               style={{ border: 0 }}
@@ -260,10 +260,6 @@ export default function Contact() {
                 q: 'Can I defer my enrollment?',
                 a: 'Yes! Contact our admissions office to discuss deferment options that work for your situation.'
               },
-              {
-                q: 'Do you offer refunds?',
-                a: 'We have a refund policy for eligible students. Contact us for specific details and terms.'
-              }
             ].map((item, index) => (
               <div key={index} className="card">
                 <h3 className="font-bold text-lg mb-2 text-dark">{item.q}</h3>

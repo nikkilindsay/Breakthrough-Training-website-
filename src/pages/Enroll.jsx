@@ -648,7 +648,6 @@ export default function Enroll() {
               { q: 'Do you offer payment plans?', a: 'Yes — Klarna installment options appear automatically at checkout, and you can contact us about other arrangements.' },
               { q: 'Is the program online or in-person?', a: 'We offer self-paced online learning, a hybrid program with in-person lab and clinical hours, and a clinical-only track.' },
               { q: "What if I don't pass the exam?", a: 'We offer retake support and additional study materials at no extra cost.' },
-              { q: 'Can I get a refund?', a: 'Per your enrollment agreement: a full refund is available within 3 business days of signing; after class begins, refunds follow the schedule in your agreement (50% if less than 25% of the program is completed).' },
               { q: 'What ID do I need to enroll?', a: 'Just one identifying document: a passport, driver\'s license or state ID card, birth certificate, or student visa. International students are welcome — a passport or student visa is all you need to get started.' },
               { q: 'Is the state exam fee included?', a: 'No — the state exam fee is paid directly to the testing center when you register for the exam.' }
             ].map((faq, idx) => (

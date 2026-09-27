@@ -68,7 +68,7 @@ export default function ClassSchedule() {
         <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">Upcoming Cohort Start Dates</h2>
         <p className="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
           New cohorts begin every 4th Tuesday. Each cohort starts with 2 days of in-person instruction, 
-          then transitions to online learning. Enroll early — seats are limited!
+          then transitions to online learning. Small cohort — seats are limited.
         </p>
 
         <div className="max-w-3xl mx-auto">
@@ -134,7 +134,7 @@ export default function ClassSchedule() {
                   <MapPin size={20} className="text-orange-500 mt-1 flex-shrink-0" />
                   <div>
                     <h4 className="font-semibold text-gray-900">Location</h4>
-                    <p className="text-gray-600">11862 Lackland Rd, Suite BTI, Maryland Heights, MO 63146</p>
+                    <p className="text-gray-600">11862 Lackland Rd, Suite BTI, St. Louis, MO 63146</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">

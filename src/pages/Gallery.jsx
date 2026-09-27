@@ -2,6 +2,21 @@ import React, { useState } from 'react';
 import { X } from 'lucide-react';
 import { galleryItems } from '../data/schoolData';
 
+const classroomVideos = [
+  {
+    src: '/videos/classroom-instruction.mp4',
+    poster: '/videos/posters/classroom-instruction.jpg',
+    title: 'Theory Class in Session',
+    description: 'Instructor-led review of the state exam process: the 80% knowledge exam, the proctored skills check, and how students schedule 1:1 prep sessions.'
+  },
+  {
+    src: '/videos/tb-test-qa.mp4',
+    poster: '/videos/posters/tb-test-qa.jpg',
+    title: 'Clinical Readiness Briefing',
+    description: 'Instructor answers a real student question about TB screening options (skin test vs. chest X-ray vs. IGRA blood test) and reviews the clinical hour requirements.'
+  }
+];
+
 export default function Gallery() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedImage, setSelectedImage] = useState(null);
@@ -52,10 +67,19 @@ export default function Gallery() {
                 onClick={() => setSelectedImage(item)}
                 className="group relative overflow-hidden rounded-lg cursor-pointer h-64 bg-gray-200"
               >
-                {/* Image Placeholder */}
-                <div className="w-full h-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white text-6xl group-hover:scale-110 transition-transform duration-300">
-                  📸
-                </div>
+                {/* Photo */}
+                {item.image ? (
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    loading="lazy"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white text-6xl group-hover:scale-110 transition-transform duration-300">
+                    📸
+                  </div>
+                )}
 
                 {/* Overlay */}
                 <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300 flex items-end">
@@ -102,9 +126,17 @@ export default function Gallery() {
             </button>
 
             {/* Image */}
-            <div className="bg-gradient-to-br from-primary to-secondary h-96 flex items-center justify-center text-white text-8xl">
-              📸
-            </div>
+            {selectedImage.image ? (
+              <img
+                src={selectedImage.image}
+                alt={selectedImage.title}
+                className="w-full h-96 object-cover"
+              />
+            ) : (
+              <div className="bg-gradient-to-br from-primary to-secondary h-96 flex items-center justify-center text-white text-8xl">
+                📸
+              </div>
+            )}
 
             {/* Details */}
             <div className="p-8">
@@ -120,68 +152,80 @@ export default function Gallery() {
         </div>
       )}
 
-      {/* Stats Section */}
+      
+      {/* Classroom Video */}
+      <section className="py-20 bg-white">
+        <div className="container-custom">
+          <h2 className="text-3xl font-bold mb-4 text-dark text-center">Inside the Classroom</h2>
+          <p className="text-gray-600 text-lg text-center max-w-2xl mx-auto mb-12">
+            Real footage from a BTI cohort: instructor-led theory instruction and the clinical
+            readiness briefing every student completes before their first shift.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {classroomVideos.map((video) => (
+              <figure key={video.src} className="card overflow-hidden p-0">
+                <video
+                  className="w-full aspect-[9/16] object-cover bg-black"
+                  controls
+                  preload="metadata"
+                  playsInline
+                  poster={video.poster}
+                >
+                  <source src={video.src} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+                <figcaption className="p-5">
+                  <h3 className="font-bold text-dark mb-1">{video.title}</h3>
+                  <p className="text-sm text-gray-600">{video.description}</p>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Program Facts */}
       <section className="py-20 bg-gray-50">
         <div className="container-custom">
-          <h2 className="text-3xl font-bold mb-12 text-dark text-center">Our Community</h2>
-          
+          <h2 className="text-3xl font-bold mb-12 text-dark text-center">Program at a Glance</h2>
+
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="card text-center">
-              <div className="text-5xl font-bold text-primary mb-2">500+</div>
-              <p className="text-gray-600">Students Graduated</p>
+              <div className="text-5xl font-bold text-primary mb-2">175</div>
+              <p className="text-gray-600">Total Clock Hours</p>
             </div>
             <div className="card text-center">
-              <div className="text-5xl font-bold text-secondary mb-2">95%</div>
-              <p className="text-gray-600">Success Rate</p>
+              <div className="text-5xl font-bold text-secondary mb-2">100</div>
+              <p className="text-gray-600">Supervised Clinical Hours</p>
             </div>
             <div className="card text-center">
-              <div className="text-5xl font-bold text-primary mb-2">100+</div>
-              <p className="text-gray-600">Healthcare Partners</p>
+              <div className="text-5xl font-bold text-primary mb-2">5</div>
+              <p className="text-gray-600">Weeks &mdash; Hybrid Track</p>
             </div>
             <div className="card text-center">
-              <div className="text-5xl font-bold text-secondary mb-2">10+</div>
-              <p className="text-gray-600">Years of Excellence</p>
+              <div className="text-5xl font-bold text-secondary mb-2">3</div>
+              <p className="text-gray-600">Program Options</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Testimonials Section */}
+      {/* Student Stories */}
       <section className="py-20">
         <div className="container-custom">
-          <h2 className="text-3xl font-bold mb-12 text-dark text-center">Student Success Stories</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                name: 'Maria Rodriguez',
-                role: 'Certified Nursing Assistant',
-                quote: 'The program was comprehensive and well-structured. I felt prepared for my career from day one!'
-              },
-              {
-                name: 'James Thompson',
-                role: 'Healthcare Professional',
-                quote: 'Breakthrough Training Institute gave me the skills and confidence I needed to succeed in healthcare.'
-              },
-              {
-                name: 'Sarah Johnson',
-                role: 'Patient Care Specialist',
-                quote: 'The instructors were knowledgeable and supportive. I highly recommend this program to anyone!'
-              }
-            ].map((testimonial, index) => (
-              <div key={index} className="card">
-                <div className="flex items-center gap-1 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <span key={i} className="text-yellow-400">★</span>
-                  ))}
-                </div>
-                <p className="text-gray-600 mb-4 italic">"{testimonial.quote}"</p>
-                <div className="border-t pt-4">
-                  <p className="font-bold text-dark">{testimonial.name}</p>
-                  <p className="text-sm text-gray-600">{testimonial.role}</p>
-                </div>
-              </div>
-            ))}
+          <h2 className="text-3xl font-bold mb-6 text-dark text-center">Student Stories</h2>
+          <div className="max-w-3xl mx-auto card text-center">
+            <p className="text-gray-700 text-lg mb-4">
+              Our first cohort is in training right now. We publish a student&apos;s name and words only
+              with that student&apos;s written permission, and only after they have completed the
+              program &mdash; so this space stays empty until our graduates say yes.
+            </p>
+            <p className="text-gray-600">
+              Are you a BTI graduate and want to share your experience? Email{' '}
+              <a href="mailto:admissions@btieducation.com" className="text-primary font-semibold">
+                admissions@btieducation.com
+              </a>.
+            </p>
           </div>
         </div>
       </section>

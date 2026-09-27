@@ -60,7 +60,7 @@ export default function Home() {
             </p>
             <div className="inline-block bg-green-600/90 border-2 border-green-300 rounded-xl px-6 py-3 mb-8 shadow-lg">
               <p className="text-lg md:text-xl font-bold text-white">
-                ✅ The Breakthrough Job Guarantee: Complete your training, get a job offer at our award-winning sister company — <span className="underline">certified or not</span>.
+                ✅ The Breakthrough Job Guarantee: Complete your training, get a job offer at our sister company — <span className="underline">certified or not</span>.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -80,7 +80,7 @@ export default function Home() {
         <div className="container-custom">
           <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-10 text-center">
             <p className="font-semibold text-base md:text-lg">🏛️ Licensed to Operate by the Missouri Dept. of Higher Education &amp; Workforce Development (Cert. #78357-00)</p>
-            <p className="font-semibold text-base md:text-lg">🏆 Sister company voted “Best Home Caregiver” — St. Louis American readers</p>
+            <p className="font-semibold text-base md:text-lg">🏆 Our owner Shanekia “Nikki” Lindsay, RN, BSN, MBA, was named “Best Home Caregiver” — 2026 St. Louis American Readers’ Choice</p>
           </div>
         </div>
       </section>
@@ -174,7 +174,7 @@ export default function Home() {
             <div className="inline-block bg-green-600 text-white text-sm font-bold uppercase tracking-wide px-4 py-1 rounded-full mb-4">Only at BTI</div>
             <h2 className="text-4xl md:text-5xl font-bold text-dark mb-6">The Breakthrough Job Guarantee</h2>
             <p className="text-xl text-gray-700 mb-10">
-              Our family of care companies — <strong>Breakthrough Healthcare LLC</strong>, voted <strong>“Best Home Caregiver”</strong> by St. Louis American readers, and <strong>Daybreak Adult Day Care</strong> — is hiring right now. Complete your BTI training and you are <strong>guaranteed a job offer</strong>. No other school in the St. Louis metro can promise that.
+              Our family of care companies — <strong>Breakthrough Healthcare LLC</strong> and <strong>Daybreak Adult Day Care</strong> — is hiring right now. Complete your BTI training and you are <strong>guaranteed a job offer</strong>. No other school in the St. Louis metro can promise that.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
               <div className="bg-white rounded-xl shadow-md p-8 border-t-4 border-green-600">
@@ -201,7 +201,7 @@ export default function Home() {
         <div className="container-custom text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">Start Your CNA Career in St. Louis</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Join our state-approved CNA certification program and launch your healthcare career. Self-paced students start anytime; the next hybrid cohort begins October 20 — enroll today before seats fill up!
+            Join our state-approved CNA certification program and launch your healthcare career. Self-paced students start anytime; the next hybrid cohort begins October 20 — enroll today — limited seats.
           </p>
           <Link to="/enroll" className="btn-secondary inline-flex items-center gap-2 bg-white text-primary hover:bg-gray-100">
             Enroll Now <ArrowRight size={20} />
@@ -234,8 +234,8 @@ export default function Home() {
               <p className="text-gray-600">To CNA Certification</p>
             </div>
             <div>
-              <div className="text-4xl font-bold text-primary mb-2">100%</div>
-              <p className="text-gray-600">Guaranteed Job Offer*</p>
+              <div className="text-4xl font-bold text-primary mb-2">175</div>
+              <p className="text-gray-600">Total Clock Hours</p>
             </div>
             <div>
               <div className="text-4xl font-bold text-secondary mb-2">28+</div>
