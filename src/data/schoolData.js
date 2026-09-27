@@ -29,6 +29,8 @@ export const programs = [
     ],
     clinicalHours: '100+ hours',
     stateTest: 'Included',
+    downPayment: 75,
+    paymentPlan: 'or $75 down + 4 payments of $100',
     image: '/programs/cna.jpg',
     color: 'from-blue-500 to-blue-600'
   },
@@ -51,6 +53,8 @@ export const programs = [
     ],
     clinicalHours: '100+ hours',
     stateTest: 'Included',
+    downPayment: 150,
+    paymentPlan: 'or $150 down + 3 payments of $342 (last payment $341)',
     image: '/programs/hybrid.jpg',
     color: 'from-purple-500 to-purple-600'
   },
@@ -73,6 +77,8 @@ export const programs = [
     ],
     clinicalHours: '100+ hours',
     stateTest: 'Included',
+    downPayment: 150,
+    paymentPlan: 'or $150 down + 3 payments of $255',
     image: '/programs/clinical.jpg',
     color: 'from-green-500 to-green-600'
   }
