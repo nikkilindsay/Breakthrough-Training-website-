@@ -2,7 +2,7 @@ export const schoolData = {
   name: 'Breakthrough Training Institute',
   tagline: 'Empowering Healthcare Professionals',
   description: 'Breakthrough Training Institute offers comprehensive, professional healthcare training programs designed to prepare students for successful careers in healthcare.',
-  address: '11862 Lackland Rd, Suite BTI, Maryland Heights, MO 63146',
+  address: '11862 Lackland Rd, Suite BTI, St. Louis, MO 63146',
   phone: '636-242-5722',
   email: 'admissions@btieducation.com',
   website: 'https://breakthroughtraining.com',
@@ -36,7 +36,7 @@ export const programs = [
     id: 'cna-hybrid',
     name: 'CNA Hybrid Program',
     shortDescription: 'Next Class Starts October 20, 2026 — Limited Seats!',
-    fullDescription: 'Our 5-week CNA Hybrid Program in St. Louis starts with 2 days of in-person classroom instruction to kick off your cohort, then the remainder of your theory classes are completed online. After theory, you\'ll complete 100+ hours of supervised clinical practice. This is the fastest path to CNA certification in Missouri. New cohorts start every 4th Tuesday — next cohort starts October 20, 2026. Enroll now before seats fill up!',
+    fullDescription: 'Our 5-week CNA Hybrid Program in St. Louis starts with 2 days of in-person classroom instruction to kick off your cohort, then the remainder of your theory classes are completed online. After theory, you\'ll complete 100+ hours of supervised clinical practice. This is the fastest path to CNA certification in Missouri. New cohorts start every 4th Tuesday — next cohort starts October 20, 2026. Enroll now — small cohort, limited seats.',
     duration: '5 weeks',
     price: 1175,
     access: 'Full program',
@@ -152,7 +152,7 @@ export const blogPosts = [
     id: 6,
     title: 'A Day in the Life of a Certified Nursing Assistant',
     excerpt: 'Ever wonder what CNAs actually do? Take a peek into a typical day and discover if this career is right for you.',
-    content: 'Curious about what it is really like to work as a CNA? Let us follow Maria, one of our graduates, through a typical day.',
+    content: 'Curious about what it is really like to work as a CNA? Here is what a typical day on the floor looks like, hour by hour.',
     author: 'Shanekia Lindsay',
     date: '2026-06-16',
     category: 'Career',
@@ -196,7 +196,7 @@ export const events = [
     title: 'CNA Program Orientation',
     date: '2024-02-15',
     time: '10:00 AM',
-    location: '11862 Lackland Rd, Suite BTI, Maryland Heights, MO 63146',
+    location: '11862 Lackland Rd, Suite BTI, St. Louis, MO 63146',
     description: 'Join us for an orientation session to learn about our CNA program, meet instructors, and ask questions.',
     type: 'Orientation',
     capacity: 20
@@ -206,7 +206,7 @@ export const events = [
     title: 'Clinical Skills Workshop',
     date: '2024-02-20',
     time: '2:00 PM',
-    location: '11862 Lackland Rd, Suite BTI, Maryland Heights, MO 63146',
+    location: '11862 Lackland Rd, Suite BTI, St. Louis, MO 63146',
     description: 'Hands-on workshop covering essential clinical skills and best practices.',
     type: 'Workshop',
     capacity: 15
@@ -216,7 +216,7 @@ export const events = [
     title: 'State Exam Preparation Seminar',
     date: '2024-02-28',
     time: '6:00 PM',
-    location: '11862 Lackland Rd, Suite BTI, Maryland Heights, MO 63146',
+    location: '11862 Lackland Rd, Suite BTI, St. Louis, MO 63146',
     description: 'Comprehensive review and preparation for the state certification exam.',
     type: 'Seminar',
     capacity: 25
@@ -226,7 +226,7 @@ export const events = [
     title: 'Graduation Ceremony',
     date: '2024-03-15',
     time: '5:00 PM',
-    location: '11862 Lackland Rd, Suite BTI, Maryland Heights, MO 63146',
+    location: '11862 Lackland Rd, Suite BTI, St. Louis, MO 63146',
     description: 'Celebrate our graduates\' achievements and accomplishments.',
     type: 'Graduation',
     capacity: 100
@@ -236,44 +236,30 @@ export const events = [
 export const galleryItems = [
   {
     id: 1,
-    title: 'Graduation Ceremony 2023',
-    category: 'Graduation',
-    image: '/gallery/graduation-1.jpg',
-    description: 'Our proud graduates celebrating their achievements'
+    title: 'Day 1 Classroom Instruction',
+    category: 'Classroom',
+    image: '/gallery/classroom-day1.webp',
+    description: 'Students at the Day 1 in-person session reviewing the state exam requirements and clinical hour log'
   },
   {
     id: 2,
-    title: 'Clinical Training Session',
-    category: 'Training',
-    image: '/gallery/training-1.jpg',
-    description: 'Students practicing clinical skills under professional supervision'
+    title: 'Cohort and Instructor',
+    category: 'Students',
+    image: '/gallery/cohort-trio.webp',
+    description: 'A BTI cohort with their instructor during the clinical readiness briefing'
   },
   {
     id: 3,
-    title: 'Student Success Stories',
+    title: 'Full Cohort Group',
     category: 'Students',
-    image: '/gallery/students-1.jpg',
-    description: 'Meet our accomplished students'
+    image: '/gallery/cohort-instructor.webp',
+    description: 'Students and instructor together before the start of the supervised clinical rotation'
   },
   {
     id: 4,
-    title: 'Classroom Learning',
-    category: 'Classroom',
-    image: '/gallery/classroom-1.jpg',
-    description: 'Interactive classroom sessions'
-  },
-  {
-    id: 5,
-    title: 'Skills Workshop',
-    category: 'Workshop',
-    image: '/gallery/workshop-1.jpg',
-    description: 'Hands-on skills development'
-  },
-  {
-    id: 6,
-    title: 'Graduation Class 2024',
-    category: 'Graduation',
-    image: '/gallery/graduation-2.jpg',
-    description: 'Our latest cohort of certified professionals'
+    title: 'Lobby at Lackland Rd',
+    category: 'Campus',
+    image: '/gallery/campus-lobby.webp',
+    description: 'The shared lobby at our 11862 Lackland Rd, Suite BTI location in St. Louis'
   }
 ];

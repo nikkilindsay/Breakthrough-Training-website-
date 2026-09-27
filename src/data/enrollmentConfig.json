@@ -1,5 +1,6 @@
 {
   "currentEnrollments": 0,
-  "maxCapacity": 25,
-  "lastUpdated": "2026-06-04T00:00:00Z"
+  "maxCapacity": 15,
+  "waitlistThreshold": 13,
+  "lastUpdated": "2026-09-24T00:00:00Z"
 }
