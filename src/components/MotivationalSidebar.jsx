@@ -63,7 +63,7 @@ export default function MotivationalSidebar() {
           to="/enroll"
           className="w-full bg-yellow-400 text-primary font-bold py-3 rounded-lg hover:bg-yellow-300 transition-all flex items-center justify-center gap-2 group"
         >
-          Enroll Now - Limited Spots!
+          Enroll Now — Small Cohort
           <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
         </Link>
         
