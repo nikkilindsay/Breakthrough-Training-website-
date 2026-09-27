@@ -139,7 +139,7 @@ export default async function handler(req, res) {
                   🌐 Enroll now: <a href="https://www.btieducation.com/enroll">btieducation.com/enroll</a></p>
                   <p>We can't wait to meet you — everyone deserves a breakthrough!</p>
                   <p><strong>Breakthrough Training Institute</strong><br/>
-                  11862 Lackland Rd, Suite BTI, Maryland Heights, MO 63146<br/>
+                  11862 Lackland Rd, Suite BTI, St. Louis, MO 63146<br/>
                   Missouri Certificate #78357-00</p>
                 </div>
               `,
