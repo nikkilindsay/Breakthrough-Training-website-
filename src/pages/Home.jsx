@@ -141,6 +141,9 @@ export default function Home() {
                     <div className="flex items-center gap-2">
                       <CheckCircle size={16} className="text-green-500" />
                       <span className="text-gray-700">${program.price}</span>
+                        {program.paymentPlan && (
+                          <span className="block text-xs font-bold text-orange-600 mt-1">{program.paymentPlan}</span>
+                        )}
                     </div>
                     <div className="flex items-center gap-2">
                       <CheckCircle size={16} className="text-green-500" />
