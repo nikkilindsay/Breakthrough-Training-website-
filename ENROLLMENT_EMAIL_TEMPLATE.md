@@ -44,7 +44,7 @@ Your enrollment is confirmed. To complete your registration, please proceed with
 
 If you have any questions about your enrollment or payment, please don't hesitate to contact us:
 
-- **Phone:** 314-649-5586
+- **Phone:** 636-242-5722
 - **Email:** btiadmissionoffice@gmail.com
 - **Website:** www.btieducation.com
 
