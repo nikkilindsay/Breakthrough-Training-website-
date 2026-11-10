@@ -48,7 +48,7 @@ export default async function handler(req, res) {
                 <li>Phone: ${metadata?.phone || 'N/A'}</li>
               </ul>
               <p>We're excited to have you join our program! You'll receive further instructions within 24 hours.</p>
-              <p>Questions? Call us at <strong>314-649-5586</strong> or email <a href="mailto:btiadmissionoffice@gmail.com">btiadmissionoffice@gmail.com</a></p>
+              <p>Questions? Call us at <strong>636-242-5722</strong> or email <a href="mailto:btiadmissionoffice@gmail.com">btiadmissionoffice@gmail.com</a></p>
               <p>Best regards,<br/>Breakthrough Training Institute Team</p>
             `,
           };
