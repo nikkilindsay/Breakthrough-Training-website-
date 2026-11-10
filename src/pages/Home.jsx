@@ -117,7 +117,7 @@ export default function Home() {
         <div className="container-custom">
           <div className="text-center mb-16">
             <h2 className="section-title">CNA Certification Programs in St. Louis</h2>
-            <p className="section-subtitle">Affordable, state-approved CNA classes — hybrid and self-paced options available</p>
+            <p className="section-subtitle">Affordable state approved CNA training owned by a Registered Nurse</p>
             <div className="mt-4 inline-block bg-orange-100 border border-orange-400 text-orange-800 px-6 py-3 rounded-lg font-semibold">
               📅 Next Hybrid Class Starts October 20, 2026 — Limited Seats! • Self-Paced: Start Anytime
             </div>

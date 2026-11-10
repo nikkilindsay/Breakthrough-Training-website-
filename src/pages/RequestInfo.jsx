@@ -25,50 +25,58 @@ export default function RequestInfo() {
     setStatus('submitting');
     setErrorMsg('');
 
-    // Primary: send the lead straight from the visitor's browser to FormSubmit
-    // (delivers an email to admissions; browser requests are never bot-blocked).
-    let delivered = false;
+    // Path 1 — browser -> FormSubmit, multipart, exactly the same call the
+    // enrollment form makes. That path is proven: enrollment leads arrive.
+    let emailed = false;
     try {
-      const fsRes = await fetch('https://formsubmit.co/ajax/admissions@btieducation.com', {
+      const body = new FormData();
+      body.append('_subject', `NEW LEAD: ${formData.firstName} ${formData.lastName} — ${formData.program || 'Program not specified'}`);
+      body.append('_template', 'table');
+      body.append('Name', `${formData.firstName} ${formData.lastName}`);
+      body.append('Phone', formData.phone);
+      body.append('Email', formData.email || 'Not provided');
+      body.append('ZIP', formData.zip || 'Not provided');
+      body.append('Program', formData.program || 'Not specified');
+      body.append('Wants to start', formData.startTimeframe || 'Not specified');
+      body.append('Source', 'Request Info page');
+      body.append('Page', window.location.pathname);
+      const res = await fetch('https://formsubmit.co/ajax/admissions@btieducation.com', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
-          _subject: `🔥 NEW LEAD: ${formData.firstName} ${formData.lastName} — ${formData.program || 'Program not specified'}`,
-          _template: 'table',
-          Name: `${formData.firstName} ${formData.lastName}`,
-          Phone: formData.phone,
-          Email: formData.email || 'Not provided',
-          ZIP: formData.zip || 'Not provided',
-          Program: formData.program || 'Not specified',
-          'Wants to start': formData.startTimeframe || 'Not specified',
-          Source: 'Request Info page',
-          'Next step': 'Speed to lead wins — call or text within 5 minutes!',
-        }),
+        headers: { Accept: 'application/json' },
+        body,
       });
-      const fsData = await fsRes.json().catch(() => ({}));
-      delivered = fsRes.ok && String(fsData.success) === 'true';
+      const data = await res.json().catch(() => ({}));
+      emailed = res.ok && String(data.success) === 'true';
     } catch (err) {
-      // fall through to backup
+      emailed = false;
     }
 
-    // Backup: also record the lead through our API (never blocks the visitor)
+    // Path 2 — always write the lead into the database, so nothing is ever lost.
+    let saved = false;
     try {
-      await fetch('/api/lead', {
+      const res = await fetch('/api/lead-sink', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...formData, source: delivered ? 'Request Info page' : 'Request Info page (FormSubmit blocked — check API logs)' }),
+        body: JSON.stringify({
+          ...formData,
+          source: emailed ? 'Request Info page' : 'Request Info page (email did not send)',
+          page: window.location.pathname,
+          emailed,
+        }),
       });
-      delivered = true;
+      const data = await res.json().catch(() => ({}));
+      saved = data.saved === true;
     } catch (err) {
-      // only fail if BOTH paths failed
+      saved = false;
     }
 
-    if (delivered) {
+    // Only claim success if something actually happened.
+    if (emailed || saved) {
       setStatus('success');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       setStatus('error');
-      setErrorMsg('Connection problem. Please call us at ' + schoolData.phone);
+      setErrorMsg(`We could not send your request automatically. Please call or text ${schoolData.phone} right now so we do not lose you.`);
     }
   };
 
@@ -193,7 +201,7 @@ export default function RequestInfo() {
                     required
                     autoComplete="tel"
                     className="w-full px-4 py-3 text-lg border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                    placeholder="(314) 555-1234"
+                    placeholder="(636) 555-1234"
                   />
                 </div>
 

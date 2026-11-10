@@ -91,7 +91,7 @@ const faqs = [
       },
       {
         q: 'Are there any scholarships available?',
-        a: 'Yes! We offer the Warren Collins Jr. Scholarship, which covers full tuition for the Self-Paced CNA program ($475 value). Two scholarships are awarded per year. Visit our How to Pay page for eligibility requirements and application details.'
+        a: 'Yes! We offer the Warren Collins Jr. Scholarship, which covers full tuition for the Self-Paced CNA program ($475 value). Three scholarships are awarded per year. Visit our How to Pay page for eligibility requirements and application details.'
       },
       {
         q: 'Do you accept financial aid or grants?',

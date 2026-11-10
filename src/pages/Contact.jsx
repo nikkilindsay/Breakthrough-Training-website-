@@ -20,15 +20,36 @@ export default function Contact() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // In a real app, this would send the form data to a server
-    console.log('Form submitted:', formData);
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
-    }, 3000);
+    try {
+      const body = new FormData();
+      body.append('_subject', `Website contact: ${formData.subject || 'General question'} — ${formData.name}`);
+      body.append('_template', 'table');
+      body.append('Name', formData.name);
+      body.append('Email', formData.email);
+      body.append('Phone', formData.phone || 'Not provided');
+      body.append('Subject', formData.subject || 'Not provided');
+      body.append('Message', formData.message);
+      body.append('Page', window.location.pathname);
+      const res = await fetch('https://formsubmit.co/ajax/admissions@btieducation.com', {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body,
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && String(data.success) === 'true') {
+        setSubmitted(true);
+        setTimeout(() => {
+          setSubmitted(false);
+          setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+        }, 6000);
+      } else {
+        alert('We could not send that message. Please call or text 636-242-5722 so we do not lose you.');
+      }
+    } catch (err) {
+      alert('We could not send that message. Please call or text 636-242-5722 so we do not lose you.');
+    }
   };
 
   return (

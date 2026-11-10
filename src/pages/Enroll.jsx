@@ -3,13 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { programs } from '../data/schoolData';
 import { ArrowRight, CheckCircle, Phone, Mail, AlertCircle, Upload } from 'lucide-react';
 
-// Stripe Payment Links — one per program (matches Checkout.jsx)
-// To update: create a new Payment Link in Stripe Dashboard and paste the URL here AND in Checkout.jsx
-const STRIPE_PAYMENT_LINKS = {
-  'cna':          'https://buy.stripe.com/28EfZg0AEdPTfj6dLY6g800',
-  'cna-hybrid':   'https://buy.stripe.com/14AfZg3MQ3bf3AocHU6g801',
-  'cna-clinical': 'https://buy.stripe.com/eVqcN497a3bfdaYazM6g802',
-};
+import { PAYMENT_LINKS } from '../data/paymentLinks';
 
 export default function Enroll() {
   const navigate = useNavigate();
@@ -133,7 +127,34 @@ export default function Enroll() {
         headers: { 'Accept': 'application/json' },
         body: payload,
       });
-      return resp.ok;
+      const ok = resp.ok;
+
+      // Safety net: always record the enrollment in the database too, so a lead
+      // is never lost if the notification email does not go out.
+      let saved = false;
+      try {
+        const sink = await fetch('/api/lead-sink', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            email: formData.email,
+            phone: formData.phone,
+            zip: formData.zip,
+            program: (programs.find(p => p.id === selectedProgram) || {}).name || selectedProgram,
+            source: ok ? 'Enroll form' : 'Enroll form (email did not send)',
+            page: '/enroll',
+            emailed: ok,
+          }),
+        });
+        const sinkData = await sink.json().catch(() => ({}));
+        saved = sinkData.saved === true;
+      } catch (sinkErr) {
+        saved = false;
+      }
+
+      return ok || saved;
     } catch (err) {
       console.error('Admissions notification failed:', err);
       return false;
@@ -155,7 +176,12 @@ export default function Enroll() {
     // Send the student STRAIGHT to their Stripe payment page — no intermediate
     // checkout screen. Fewer clicks = fewer lost enrollments.
     setTimeout(() => {
-      const link = STRIPE_PAYMENT_LINKS[selectedProgram];
+      const links = PAYMENT_LINKS[selectedProgram] || {};
+      const pg = programs.find((p) => p.id === selectedProgram) || {};
+      const planOK = pg.downPayment > 0 && pg.installmentCount > 0;
+      const link = (payMethod === 'plan' && planOK && links.deposit)
+        ? links.deposit
+        : (links.full || links.deposit || '');
       if (link) {
         window.location.href = link;
       } else {
@@ -547,13 +573,68 @@ export default function Enroll() {
                       </p>
                     </div>
 
+                    {/* Payment choice — full balance or payment plan */}
+                    <div className="border-t border-gray-200 pt-6">
+                      <h3 className="font-bold text-lg text-dark mb-1">How would you like to pay?</h3>
+                      <p className="text-sm text-gray-600 mb-4">
+                        Pay the full balance today, or start the payment plan with a down payment.
+                      </p>
+                      <div className="space-y-3">
+                        <label className={`flex items-start gap-3 p-4 border-2 rounded-lg cursor-pointer transition-all ${payChoice === 'full' ? 'border-primary bg-blue-50' : 'border-gray-200'}`}>
+                          <input
+                            type="radio"
+                            name="payMethod"
+                            value="full"
+                            checked={payChoice === 'full'}
+                            onChange={() => setPayMethod('full')}
+                            className="mt-1"
+                          />
+                          <span className="flex-1">
+                            <span className="flex items-baseline justify-between gap-3">
+                              <span className="font-bold text-dark">Pay in full today</span>
+                              {selectedProgramData && (
+                                <span className="font-bold text-primary">${selectedProgramData.price.toLocaleString()}</span>
+                              )}
+                            </span>
+                            <span className="block text-xs text-gray-600 mt-1">
+                              One payment today — nothing else owed after that.
+                            </span>
+                          </span>
+                        </label>
+
+                        {selectedProgramData && selectedProgramData.downPayment > 0 && selectedProgramData.installmentCount > 0 && (
+                          <label className={`flex items-start gap-3 p-4 border-2 rounded-lg cursor-pointer transition-all ${payChoice === 'plan' ? 'border-primary bg-blue-50' : 'border-gray-200'}`}>
+                            <input
+                              type="radio"
+                              name="payMethod"
+                              value="plan"
+                              checked={payChoice === 'plan'}
+                              onChange={() => setPayMethod('plan')}
+                              className="mt-1"
+                            />
+                            <span className="flex-1">
+                              <span className="flex items-baseline justify-between gap-3">
+                                <span className="font-bold text-dark">Payment plan</span>
+                                <span className="font-bold text-orange-600">${selectedProgramData.downPayment.toLocaleString()} today</span>
+                              </span>
+                              <span className="block text-xs text-gray-600 mt-1">
+                                ${selectedProgramData.downPayment.toLocaleString()} down, then {selectedProgramData.installmentCount} payments of ${selectedProgramData.installmentAmount.toLocaleString()} — same ${selectedProgramData.price.toLocaleString()} total, no interest, no credit check.
+                              </span>
+                            </span>
+                          </label>
+                        )}
+                      </div>
+                    </div>
+
                     {/* Submit Button */}
                     <button
                       type="submit"
                       disabled={loading}
                       className="btn-primary w-full flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed py-3 text-lg"
                     >
-                      {loading ? 'Processing...' : 'Continue to Secure Payment'}
+                      {loading ? 'Processing...' : (payChoice === 'full' || !(selectedProgramData && selectedProgramData.installmentCount > 0)
+                        ? 'Continue — Pay in Full'
+                        : 'Continue — Start Payment Plan')}
                       <ArrowRight size={20} />
                     </button>
 
@@ -564,7 +645,7 @@ export default function Enroll() {
                     )}
 
                     <p className="text-xs text-gray-500 text-center">
-                      After submitting, you will be redirected to our secure Stripe payment page.
+                      After submitting, you will be redirected to the secure Stripe page for the option you picked above.
                     </p>
                   </form>
                 )}
