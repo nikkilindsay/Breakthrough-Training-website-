@@ -29,7 +29,6 @@ export default function Footer() {
               <li><Link to="/" className="text-gray-300 hover:text-white transition-colors">Home</Link></li>
               <li><Link to="/programs" className="text-gray-300 hover:text-white transition-colors">Programs</Link></li>
               <li><Link to="/blog" className="text-gray-300 hover:text-white transition-colors">Blog</Link></li>
-              <li><Link to="/events" className="text-gray-300 hover:text-white transition-colors">Events</Link></li>
             </ul>
           </div>
 
@@ -41,6 +40,7 @@ export default function Footer() {
               <li><Link to="/instructors" className="text-gray-300 hover:text-white transition-colors">Instructors</Link></li>
               <li><Link to="/request-info" className="text-gray-300 hover:text-white transition-colors">Request Info</Link></li>
               <li><Link to="/how-to-pay" className="text-gray-300 hover:text-white transition-colors">How to Pay</Link></li>
+              <li><Link to="/payment-options" className="text-gray-300 hover:text-white transition-colors">Tuition &amp; Payment Options</Link></li>
               <li><Link to="/scholarship" className="text-gray-300 hover:text-white transition-colors">Scholarship</Link></li>
               <li><Link to="/careers" className="text-gray-300 hover:text-white transition-colors">Careers</Link></li>
               <li><Link to="/class-schedule" className="text-gray-300 hover:text-white transition-colors">Class Schedule</Link></li>
@@ -87,6 +87,7 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
             <p>&copy; {currentYear} {schoolData.name}. All rights reserved.</p>
             <div className="flex gap-6 mt-4 md:mt-0">
+              <Link to="/refund-policy" className="hover:text-white">Refund Policy</Link>
               <Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
               <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
               <a href="#" className="hover:text-white transition-colors">Accessibility</a>

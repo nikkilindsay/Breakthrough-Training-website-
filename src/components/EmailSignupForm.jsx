@@ -13,20 +13,27 @@ export default function EmailSignupForm({ variant = 'hero' }) {
 
     setStatus('loading');
     try {
-      const response = await fetch('/api/subscribe', {
+      const body = new FormData();
+      body.append('_subject', `Newsletter signup: ${name.trim()}`);
+      body.append('_template', 'table');
+      body.append('Name', name.trim());
+      body.append('Email', email.trim());
+      body.append('Source', 'Website newsletter form');
+      body.append('Page', window.location.pathname);
+      const response = await fetch('https://formsubmit.co/ajax/admissions@btieducation.com', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: name.trim(), email: email.trim() }),
+        headers: { Accept: 'application/json' },
+        body,
       });
-      const data = await response.json();
-      if (response.ok) {
+      const data = await response.json().catch(() => ({}));
+      if (response.ok && String(data.success) === 'true') {
         setStatus('success');
-        setMessage(data.message || 'Subscribed successfully!');
+        setMessage('You are on the list — watch your inbox.');
         setName('');
         setEmail('');
       } else {
         setStatus('error');
-        setMessage(data.error || 'Something went wrong. Please try again.');
+        setMessage('We could not add you just now. Please call or text 636-242-5722.');
       }
     } catch (err) {
       setStatus('error');
