@@ -2,12 +2,12 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
+import RefundPolicy from './pages/RefundPolicy'
 import Home from './pages/Home';
 import Programs from './pages/Programs';
 import ProgramDetail from './pages/ProgramDetail';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
-import Events from './pages/Events';
 import Gallery from './pages/Gallery';
 import Instructors from './pages/Instructors';
 import Contact from './pages/Contact';
@@ -18,6 +18,7 @@ import Payment from './pages/Payment';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import Careers from './pages/Careers';
 import HowToPay from './pages/HowToPay';
+import PaymentOptions from './pages/PaymentOptions';
 import FAQ from './pages/FAQ';
 import ClassSchedule from './pages/ClassSchedule';
 import Scholarship from './pages/Scholarship';
@@ -35,7 +36,6 @@ function App() {
             <Route path="/programs/:id" element={<ProgramDetail />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:id" element={<BlogPost />} />
-            <Route path="/events" element={<Events />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/instructors" element={<Instructors />} />
             <Route path="/contact" element={<Contact />} />
@@ -43,9 +43,11 @@ function App() {
             <Route path="/checkout/:programId" element={<Checkout />} />
             <Route path="/pay" element={<Payment />} />
             <Route path="/success" element={<Success />} />
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/refund-policy" element={<RefundPolicy />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/careers" element={<Careers />} />
             <Route path="/how-to-pay" element={<HowToPay />} />
+            <Route path="/payment-options" element={<PaymentOptions />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/class-schedule" element={<ClassSchedule />} />
             <Route path="/scholarship" element={<Scholarship />} />
